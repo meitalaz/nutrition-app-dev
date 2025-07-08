@@ -1,0 +1,273 @@
+/* איפוס ועיצוב בסיסי */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Assistant', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    color: #1e293b;
+    line-height: 1.6;
+    min-height: 100vh;
+    direction: rtl;
+}
+
+/* מחלקות כלליות */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+.screen.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* כותרת עליונה */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+}
+
+.header h1 {
+    font-size: 2.5em;
+    color: #0ea5e9;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.header p {
+    color: #64748b;
+    font-size: 1.1em;
+}
+
+.back-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #475569;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #e2e8f0;
+    transform: translateY(-2px);
+}
+
+/* בחירת תפקיד */
+.role-selection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.role-selection h2 {
+    text-align: center;
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+.role-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border: 2px solid transparent;
+}
+
+.role-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    border-color: #0ea5e9;
+}
+
+.role-icon {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.role-card h3 {
+    color: #1e293b;
+    margin-bottom: 10px;
+    font-size: 1.3em;
+}
+
+.role-card p {
+    color: #64748b;
+    font-size: 0.95em;
+}
+
+/* כרטיסי סטטיסטיקות */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+
+.stat-card.warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+}
+
+.stat-number {
+    font-size: 2.2em;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+/* כפתורי פעולות */
+.actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 20px 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #475569;
+    text-align: center;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.action-btn:hover {
+    background: #f0f9ff;
+    border-color: #0ea5e9;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    color: #0ea5e9;
+}
+
+/* התראות */
+.alerts-section {
+    margin: 20px 0;
+}
+
+.alerts-section h3 {
+    color: #1e293b;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.alert {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 0.95em;
+    border-right: 4px solid;
+}
+
+.alert-danger {
+    background: #fef2f2;
+    color: #991b1b;
+    border-color: #ef4444;
+}
+
+.alert-warning {
+    background: #fffbeb;
+    color: #92400e;
+    border-color: #f59e0b;
+}
+
+/* עיצוב רספונסיבי */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .actions-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-btn {
+        min-height: 60px;
+        padding: 15px;
+    }
+}
+
+/* אנימציות נוספות */
+.role-card:active,
+.action-btn:active {
+    transform: scale(0.98);
+}
+
+/* עיצוב גלילה */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}

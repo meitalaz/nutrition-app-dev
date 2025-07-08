@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JudoNutrition - אפליקציית תזונה לג'ודוקות</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- מסך הכניסה הראשון -->
+    <div id="welcomeScreen" class="screen">
+        <div class="container">
+            <div class="header">
+                <h1>🥋 JudoNutrition</h1>
+                <p>אפליקציית ליווי תזונתי מקצועית לספורטאי ג'ודו</p>
+            </div>
+            
+            <div class="role-selection">
+                <h2>בחר את התפקיד שלך:</h2>
+                
+                <div class="role-card" onclick="selectRole('athlete')">
+                    <div class="role-icon">🥋</div>
+                    <h3>ספורטאי ג'ודו</h3>
+                    <p>מעקב אישי על משקל, תזונה והכנה לתחרויות</p>
+                </div>
+                
+                <div class="role-card" onclick="selectRole('nutritionist')">
+                    <div class="role-icon">👩‍⚕️</div>
+                    <h3>מאמן תזונה</h3>
+                    <p>ניהול ומעקב אחרי ספורטאים מרובים</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- מסך ספורטאי (נסתר בהתחלה) -->
+    <div id="athleteScreen" class="screen hidden">
+        <div class="container">
+            <div class="header">
+                <h1>שלום דני! 🥋</h1>
+                <p>התחרות הבאה בעוד 12 ימים</p>
+                <button class="back-btn" onclick="goBack()">← חזור</button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">72.5</div>
+                    <div class="stat-label">משקל נוכחי (ק"ג)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">73.0</div>
+                    <div class="stat-label">יעד קטגוריה (ק"ג)</div>
+                </div>
+            </div>
+            
+            <div class="actions-grid">
+                <button class="action-btn" onclick="openWeightEntry()">
+                    ⚖️ הזנת משקל
+                </button>
+                <button class="action-btn" onclick="openAssessment()">
+                    📋 הערכה שבועית
+                </button>
+                <button class="action-btn" onclick="openNutrition()">
+                    🍽️ יומן תזונה
+                </button>
+                <button class="action-btn" onclick="openChat()">
+                    💬 קשר עם המאמן
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- מסך מאמן תזונה (נסתר בהתחלה) -->
+    <div id="nutritionistScreen" class="screen hidden">
+        <div class="container">
+            <div class="header">
+                <h1>מרכז בקרה 👩‍⚕️</h1>
+                <p>ד"ר שרה כהן - מאמנת תזונה</p>
+                <button class="back-btn" onclick="goBack()">← חזור</button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">ספורטאים פעילים</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">התראות דחופות</div>
+                </div>
+            </div>
+            
+            <div class="alerts-section">
+                <h3>התראות חשובות</h3>
+                <div class="alert alert-danger">
+                    🚨 דני כהן - ירידה חריגה במשקל (2.1 ק"ג בשבוע)
+                </div>
+                <div class="alert alert-warning">
+                    ⚠️ שרה לוי - לא מילאה הערכה שבועית (3 ימים)
+                </div>
+            </div>
+            
+            <div class="actions-grid">
+                <button class="action-btn" onclick="openAthletesList()">
+                    👥 רשימת ספורטאים
+                </button>
+                <button class="action-btn" onclick="openAnalytics()">
+                    📊 דוחות וניתוחים
+                </button>
+                <button class="action-btn" onclick="openMessages()">
+                    💬 הודעות
+                </button>
+                <button class="action-btn" onclick="openSettings()">
+                    ⚙️ הגדרות
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- הוספת JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

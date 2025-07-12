@@ -320,6 +320,25 @@
             border-color: var(--primary-blue);
         }
 
+        /* Exit Button */
+        .exit-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .exit-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
         /* Forms */
         .form-group {
             margin-bottom: 20px;
@@ -511,11 +530,11 @@
                 <div class="role-selection">
                     <button class="role-btn" data-role="athlete">
                         <span>🥋</span>
-                        <span>אני ספורטאי</span>
+                        <span>אני ספורטאי/ת</span>
                     </button>
                     <button class="role-btn" data-role="nutritionist">
                         <span>👩‍⚕️</span>
-                        <span>אני מאמן תזונה</span>
+                        <span>אני תזונאי/ת</span>
                     </button>
                 </div>
             </div>
@@ -524,6 +543,7 @@
         <!-- Athlete Home Screen -->
         <div id="athleteHome" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">שלום, דני! 🥋</div>
                 <div class="screen-subtitle">התחרות הבאה בעוד <span id="daysToCompetition">12</span> ימים</div>
             </div>
@@ -575,7 +595,7 @@
             </div>
             
             <button class="btn btn-primary nav-btn" data-screen="chat">
-                💬 תקשורת עם המאמן
+                💬 תקשורת עם התזונאי/ת
             </button>
             <button class="btn btn-secondary nav-btn" data-screen="weightTracking">
                 ⚖️ הזנת משקל
@@ -585,6 +605,7 @@
         <!-- Weight Tracking Screen -->
         <div id="weightTracking" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">מעקב משקל</div>
                 <div class="screen-subtitle">קטגוריה: עד 73 ק"ג</div>
             </div>
@@ -615,6 +636,7 @@
         <!-- Weekly Assessment Screen -->
         <div id="weeklyAssessment" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">הערכה שבועית</div>
                 <div class="screen-subtitle">שאלה 1 מתוך 5</div>
             </div>
@@ -650,8 +672,9 @@
         <!-- Nutritionist Dashboard -->
         <div id="nutritionistDashboard" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">מרכז בקרה</div>
-                <div class="screen-subtitle">ד"ר שרה כהן • מאמנת תזונה מוסמכת</div>
+                <div class="screen-subtitle">ד"ר שרה כהן • תזונאית מוסמכת</div>
             </div>
             
             <div class="metrics-grid">
@@ -692,6 +715,7 @@
         <!-- Athletes List -->
         <div id="athletesList" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">רשימת ספורטאים</div>
                 <div class="screen-subtitle">12 ספורטאים פעילים</div>
             </div>
@@ -728,8 +752,9 @@
         <!-- Chat Screen -->
         <div id="chat" class="screen hidden">
             <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">תקשורת</div>
-                <div class="screen-subtitle">עם המאמן התזונה</div>
+                <div class="screen-subtitle">עם התזונאי/ת</div>
             </div>
             
             <div class="card">
@@ -770,12 +795,12 @@
 
     <!-- JavaScript -->
     <script>
-        // 🥋 JudoNutrition App - JavaScript ראשי
-        // גרסה: MVP 1.0
+        // 🥋 JudoNutrition App - JavaScript מתוקן
+        // גרסה: MVP 1.1 עם תיקוני באגים
 
         // ========== משתנים גלובליים ==========
         let currentUser = {
-            role: null, // 'athlete' או 'nutritionist'
+            role: null,
             name: '',
             data: {}
         };
@@ -789,6 +814,8 @@
         // ========== פונקציות ניהול מסכים ==========
 
         function showScreen(screenId) {
+            console.log('Attempting to show screen:', screenId);
+            
             // הסתרת כל המסכים
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.add('hidden');
@@ -805,9 +832,11 @@
                 
                 // עדכון נתונים במסך
                 updateScreenData(screenId);
+                
+                console.log('Successfully switched to screen:', screenId);
+            } else {
+                console.error('Screen not found:', screenId);
             }
-            
-            console.log(`Switched to screen: ${screenId}`);
         }
 
         function manageBottomNav(screenId) {
@@ -836,22 +865,33 @@
         }
 
         function selectRole(role) {
-            currentUser.role = role;
+            console.log('Role selected:', role);
             
-            // שמירה בזיכרון מקומי
+            currentUser.role = role;
             localStorage.setItem('userRole', role);
             
             if (role === 'athlete') {
-                currentUser.name = "דני כהן"; // לדוגמה
-                showScreen('athleteHome');
+                currentUser.name = "דני כהן";
                 initializeAthleteData();
+                showScreen('athleteHome');
             } else if (role === 'nutritionist') {
-                currentUser.name = "ד״ר שרה כהן"; // לדוגמה
-                showScreen('nutritionistDashboard');
+                currentUser.name = "ד״ר שרה כהן";
                 initializeNutritionistData();
+                showScreen('nutritionistDashboard');
             }
             
-            console.log(`User role selected: ${role}`);
+            console.log('User role set successfully:', role);
+        }
+
+        function exitToWelcome() {
+            console.log('Exiting to welcome screen');
+            
+            // מחיקת התפקיד השמור
+            localStorage.removeItem('userRole');
+            currentUser.role = null;
+            
+            // מעבר למסך בחירה
+            showScreen('welcome');
         }
 
         function updateScreenData(screenId) {
@@ -874,6 +914,8 @@
         // ========== נתונים לדוגמה ==========
 
         function initializeAthleteData() {
+            console.log('Initializing athlete data');
+            
             if (!appData.athletes[currentUser.name]) {
                 appData.athletes[currentUser.name] = {
                     profile: {
@@ -912,11 +954,13 @@
         }
 
         function initializeNutritionistData() {
+            console.log('Initializing nutritionist data');
+            
             if (!appData.nutritionist.athletes) {
                 appData.nutritionist = {
                     profile: {
                         name: "ד״ר שרה כהן",
-                        title: "מאמנת תזונה מוסמכת"
+                        title: "תזונאית מוסמכת"
                     },
                     athletes: [
                         {
@@ -1076,12 +1120,10 @@
         }
 
         function updateWeightChart() {
-            // כאן נוסיף גרף אמיתי בעתיד
             console.log('Weight chart would be updated here');
         }
 
         function loadWeeklyAssessment() {
-            // כאן נטען את השאלון השבועי
             console.log('Weekly assessment would be loaded here');
         }
 
@@ -1166,16 +1208,22 @@
         function setupEventListeners() {
             // כפתורי ניווטיציה
             document.addEventListener('click', function(e) {
+                console.log('Click detected on:', e.target);
+                
                 // כפתורי תפקיד
-                if (e.target.classList.contains('role-btn')) {
-                    const role = e.target.dataset.role;
+                if (e.target.classList.contains('role-btn') || e.target.closest('.role-btn')) {
+                    const btn = e.target.classList.contains('role-btn') ? e.target : e.target.closest('.role-btn');
+                    const role = btn.dataset.role;
+                    console.log('Role button clicked:', role);
                     selectRole(role);
                 }
                 
                 // כפתורי ניווט
-                if (e.target.classList.contains('nav-btn')) {
+                if (e.target.classList.contains('nav-btn') || e.target.closest('.nav-btn')) {
                     e.preventDefault();
-                    const screen = e.target.dataset.screen;
+                    const btn = e.target.classList.contains('nav-btn') ? e.target : e.target.closest('.nav-btn');
+                    const screen = btn.dataset.screen;
+                    console.log('Nav button clicked:', screen);
                     showScreen(screen);
                 }
             });
@@ -1204,7 +1252,8 @@
             selectRole,
             addWeight,
             saveData,
-            loadData
+            loadData,
+            exitToWelcome
         };
     </script>
 </body>

@@ -3,257 +3,1209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JudoNutrition - אפליקציית תזונה לג'ודוקות</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>JudoNutrition - מערכת ליווי תזונתי לספורטאי ג'ודו</title>
+    
+    <!-- PWA Support -->
+    <meta name="theme-color" content="#1a237e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="JudoNutrition">
+    
+    <!-- CSS -->
+    <style>
+        :root {
+            --primary-blue: #1a237e;
+            --primary-teal: #26a69a;
+            --success-green: #66bb6a;
+            --warning-orange: #ffcc02;
+            --danger-red: #e53935;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Assistant', system-ui, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-900);
+            line-height: 1.5;
+            direction: rtl;
+        }
+
+        .app-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: var(--white);
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Screen Management */
+        .screen {
+            min-height: 100vh;
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Header Styles */
+        .screen-header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 30px 20px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 0 0 20px 20px;
+            text-align: center;
+        }
+
+        .screen-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .screen-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* Welcome Screen */
+        .welcome-content {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .app-logo {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: var(--gray-500);
+            margin-bottom: 40px;
+        }
+
+        .role-selection {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .role-btn {
+            background: var(--white);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .role-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+        }
+
+        /* Metric Cards */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            padding: 24px 16px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+        }
+
+        .metric-value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .progress-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green) 0%, var(--primary-teal) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        /* Daily Tasks */
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--gray-100);
+            font-weight: 500;
+        }
+
+        .task-item:last-child {
+            border-bottom: none;
+        }
+
+        .task-status {
+            font-size: 18px;
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-weight: 500;
+            border: 1px solid;
+        }
+
+        .alert-success {
+            background: #e8f5e8;
+            border-color: var(--success-green);
+            color: #2e7d32;
+        }
+
+        .alert-warning {
+            background: #fff3e0;
+            border-color: var(--warning-orange);
+            color: #e65100;
+        }
+
+        .alert-danger {
+            background: #ffebee;
+            border-color: var(--danger-red);
+            color: #c62828;
+        }
+
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Buttons */
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            box-shadow: 0 2px 8px rgba(26, 35, 126, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-blue);
+            border: 1px solid var(--gray-300);
+        }
+
+        .btn-secondary:hover {
+            background: var(--gray-50);
+            border-color: var(--primary-blue);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--white);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        /* Athlete List */
+        .athlete-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .athlete-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 2px 8px rgba(26, 35, 126, 0.1);
+        }
+
+        .athlete-info {
+            flex-grow: 1;
+        }
+
+        .athlete-name {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .athlete-status {
+            font-size: 14px;
+            color: var(--gray-500);
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        .status-success { background: var(--success-green); }
+        .status-warning { background: var(--warning-orange); }
+        .status-danger { background: var(--danger-red); }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            max-width: 100%;
+            height: 70px;
+            background: var(--white);
+            border-top: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+            color: var(--gray-500);
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .nav-item.active {
+            color: var(--primary-blue);
+            background: rgba(26, 35, 126, 0.1);
+        }
+
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 200px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* Assessment Form */
+        .assessment-question {
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .answer-option {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(26, 35, 126, 0.02);
+        }
+
+        .answer-option input[type="radio"] {
+            margin-left: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .app-container {
+                max-width: 100%;
+            }
+            
+            .bottom-nav {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- מסך הכניסה הראשון -->
-    <div id="welcomeScreen" class="screen">
-        <div class="container">
-            <div class="header">
-                <h1>JudoNutrition</h1>
-                <p>אפליקציית ליווי תזונתי מקצועית לספורטאי ג'ודו</p>
+    <div class="app-container">
+        <!-- Welcome Screen -->
+        <div id="welcome" class="screen">
+            <div class="welcome-content">
+                <div class="app-logo">🥋</div>
+                <h1 class="welcome-title">JudoNutrition</h1>
+                <p class="welcome-subtitle">מערכת ליווי תזונתי מקצועית לספורטאי ג'ודו</p>
                 
-                <div class="quote">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="quote-icon">
-                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21c0 .75.75 1 1 1z" fill="currentColor"/>
-                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 .75.75 1 1 1z" fill="currentColor"/>
-                    </svg>
-                    <blockquote>"הדרך להצלחה מתחילה במטבח ומסתיימת על המזרן"</blockquote>
-                    <cite>- פילוסופיית הג'ודו המודרני</cite>
-                </div>
-            </div>
-            
-            <div class="role-selection">
-                <h2>בחר את התפקיד שלך:</h2>
-                
-                <div class="role-card" onclick="selectRole('athlete')">
-                    <div class="role-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <!-- דמות ג'ודו פשוטה עם קימונו וחגורה שחורה -->
-                            <circle cx="12" cy="6" r="2" fill="currentColor"/>
-                            <!-- גוף וזרועות -->
-                            <path d="M12 8v8" stroke-width="3"/>
-                            <path d="M8 10l4 2 4-2" stroke-width="2"/>
-                            <!-- רגליים -->
-                            <path d="M10 16l-2 6" stroke-width="2"/>
-                            <path d="M14 16l2 6" stroke-width="2"/>
-                            <!-- קימונו -->
-                            <path d="M9 9h6v7h-6z" fill="none" stroke-width="1"/>
-                            <!-- חגורה שחורה -->
-                            <rect x="9" y="12" width="6" height="1.5" fill="currentColor"/>
-                        </svg>
-                    </div>
-                    <h3>ספורטאי ג'ודו</h3>
-                    <p>מעקב אישי על משקל, תזונה והכנה לתחרויות</p>
-                </div>
-                
-                <div class="role-card" onclick="selectRole('nutritionist')">
-                    <div class="role-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <!-- דיאטנית מקצועית -->
-                            <circle cx="12" cy="6" r="3"/>
-                            <path d="M12 9v4"/>
-                            <path d="M8 11l4 2 4-2"/>
-                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
-                            <!-- סטטוסקופ -->
-                            <circle cx="16" cy="8" r="1.5" fill="none"/>
-                            <path d="M17.5 8L19 9.5"/>
-                            <path d="M14.5 8L13 9.5"/>
-                            <!-- לוח -->
-                            <rect x="8" y="6" width="2" height="3" rx="0.5" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>דיאטנית</h3>
-                    <p>ניהול ומעקב אחרי ספורטאים מרובים</p>
+                <div class="role-selection">
+                    <button class="role-btn" data-role="athlete">
+                        <span>🥋</span>
+                        <span>אני ספורטאי</span>
+                    </button>
+                    <button class="role-btn" data-role="nutritionist">
+                        <span>👩‍⚕️</span>
+                        <span>אני מאמן תזונה</span>
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- מסך ספורטאי (נסתר בהתחלה) -->
-    <div id="athleteScreen" class="screen hidden">
-        <div class="container">
-            <div class="header">
-                <h1>שלום דני!</h1>
-                <div class="competition-info">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                        <line x1="16" y1="2" x2="16" y2="6"/>
-                        <line x1="8" y1="2" x2="8" y2="6"/>
-                        <line x1="3" y1="10" x2="21" y2="10"/>
-                    </svg>
-                    <p>התחרות הבאה בעוד 12 ימים</p>
-                </div>
-                <button class="back-btn" onclick="goBack()">← חזור</button>
+        <!-- Athlete Home Screen -->
+        <div id="athleteHome" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">שלום, דני! 🥋</div>
+                <div class="screen-subtitle">התחרות הבאה בעוד <span id="daysToCompetition">12</span> ימים</div>
             </div>
             
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- מאזני גוף -->
-                            <rect x="4" y="18" width="16" height="2" rx="1"/>
-                            <rect x="8" y="16" width="8" height="2" rx="1"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <path d="M12 8v8"/>
-                            <path d="M8 12h8"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number">72.5</div>
-                    <div class="stat-label">משקל נוכחי (ק"ג)</div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="currentWeight">72.5</div>
+                    <div class="metric-label">משקל נוכחי</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <!-- מטרה -->
-                            <circle cx="12" cy="12" r="10"/>
-                            <circle cx="12" cy="12" r="6"/>
-                            <circle cx="12" cy="12" r="2"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number">73.0</div>
-                    <div class="stat-label">יעד קטגוריה (ק"ג)</div>
+                <div class="metric-card">
+                    <div class="metric-value" id="targetWeight">73.0</div>
+                    <div class="metric-label">יעד קטגוריה</div>
                 </div>
             </div>
             
-            <div class="actions-grid">
-                <button class="action-btn" onclick="openWeightEntry()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- מאזני גוף -->
-                        <rect x="4" y="18" width="16" height="2" rx="1"/>
-                        <rect x="8" y="16" width="8" height="2" rx="1"/>
-                        <circle cx="12" cy="12" r="4"/>
-                        <path d="M12 8v8"/>
-                        <path d="M8 12h8"/>
-                    </svg>
-                    הזנת משקל
-                </button>
-                <button class="action-btn" onclick="openAssessment()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- גיליון עם קווים -->
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14,2 14,8 20,8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <line x1="10" y1="9" x2="8" y2="9"/>
-                    </svg>
-                    הערכה שבועית
-                </button>
-                <button class="action-btn" onclick="openNutrition()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- גיליון עם קווי רישום -->
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                        <polyline points="14,2 14,8 20,8"/>
-                        <line x1="16" y1="13" x2="8" y2="13"/>
-                        <line x1="16" y1="17" x2="8" y2="17"/>
-                        <line x1="16" y1="21" x2="8" y2="21"/>
-                        <line x1="16" y1="9" x2="8" y2="9"/>
-                    </svg>
-                    יומן תזונה
-                </button>
-                <button class="action-btn" onclick="openChat()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <!-- בועת צ'אט -->
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                        <circle cx="9" cy="10" r="1"/>
-                        <circle cx="15" cy="10" r="1"/>
-                    </svg>
-                    צ'אט עם הדיאטנית
-                </button>
+            <div class="progress-container">
+                <div class="progress-header">
+                    <span class="progress-label">התקדמות ליעד</span>
+                    <span class="progress-value" id="progressValue">92%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 92%;"></div>
+                </div>
+            </div>
+            
+            <div class="alert alert-success">
+                <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                </svg>
+                <span>המשקל במסלול המתוכנן. המשך בתוכנית הנוכחית.</span>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">המשימות שלי היום</div>
+                <div id="dailyTasks">
+                    <div class="task-item">
+                        <span class="task-status">✅</span>
+                        <span class="task-name">שקילה יומית</span>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-status">⏳</span>
+                        <span class="task-name">שתיית מים - 1.8/2.5 ליטר</span>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-status">📋</span>
+                        <span class="task-name">הערכה שבועית</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary nav-btn" data-screen="chat">
+                💬 תקשורת עם המאמן
+            </button>
+            <button class="btn btn-secondary nav-btn" data-screen="weightTracking">
+                ⚖️ הזנת משקל
+            </button>
+        </div>
+
+        <!-- Weight Tracking Screen -->
+        <div id="weightTracking" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">מעקב משקל</div>
+                <div class="screen-subtitle">קטגוריה: עד 73 ק"ג</div>
+            </div>
+            
+            <div class="chart-container">
+                גרף התקדמות - 14 ימים אחרונים
+            </div>
+            
+            <form id="weightForm">
+                <div class="form-group">
+                    <label class="form-label">משקל נוכחי (ק"ג)</label>
+                    <input type="number" id="weightInput" class="form-input" placeholder="72.5" step="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">הערות</label>
+                    <input type="text" id="weightNotes" class="form-input" placeholder="לאחר אימון">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">שמור משקל</button>
+            </form>
+            
+            <button class="btn btn-secondary nav-btn" data-screen="athleteHome">
+                🏠 חזרה לדף הבית
+            </button>
+        </div>
+
+        <!-- Weekly Assessment Screen -->
+        <div id="weeklyAssessment" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">הערכה שבועית</div>
+                <div class="screen-subtitle">שאלה 1 מתוך 5</div>
+            </div>
+            
+            <div class="assessment-question">
+                <div class="question-text">איך הרגשת באימונים השבוע?</div>
+                <div class="answer-options">
+                    <label class="answer-option">
+                        <input type="radio" name="training" value="5">
+                        <span>מעולה - מלא אנרגיה וכוח</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="training" value="4">
+                        <span>טוב - הרגשתי חזק</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="training" value="3">
+                        <span>סביר - קצת עייפות</span>
+                    </label>
+                    <label class="answer-option">
+                        <input type="radio" name="training" value="2">
+                        <span>קשה - הרבה עייפות</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 12px;">
+                <button class="btn btn-secondary" style="flex: 1;">הקודמת</button>
+                <button class="btn btn-primary" style="flex: 1;">הבאה</button>
             </div>
         </div>
-    </div>
 
-    <!-- מסך מאמן תזונה (נסתר בהתחלה) -->
-    <div id="nutritionistScreen" class="screen hidden">
-        <div class="container">
-            <div class="header">
-                <h1>מרכז בקרה</h1>
-                <p>ד"ר שרה כהן - דיאטנית מוסמכת</p>
-                <button class="back-btn" onclick="goBack()">← חזור</button>
+        <!-- Nutritionist Dashboard -->
+        <div id="nutritionistDashboard" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">מרכז בקרה</div>
+                <div class="screen-subtitle">ד"ר שרה כהן • מאמנת תזונה מוסמכת</div>
             </div>
             
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                            <circle cx="9" cy="7" r="4"/>
-                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number">12</div>
-                    <div class="stat-label">ספורטאים פעילים</div>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value" id="activeAthletes">12</div>
+                    <div class="metric-label">ספורטאים פעילים</div>
                 </div>
-                <div class="stat-card warning">
-                    <div class="stat-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                            <line x1="12" y1="9" x2="12" y2="13"/>
-                            <line x1="12" y1="17" x2="12.01" y2="17"/>
-                        </svg>
-                    </div>
-                    <div class="stat-number">3</div>
-                    <div class="stat-label">התראות דחופות</div>
+                <div class="metric-card">
+                    <div class="metric-value" id="alertsCount">3</div>
+                    <div class="metric-label">התראות</div>
                 </div>
             </div>
             
-            <div class="alerts-section">
-                <h3>התראות חשובות</h3>
+            <div id="alertsContainer">
                 <div class="alert alert-danger">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"/>
-                        <line x1="15" y1="9" x2="9" y2="15"/>
-                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
                     </svg>
-                    דני כהן - ירידה חריגה במשקל (2.1 ק"ג בשבוע)
+                    <span><strong>דחוף:</strong> מיכאל - ירידה חריגה במשקל (2.1 ק"ג בשבוע)</span>
                 </div>
+                
                 <div class="alert alert-warning">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-                        <line x1="12" y1="9" x2="12" y2="13"/>
-                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    <svg class="alert-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
                     </svg>
-                    שרה לוי - לא מילאה הערכה שבועית (3 ימים)
+                    <span>שרה לא מילאה הערכה שבועית (3 ימים)</span>
                 </div>
             </div>
             
-            <div class="actions-grid">
-                <button class="action-btn" onclick="openAthletesList()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-                        <circle cx="9" cy="7" r="4"/>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
-                    רשימת ספורטאים
-                </button>
-                <button class="action-btn" onclick="openAnalytics()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
-                    </svg>
-                    דוחות וניתוחים
-                </button>
-                <button class="action-btn" onclick="openMessages()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-                    </svg>
-                    הודעות
-                </button>
-                <button class="action-btn" onclick="openSettings()">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="3"/>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-                    </svg>
-                    הגדרות
-                </button>
+            <button class="btn btn-primary nav-btn" data-screen="athletesList">
+                📋 רשימת ספורטאים
+            </button>
+            <button class="btn btn-secondary">
+                📊 דוחות מפורטים
+            </button>
+        </div>
+
+        <!-- Athletes List -->
+        <div id="athletesList" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">רשימת ספורטאים</div>
+                <div class="screen-subtitle">12 ספורטאים פעילים</div>
             </div>
+            
+            <div class="athlete-card">
+                <div class="athlete-info">
+                    <div class="athlete-name">דני כהן</div>
+                    <div class="athlete-status">72.5 ק"ג • קטגוריה 73 • תחרות בעוד 12 ימים</div>
+                </div>
+                <div class="status-indicator status-success"></div>
+            </div>
+            
+            <div class="athlete-card">
+                <div class="athlete-info">
+                    <div class="athlete-name">שרה לוי</div>
+                    <div class="athlete-status">58.2 ק"ג • קטגוריה 57 • הערכה ממתינה</div>
+                </div>
+                <div class="status-indicator status-warning"></div>
+            </div>
+            
+            <div class="athlete-card">
+                <div class="athlete-info">
+                    <div class="athlete-name">מיכאל אברהם</div>
+                    <div class="athlete-status">83.1 ק"ג • קטגוריה 81 • ירידה חריגה</div>
+                </div>
+                <div class="status-indicator status-danger"></div>
+            </div>
+            
+            <button class="btn btn-secondary nav-btn" data-screen="nutritionistDashboard">
+                🏠 חזרה לדשבורד
+            </button>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="chat" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">תקשורת</div>
+                <div class="screen-subtitle">עם המאמן התזונה</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">הודעות אחרונות</div>
+                <div style="color: var(--gray-500); text-align: center; padding: 40px;">
+                    לא נמצאו הודעות חדשות
+                </div>
+            </div>
+            
+            <button class="btn btn-primary">
+                💬 שליחת הודעה חדשה
+            </button>
+            <button class="btn btn-secondary nav-btn" data-screen="athleteHome">
+                🏠 חזרה לדף הבית
+            </button>
+        </div>
+
+        <!-- Bottom Navigation for Athletes -->
+        <div id="athleteBottomNav" class="bottom-nav hidden">
+            <a href="#" class="nav-item nav-btn active" data-screen="athleteHome">
+                <div class="nav-icon">🏠</div>
+                <div>בית</div>
+            </a>
+            <a href="#" class="nav-item nav-btn" data-screen="weightTracking">
+                <div class="nav-icon">⚖️</div>
+                <div>משקל</div>
+            </a>
+            <a href="#" class="nav-item nav-btn" data-screen="weeklyAssessment">
+                <div class="nav-icon">📋</div>
+                <div>הערכה</div>
+            </a>
+            <a href="#" class="nav-item nav-btn" data-screen="chat">
+                <div class="nav-icon">💬</div>
+                <div>תקשורת</div>
+            </a>
         </div>
     </div>
 
-    <!-- הוספת JavaScript -->
-    <script src="js/app.js"></script>
+    <!-- JavaScript -->
+    <script>
+        // 🥋 JudoNutrition App - JavaScript ראשי
+        // גרסה: MVP 1.0
+
+        // ========== משתנים גלובליים ==========
+        let currentUser = {
+            role: null, // 'athlete' או 'nutritionist'
+            name: '',
+            data: {}
+        };
+
+        let appData = {
+            athletes: {},
+            nutritionist: {},
+            currentScreen: 'welcome'
+        };
+
+        // ========== פונקציות ניהול מסכים ==========
+
+        function showScreen(screenId) {
+            // הסתרת כל המסכים
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // הצגת המסך הנבחר
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) {
+                targetScreen.classList.remove('hidden');
+                appData.currentScreen = screenId;
+                
+                // ניהול ניווטיציה תחתונה
+                manageBottomNav(screenId);
+                
+                // עדכון נתונים במסך
+                updateScreenData(screenId);
+            }
+            
+            console.log(`Switched to screen: ${screenId}`);
+        }
+
+        function manageBottomNav(screenId) {
+            const bottomNav = document.getElementById('athleteBottomNav');
+            
+            if (currentUser.role === 'athlete') {
+                const athleteScreens = ['athleteHome', 'weightTracking', 'weeklyAssessment', 'chat'];
+                if (athleteScreens.includes(screenId)) {
+                    bottomNav.classList.remove('hidden');
+                    
+                    // עדכון פריט פעיל
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    const activeItem = document.querySelector(`[data-screen="${screenId}"]`);
+                    if (activeItem && activeItem.classList.contains('nav-item')) {
+                        activeItem.classList.add('active');
+                    }
+                } else {
+                    bottomNav.classList.add('hidden');
+                }
+            } else {
+                bottomNav.classList.add('hidden');
+            }
+        }
+
+        function selectRole(role) {
+            currentUser.role = role;
+            
+            // שמירה בזיכרון מקומי
+            localStorage.setItem('userRole', role);
+            
+            if (role === 'athlete') {
+                currentUser.name = "דני כהן"; // לדוגמה
+                showScreen('athleteHome');
+                initializeAthleteData();
+            } else if (role === 'nutritionist') {
+                currentUser.name = "ד״ר שרה כהן"; // לדוגמה
+                showScreen('nutritionistDashboard');
+                initializeNutritionistData();
+            }
+            
+            console.log(`User role selected: ${role}`);
+        }
+
+        function updateScreenData(screenId) {
+            switch(screenId) {
+                case 'athleteHome':
+                    updateAthleteHome();
+                    break;
+                case 'nutritionistDashboard':
+                    updateNutritionistDashboard();
+                    break;
+                case 'weightTracking':
+                    updateWeightChart();
+                    break;
+                case 'weeklyAssessment':
+                    loadWeeklyAssessment();
+                    break;
+            }
+        }
+
+        // ========== נתונים לדוגמה ==========
+
+        function initializeAthleteData() {
+            if (!appData.athletes[currentUser.name]) {
+                appData.athletes[currentUser.name] = {
+                    profile: {
+                        name: "דני כהן",
+                        category: "73kg",
+                        targetWeight: 73.0,
+                        nextCompetition: "2024-02-15"
+                    },
+                    weights: [
+                        { date: "2024-01-15", weight: 74.2 },
+                        { date: "2024-01-16", weight: 73.8 },
+                        { date: "2024-01-17", weight: 73.5 },
+                        { date: "2024-01-18", weight: 73.2 },
+                        { date: "2024-01-19", weight: 72.8 },
+                        { date: "2024-01-20", weight: 72.5 }
+                    ],
+                    assessments: [
+                        {
+                            date: "2024-01-15",
+                            sleep: 7,
+                            appetite: 4,
+                            energy: 5,
+                            mood: 4,
+                            training: 5
+                        }
+                    ],
+                    tasks: [
+                        { id: 1, name: "שקילה יומית", completed: true, type: "daily" },
+                        { id: 2, name: "שתיית 2.5 ליטר מים", completed: false, type: "daily", progress: 1.8 },
+                        { id: 3, name: "הערכה שבועית", completed: false, type: "weekly" }
+                    ]
+                };
+            }
+            
+            saveData('athleteData', appData.athletes);
+        }
+
+        function initializeNutritionistData() {
+            if (!appData.nutritionist.athletes) {
+                appData.nutritionist = {
+                    profile: {
+                        name: "ד״ר שרה כהן",
+                        title: "מאמנת תזונה מוסמכת"
+                    },
+                    athletes: [
+                        {
+                            id: "danny123",
+                            name: "דני כהן",
+                            currentWeight: 72.5,
+                            targetWeight: 73.0,
+                            category: "73kg",
+                            lastUpdate: "2024-01-20",
+                            status: "success",
+                            nextCompetition: "2024-02-15",
+                            daysToCompetition: 12
+                        },
+                        {
+                            id: "sarah456",
+                            name: "שרה לוי",
+                            currentWeight: 58.2,
+                            targetWeight: 57.0,
+                            category: "57kg",
+                            lastUpdate: "2024-01-17",
+                            status: "warning",
+                            nextCompetition: "2024-02-20",
+                            daysToCompetition: 20
+                        },
+                        {
+                            id: "michael789",
+                            name: "מיכאל אברהם",
+                            currentWeight: 83.1,
+                            targetWeight: 81.0,
+                            category: "81kg",
+                            lastUpdate: "2024-01-20",
+                            status: "danger",
+                            nextCompetition: "2024-02-10",
+                            daysToCompetition: 8
+                        }
+                    ],
+                    alerts: [
+                        {
+                            athleteId: "michael789",
+                            type: "weight_above_target",
+                            message: "מיכאל - ירידה חריגה במשקל (2.1 ק״ג בשבוע)",
+                            severity: "high",
+                            date: "2024-01-20"
+                        },
+                        {
+                            athleteId: "sarah456", 
+                            type: "assessment_missing",
+                            message: "שרה - לא מילאה הערכה שבועית (3 ימים)",
+                            severity: "medium",
+                            date: "2024-01-18"
+                        }
+                    ]
+                };
+            }
+            
+            saveData('nutritionistData', appData.nutritionist);
+        }
+
+        // ========== עדכון UI ==========
+
+        function updateAthleteHome() {
+            const athleteData = appData.athletes[currentUser.name];
+            if (!athleteData) return;
+            
+            // עדכון משקל נוכחי
+            const currentWeightEl = document.getElementById('currentWeight');
+            if (currentWeightEl && athleteData.weights.length > 0) {
+                const latestWeight = athleteData.weights[athleteData.weights.length - 1];
+                currentWeightEl.textContent = latestWeight.weight;
+            }
+            
+            // עדכון יעד קטגוריה
+            const targetWeightEl = document.getElementById('targetWeight');
+            if (targetWeightEl) {
+                targetWeightEl.textContent = athleteData.profile.targetWeight;
+            }
+            
+            // עדכון ימים לתחרות
+            const competitionEl = document.getElementById('daysToCompetition');
+            if (competitionEl) {
+                const daysLeft = calculateDaysToCompetition(athleteData.profile.nextCompetition);
+                competitionEl.textContent = daysLeft;
+            }
+            
+            // עדכון משימות יומיות
+            updateDailyTasks(athleteData.tasks);
+            
+            // עדכון התקדמות
+            updateProgress(athleteData);
+        }
+
+        function updateNutritionistDashboard() {
+            const nutritionistData = appData.nutritionist;
+            if (!nutritionistData) return;
+            
+            // עדכון מספר ספורטאים פעילים
+            const activeAthletesEl = document.getElementById('activeAthletes');
+            if (activeAthletesEl) {
+                activeAthletesEl.textContent = nutritionistData.athletes.length;
+            }
+            
+            // עדכון מספר התראות
+            const alertsCountEl = document.getElementById('alertsCount');
+            if (alertsCountEl) {
+                alertsCountEl.textContent = nutritionistData.alerts.length;
+            }
+        }
+
+        function updateDailyTasks(tasks) {
+            const tasksContainer = document.getElementById('dailyTasks');
+            if (!tasksContainer || !tasks) return;
+            
+            tasksContainer.innerHTML = '';
+            
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = 'task-item';
+                
+                const statusIcon = task.completed ? '✅' : 
+                                  task.progress ? '⏳' : '📋';
+                
+                const progressText = task.progress ? 
+                    ` - ${task.progress}/${task.progress + 0.7} ליטר` : '';
+                
+                taskEl.innerHTML = `
+                    <span class="task-status">${statusIcon}</span>
+                    <span class="task-name">${task.name}${progressText}</span>
+                `;
+                
+                tasksContainer.appendChild(taskEl);
+            });
+        }
+
+        function updateProgress(athleteData) {
+            const progressEl = document.getElementById('progressFill');
+            const progressValueEl = document.getElementById('progressValue');
+            
+            if (!progressEl || !progressValueEl) return;
+            
+            const currentWeight = athleteData.weights[athleteData.weights.length - 1].weight;
+            const targetWeight = athleteData.profile.targetWeight;
+            const startWeight = athleteData.weights[0].weight;
+            
+            const progress = ((startWeight - currentWeight) / (startWeight - targetWeight)) * 100;
+            const progressPercent = Math.min(100, Math.max(0, progress));
+            
+            progressEl.style.width = progressPercent + '%';
+            progressValueEl.textContent = Math.round(progressPercent) + '%';
+        }
+
+        function calculateDaysToCompetition(competitionDate) {
+            const today = new Date();
+            const competition = new Date(competitionDate);
+            const diffTime = competition - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        function updateWeightChart() {
+            // כאן נוסיף גרף אמיתי בעתיד
+            console.log('Weight chart would be updated here');
+        }
+
+        function loadWeeklyAssessment() {
+            // כאן נטען את השאלון השבועי
+            console.log('Weekly assessment would be loaded here');
+        }
+
+        // ========== ניהול נתונים ==========
+
+        function saveData(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+                console.log(`Data saved: ${key}`);
+            } catch (error) {
+                console.error('Error saving data:', error);
+            }
+        }
+
+        function loadData(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                console.error('Error loading data:', error);
+                return null;
+            }
+        }
+
+        function addWeight(weight, notes = '') {
+            if (currentUser.role !== 'athlete') return;
+            
+            const athleteData = appData.athletes[currentUser.name];
+            if (!athleteData) return;
+            
+            const newEntry = {
+                date: new Date().toISOString().split('T')[0],
+                weight: parseFloat(weight),
+                notes: notes
+            };
+            
+            athleteData.weights.push(newEntry);
+            saveData('athleteData', appData.athletes);
+            
+            // עדכון UI
+            updateAthleteHome();
+            
+            // הצגת הודעת הצלחה
+            alert('המשקל נשמר בהצלחה!');
+            
+            // מעבר לדף הבית
+            showScreen('athleteHome');
+            
+            console.log('Weight added:', newEntry);
+        }
+
+        // ========== אתחול אפליקציה ==========
+
+        function initializeApp() {
+            console.log('🥋 JudoNutrition App initialized');
+            
+            // טעינת נתונים שמורים
+            const savedRole = localStorage.getItem('userRole');
+            const savedAthleteData = loadData('athleteData');
+            const savedNutritionistData = loadData('nutritionistData');
+            
+            if (savedAthleteData) {
+                appData.athletes = savedAthleteData;
+            }
+            
+            if (savedNutritionistData) {
+                appData.nutritionist = savedNutritionistData;
+            }
+            
+            // אם יש תפקיד שמור, הצגת המסך המתאים
+            if (savedRole) {
+                currentUser.role = savedRole;
+                selectRole(savedRole);
+            } else {
+                showScreen('welcome');
+            }
+            
+            // הוספת event listeners
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            // כפתורי ניווטיציה
+            document.addEventListener('click', function(e) {
+                // כפתורי תפקיד
+                if (e.target.classList.contains('role-btn')) {
+                    const role = e.target.dataset.role;
+                    selectRole(role);
+                }
+                
+                // כפתורי ניווט
+                if (e.target.classList.contains('nav-btn')) {
+                    e.preventDefault();
+                    const screen = e.target.dataset.screen;
+                    showScreen(screen);
+                }
+            });
+            
+            // טופס הזנת משקל
+            const weightForm = document.getElementById('weightForm');
+            if (weightForm) {
+                weightForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const weight = document.getElementById('weightInput').value;
+                    const notes = document.getElementById('weightNotes').value;
+                    addWeight(weight, notes);
+                    
+                    // איפוס הטופס
+                    this.reset();
+                });
+            }
+        }
+
+        // התחלת האפליקציה כשהדף נטען
+        document.addEventListener('DOMContentLoaded', initializeApp);
+
+        // Export functions for global access
+        window.JudoApp = {
+            showScreen,
+            selectRole,
+            addWeight,
+            saveData,
+            loadData
+        };
+    </script>
 </body>
 </html>

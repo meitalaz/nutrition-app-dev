@@ -1,227 +1,259 @@
-// משתנים גלובליים לשמירת מידע
-let currentUser = {
-    role: null,
-    name: '',
-    data: {}
-};
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JudoNutrition - אפליקציית תזונה לג'ודוקות</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- מסך הכניסה הראשון -->
+    <div id="welcomeScreen" class="screen">
+        <div class="container">
+            <div class="header">
+                <h1>JudoNutrition</h1>
+                <p>אפליקציית ליווי תזונתי מקצועית לספורטאי ג'ודו</p>
+                
+                <div class="quote">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="quote-icon">
+                        <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21c0 .75.75 1 1 1z" fill="currentColor"/>
+                        <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 .75.75 1 1 1z" fill="currentColor"/>
+                    </svg>
+                    <blockquote>"הדרך להצלחה מתחילה במטבח ומסתיימת על המזרן"</blockquote>
+                    <cite>- פילוסופיית הג'ודו המודרני</cite>
+                </div>
+            </div>
+            
+            <div class="role-selection">
+                <h2>בחר את התפקיד שלך:</h2>
+                
+                <div class="role-card" onclick="selectRole('athlete')">
+                    <div class="role-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <!-- דמות ג'ודו פשוטה עם קימונו וחגורה שחורה -->
+                            <circle cx="12" cy="6" r="2" fill="currentColor"/>
+                            <!-- גוף וזרועות -->
+                            <path d="M12 8v8" stroke-width="3"/>
+                            <path d="M8 10l4 2 4-2" stroke-width="2"/>
+                            <!-- רגליים -->
+                            <path d="M10 16l-2 6" stroke-width="2"/>
+                            <path d="M14 16l2 6" stroke-width="2"/>
+                            <!-- קימונו -->
+                            <path d="M9 9h6v7h-6z" fill="none" stroke-width="1"/>
+                            <!-- חגורה שחורה -->
+                            <rect x="9" y="12" width="6" height="1.5" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>ספורטאי ג'ודו</h3>
+                    <p>מעקב אישי על משקל, תזונה והכנה לתחרויות</p>
+                </div>
+                
+                <div class="role-card" onclick="selectRole('nutritionist')">
+                    <div class="role-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <!-- דיאטנית מקצועית -->
+                            <circle cx="12" cy="6" r="3"/>
+                            <path d="M12 9v4"/>
+                            <path d="M8 11l4 2 4-2"/>
+                            <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/>
+                            <!-- סטטוסקופ -->
+                            <circle cx="16" cy="8" r="1.5" fill="none"/>
+                            <path d="M17.5 8L19 9.5"/>
+                            <path d="M14.5 8L13 9.5"/>
+                            <!-- לוח -->
+                            <rect x="8" y="6" width="2" height="3" rx="0.5" fill="none"/>
+                        </svg>
+                    </div>
+                    <h3>דיאטנית</h3>
+                    <p>ניהול ומעקב אחרי ספורטאים מרובים</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// נתונים לדוגמה
-let sampleData = {
-    athlete: {
-        name: "דני כהן",
-        currentWeight: 72.5,
-        targetWeight: 73.0,
-        lastWeights: [
-            {date: "2025-01-06", weight: 73.2},
-            {date: "2025-01-07", weight: 72.8},
-            {date: "2025-01-08", weight: 72.5}
-        ],
-        competition: {
-            name: "אליפות ישראל",
-            date: "2025-01-20",
-            daysLeft: 12
-        }
-    },
-    nutritionist: {
-        name: "ד\"ר שרה כהן",
-        athletes: [
-            {name: "דני כהן", weight: 72.5, status: "danger", lastUpdate: "היום"},
-            {name: "שרה לוי", weight: 57.2, status: "warning", lastUpdate: "אתמול"},
-            {name: "מיכאל רון", weight: 81.0, status: "success", lastUpdate: "היום"}
-        ],
-        alerts: [
-            {athlete: "דני כהן", message: "ירידה חריגה במשקל", type: "danger"},
-            {athlete: "שרה לוי", message: "לא מילאה הערכה שבועית", type: "warning"}
-        ]
-    }
-};
+    <!-- מסך ספורטאי (נסתר בהתחלה) -->
+    <div id="athleteScreen" class="screen hidden">
+        <div class="container">
+            <div class="header">
+                <h1>שלום דני!</h1>
+                <div class="competition-info">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    <p>התחרות הבאה בעוד 12 ימים</p>
+                </div>
+                <button class="back-btn" onclick="goBack()">← חזור</button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- מאזני גוף -->
+                            <rect x="4" y="18" width="16" height="2" rx="1"/>
+                            <rect x="8" y="16" width="8" height="2" rx="1"/>
+                            <circle cx="12" cy="12" r="4"/>
+                            <path d="M12 8v8"/>
+                            <path d="M8 12h8"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number">72.5</div>
+                    <div class="stat-label">משקל נוכחי (ק"ג)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <!-- מטרה -->
+                            <circle cx="12" cy="12" r="10"/>
+                            <circle cx="12" cy="12" r="6"/>
+                            <circle cx="12" cy="12" r="2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number">73.0</div>
+                    <div class="stat-label">יעד קטגוריה (ק"ג)</div>
+                </div>
+            </div>
+            
+            <div class="actions-grid">
+                <button class="action-btn" onclick="openWeightEntry()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- מאזני גוף -->
+                        <rect x="4" y="18" width="16" height="2" rx="1"/>
+                        <rect x="8" y="16" width="8" height="2" rx="1"/>
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 8v8"/>
+                        <path d="M8 12h8"/>
+                    </svg>
+                    הזנת משקל
+                </button>
+                <button class="action-btn" onclick="openAssessment()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- גיליון עם קווים -->
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <line x1="10" y1="9" x2="8" y2="9"/>
+                    </svg>
+                    הערכה שבועית
+                </button>
+                <button class="action-btn" onclick="openNutrition()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- גיליון עם קווי רישום -->
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                        <polyline points="14,2 14,8 20,8"/>
+                        <line x1="16" y1="13" x2="8" y2="13"/>
+                        <line x1="16" y1="17" x2="8" y2="17"/>
+                        <line x1="16" y1="21" x2="8" y2="21"/>
+                        <line x1="16" y1="9" x2="8" y2="9"/>
+                    </svg>
+                    יומן תזונה
+                </button>
+                <button class="action-btn" onclick="openChat()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <!-- בועת צ'אט -->
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        <circle cx="9" cy="10" r="1"/>
+                        <circle cx="15" cy="10" r="1"/>
+                    </svg>
+                    צ'אט עם הדיאטנית
+                </button>
+            </div>
+        </div>
+    </div>
 
-// פונקציה לבחירת תפקיד
-function selectRole(role) {
-    console.log('נבחר תפקיד:', role);
-    currentUser.role = role;
-    
-    // הסתרת מסך הברוכים הבאים
-    document.getElementById('welcomeScreen').classList.add('hidden');
-    
-    // הצגת המסך המתאים
-    if (role === 'athlete') {
-        showAthleteScreen();
-    } else if (role === 'nutritionist') {
-        showNutritionistScreen();
-    }
-    
-    // שמירה בזיכרון הדפדפן
-    localStorage.setItem('userRole', role);
-}
+    <!-- מסך מאמן תזונה (נסתר בהתחלה) -->
+    <div id="nutritionistScreen" class="screen hidden">
+        <div class="container">
+            <div class="header">
+                <h1>מרכז בקרה</h1>
+                <p>ד"ר שרה כהן - דיאטנית מוסמכת</p>
+                <button class="back-btn" onclick="goBack()">← חזור</button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">ספורטאים פעילים</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                            <line x1="12" y1="9" x2="12" y2="13"/>
+                            <line x1="12" y1="17" x2="12.01" y2="17"/>
+                        </svg>
+                    </div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">התראות דחופות</div>
+                </div>
+            </div>
+            
+            <div class="alerts-section">
+                <h3>התראות חשובות</h3>
+                <div class="alert alert-danger">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="15" y1="9" x2="9" y2="15"/>
+                        <line x1="9" y1="9" x2="15" y2="15"/>
+                    </svg>
+                    דני כהן - ירידה חריגה במשקל (2.1 ק"ג בשבוע)
+                </div>
+                <div class="alert alert-warning">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                        <line x1="12" y1="9" x2="12" y2="13"/>
+                        <line x1="12" y1="17" x2="12.01" y2="17"/>
+                    </svg>
+                    שרה לוי - לא מילאה הערכה שבועית (3 ימים)
+                </div>
+            </div>
+            
+            <div class="actions-grid">
+                <button class="action-btn" onclick="openAthletesList()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    רשימת ספורטאים
+                </button>
+                <button class="action-btn" onclick="openAnalytics()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/>
+                    </svg>
+                    דוחות וניתוחים
+                </button>
+                <button class="action-btn" onclick="openMessages()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                    הודעות
+                </button>
+                <button class="action-btn" onclick="openSettings()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    הגדרות
+                </button>
+            </div>
+        </div>
+    </div>
 
-// הצגת מסך ספורטאי
-function showAthleteScreen() {
-    document.getElementById('athleteScreen').classList.remove('hidden');
-    updateAthleteData();
-}
-
-// הצגת מסך מאמן תזונה
-function showNutritionistScreen() {
-    document.getElementById('nutritionistScreen').classList.remove('hidden');
-    updateNutritionistData();
-}
-
-// עדכון נתוני ספורטאי
-function updateAthleteData() {
-    const data = sampleData.athlete;
-    
-    // עדכון השם
-    const nameElement = document.querySelector('#athleteScreen h1');
-    if (nameElement) {
-        nameElement.innerHTML = `שלום ${data.name}!`;
-    }
-    
-    // עדכון ימים לתחרות
-    const daysElement = document.querySelector('#athleteScreen .competition-info p');
-    if (daysElement) {
-        daysElement.textContent = `התחרות הבאה בעוד ${data.competition.daysLeft} ימים`;
-    }
-    
-    // עדכון המשקל הנוכחי
-    const currentWeightElement = document.querySelector('#athleteScreen .stat-number');
-    if (currentWeightElement) {
-        currentWeightElement.textContent = data.currentWeight;
-    }
-    
-    // עדכון יעד הקטגוריה
-    const statNumbers = document.querySelectorAll('#athleteScreen .stat-number');
-    if (statNumbers.length > 1) {
-        statNumbers[1].textContent = data.targetWeight;
-    }
-}
-
-// עדכון נתוני מאמן תזונה
-function updateNutritionistData() {
-    const data = sampleData.nutritionist;
-    
-    // עדכון השם
-    const nameElement = document.querySelector('#nutritionistScreen .header p');
-    if (nameElement) {
-        nameElement.textContent = data.name + ' - דיאטנית מוסמכת';
-    }
-    
-    // עדכון מספר ספורטאים
-    const athleteCountElement = document.querySelector('#nutritionistScreen .stat-number');
-    if (athleteCountElement) {
-        athleteCountElement.textContent = data.athletes.length;
-    }
-    
-    // עדכון מספר התראות
-    const statNumbers = document.querySelectorAll('#nutritionistScreen .stat-number');
-    if (statNumbers.length > 1) {
-        statNumbers[1].textContent = data.alerts.length;
-    }
-}
-
-// חזרה למסך הראשי
-function goBack() {
-    console.log('חזרה למסך ראשי');
-    
-    // הסתרת כל המסכים
-    document.getElementById('athleteScreen').classList.add('hidden');
-    document.getElementById('nutritionistScreen').classList.add('hidden');
-    
-    // הצגת מסך הברוכים הבאים
-    document.getElementById('welcomeScreen').classList.remove('hidden');
-    
-    // איפוס המשתמש הנוכחי
-    currentUser.role = null;
-    localStorage.removeItem('userRole');
-}
-
-// פונקציות לכפתורי הפעולות (בינתיים יציגו הודעה)
-function openWeightEntry() {
-    alert('בקרוב: מסך הזנת משקל 📊');
-    console.log('פותח מסך הזנת משקל');
-}
-
-function openAssessment() {
-    alert('בקרוב: הערכה שבועית 📋');
-    console.log('פותח הערכה שבועית');
-}
-
-function openNutrition() {
-    alert('בקרוב: יומן תזונה 🍽️');
-    console.log('פותח יומן תזונה');
-}
-
-function openChat() {
-    alert('בקרוב: צ\'אט עם הדיאטנית 💬');
-    console.log('פותח צ\'אט');
-}
-
-function openAthletesList() {
-    alert('בקרוב: רשימת ספורטאים 👥');
-    console.log('פותח רשימת ספורטאים');
-}
-
-function openAnalytics() {
-    alert('בקרוב: דוחות וניתוחים 📊');
-    console.log('פותח ניתוחים');
-}
-
-function openMessages() {
-    alert('בקרוב: מערכת הודעות 💬');
-    console.log('פותח הודעות');
-}
-
-function openSettings() {
-    alert('בקרוב: הגדרות מערכת ⚙️');
-    console.log('פותח הגדרות');
-}
-
-// פונקציה שרצה כשהדף נטען
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('האפליקציה טעונה וזמינה! 🚀');
-    
-    // בדיקה אם יש תפקיד שמור מהעבר
-    const savedRole = localStorage.getItem('userRole');
-    if (savedRole) {
-        console.log('נמצא תפקיד שמור:', savedRole);
-        // אפשר לבחור אם לחזור אוטומטית או לא
-        // selectRole(savedRole);
-    }
-    
-    // הוספת מאזינים לכל הכפתורים (עבור דיבוג)
-    const buttons = document.querySelectorAll('button, .role-card, .action-btn');
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            console.log('נלחץ כפתור:', this.textContent || this.innerText);
-        });
-    });
-    
-    console.log('נתונים לדוגמה:', sampleData);
-});
-
-// פונקציות עזר
-function saveUserData(data) {
-    localStorage.setItem('userData', JSON.stringify(data));
-    console.log('נתונים נשמרו:', data);
-}
-
-function loadUserData() {
-    const data = localStorage.getItem('userData');
-    return data ? JSON.parse(data) : null;
-}
-
-// פונקציה להצגת הודעות למשתמש
-function showMessage(message, type = 'info') {
-    console.log(`${type.toUpperCase()}: ${message}`);
-    // בהמשך נוסיף כאן toast notifications
-}
-
-// הצגת מידע על הדפדפן (לדיבוג)
-console.log('מידע על הדפדפן:', {
-    userAgent: navigator.userAgent,
-    language: navigator.language,
-    platform: navigator.platform,
-    localStorage: !!window.localStorage
-});
-
-console.log('🎉 JavaScript טעון בהצלחה! האפליקציה מוכנה לשימוש.');
+    <!-- הוספת JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

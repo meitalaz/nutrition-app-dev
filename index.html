@@ -715,6 +715,41 @@
             text-align: center;
         }
 
+        /* Form inputs enhanced */
+        .form-input[inputmode="decimal"] {
+            font-size: 24px !important;
+            text-align: center;
+            font-weight: 600;
+            padding: 24px !important;
+            border: 2px solid var(--primary-blue);
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.1);
+        }
+
+        .form-input[inputmode="decimal"]:focus {
+            border-color: var(--primary-teal);
+            box-shadow: 0 0 0 4px rgba(38, 166, 154, 0.2);
+            transform: scale(1.02);
+        }
+
+        /* Weight input unit styling */
+        .form-group:has(.form-input[inputmode="decimal"]) .input-unit {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-right: 12px;
+        }
+
+        /* Enhanced question styling for weight */
+        .assessment-question:has(.form-input[inputmode="decimal"]) {
+            text-align: center;
+            padding: 24px;
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.05) 0%, rgba(38, 166, 154, 0.05) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(26, 35, 126, 0.1);
+        }
+
         /* Responsive */
         @media (max-width: 480px) {
             .app-container {
@@ -1311,6 +1346,11 @@
             showScreen('welcome');
         }
 
+        // Export basic navigation functions immediately
+        window.showScreen = showScreen;
+        window.selectRole = selectRole;
+        window.exitToWelcome = exitToWelcome;
+
         function manageBottomNav(screenId) {
             const bottomNav = document.getElementById('athleteBottomNav');
             
@@ -1903,6 +1943,20 @@
             }
         }
 
+        function fillExampleWeight() {
+            const weightInput = document.querySelector('input[inputmode="decimal"]');
+            if (weightInput) {
+                weightInput.value = '72.5';
+                weightInput.focus();
+                
+                // מדמה אירוע input כדי לעדכן את התשובה
+                const event = new Event('input', { bubbles: true });
+                weightInput.dispatchEvent(event);
+                
+                console.log('💡 Example weight filled');
+            }
+        }
+
         function updateAssessmentProgress() {
             const progressEl = document.getElementById('assessmentProgress');
             if (!progressEl) return;
@@ -1935,6 +1989,23 @@
 
         function nextQuestion() {
             console.log('🔜 Next question clicked. Current:', currentAssessment.currentQuestion);
+            console.log('📊 Current answers:', currentAssessment.answers);
+            
+            // בדיקה שיש תשובה לשאלה הנוכחית
+            const currentQuestion = weeklyQuestions[currentAssessment.currentQuestion];
+            if (currentQuestion) {
+                const answer = currentAssessment.answers[currentQuestion.id];
+                console.log('📝 Current answer for question', currentQuestion.id, ':', answer);
+                
+                // אם זה שאלת מספר, בדיקה שהמספר תקין
+                if (currentQuestion.type === 'number' && answer !== undefined) {
+                    const num = parseFloat(answer);
+                    if (isNaN(num) || num <= 0) {
+                        alert('אנא הזן מספר תקין');
+                        return;
+                    }
+                }
+            }
             
             if (currentAssessment.currentQuestion < weeklyQuestions.length - 1) {
                 currentAssessment.currentQuestion++;
@@ -2189,6 +2260,7 @@
         window.selectScale = selectScale;
         window.quickWeightEntry = quickWeightEntry;
         window.quickUpdateWater = quickUpdateWater;
+        window.fillExampleWeight = fillExampleWeight;
 
         window.JudoApp = {
             showScreen,
@@ -2202,7 +2274,8 @@
             startAssessment,
             selectScale,
             quickWeightEntry,
-            quickUpdateWater
+            quickUpdateWater,
+            fillExampleWeight
         };
 
         console.log('🥋 JudoNutrition JavaScript loaded successfully!');

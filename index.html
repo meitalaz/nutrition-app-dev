@@ -1405,52 +1405,66 @@
         }
 
         function updateAthleteHome() {
-            const athleteData = appData.athletes[currentUser.name];
-            if (!athleteData) return;
+            console.log('🏠 Updating athlete home screen');
             
-            // בדיקת אם מולא שאלון השבוע
-            const today = new Date();
-            const thisWeekStart = new Date(today.setDate(today.getDate() - today.getDay()));
-            const lastAssessment = athleteData.assessments?.slice(-1)[0];
-            const needsAssessment = !lastAssessment || 
-                new Date(lastAssessment.date) < thisWeekStart;
-            
-            // הצגת התראה לשאלון אם נדרש
-            const alertContainer = document.getElementById('weeklyAssessmentAlert');
-            if (alertContainer) {
-                if (needsAssessment) {
-                    alertContainer.innerHTML = `
-                        <div class="alert alert-info">
-                            <span>📋 <strong>זמן לשאלון השבועי!</strong> מילוי השאלון יעזור לנו לעקוב אחריך טוב יותר.</span>
-                            <button class="btn btn-primary" onclick="showScreen('weeklyAssessment')" style="margin-top: 12px; font-size: 14px; padding: 8px 16px;">מלא שאלון עכשיו</button>
-                        </div>
-                    `;
-                } else {
-                    alertContainer.innerHTML = '';
+            try {
+                const athleteData = appData.athletes[currentUser.name];
+                if (!athleteData) {
+                    console.error('❌ No athlete data found for:', currentUser.name);
+                    return;
                 }
+                
+                // בדיקת אם מולא שאלון השבוע
+                const today = new Date();
+                const thisWeekStart = new Date(today.setDate(today.getDate() - today.getDay()));
+                const lastAssessment = athleteData.assessments?.slice(-1)[0];
+                const needsAssessment = !lastAssessment || 
+                    new Date(lastAssessment.date) < thisWeekStart;
+                
+                // הצגת התראה לשאלון אם נדרש
+                const alertContainer = document.getElementById('weeklyAssessmentAlert');
+                if (alertContainer) {
+                    if (needsAssessment) {
+                        alertContainer.innerHTML = `
+                            <div class="alert alert-info">
+                                <span>📋 <strong>זמן לשאלון השבועי!</strong> מילוי השאלון יעזור לנו לעקוב אחריך טוב יותר.</span>
+                                <button class="btn btn-primary" onclick="showScreen('weeklyAssessment')" style="margin-top: 12px; font-size: 14px; padding: 8px 16px;">מלא שאלון עכשיו</button>
+                            </div>
+                        `;
+                    } else {
+                        alertContainer.innerHTML = '';
+                    }
+                }
+                
+                // עדכון משקל נוכחי
+                const currentWeightEl = document.getElementById('currentWeight');
+                if (currentWeightEl && athleteData.weights && athleteData.weights.length > 0) {
+                    const latestWeight = athleteData.weights[athleteData.weights.length - 1];
+                    currentWeightEl.textContent = latestWeight.weight;
+                }
+                
+                // עדכון יעד קטגוריה
+                const targetWeightEl = document.getElementById('targetWeight');
+                if (targetWeightEl && athleteData.profile) {
+                    targetWeightEl.textContent = athleteData.profile.targetWeight;
+                }
+                
+                // עדכון התקדמות
+                updateProgress(athleteData);
+                
+                // עדכון התראת סטטוס משקל
+                updateWeightStatusAlert(athleteData);
+                
+                // עדכון משימות יומיות
+                if (athleteData.tasks) {
+                    updateDailyTasks(athleteData.tasks);
+                }
+                
+                console.log('✅ Athlete home updated successfully');
+                
+            } catch (error) {
+                console.error('❌ Error updating athlete home:', error);
             }
-            
-            // עדכון משקל נוכחי
-            const currentWeightEl = document.getElementById('currentWeight');
-            if (currentWeightEl && athleteData.weights.length > 0) {
-                const latestWeight = athleteData.weights[athleteData.weights.length - 1];
-                currentWeightEl.textContent = latestWeight.weight;
-            }
-            
-            // עדכון יעד קטגוריה
-            const targetWeightEl = document.getElementById('targetWeight');
-            if (targetWeightEl) {
-                targetWeightEl.textContent = athleteData.profile.targetWeight;
-            }
-            
-            // עדכון התקדמות
-            updateProgress(athleteData);
-            
-            // עדכון התראת סטטוס משקל
-            updateWeightStatusAlert(athleteData);
-            
-            // עדכון משימות יומיות
-            updateDailyTasks(athleteData.tasks);
         }
 
         function updateProgress(athleteData) {
@@ -1511,21 +1525,39 @@
         function loadWeeklyAssessment() {
             console.log('📋 Loading weekly assessment');
             
-            // הצגת מסך ההקדמה
-            const intro = document.getElementById('assessmentIntro');
-            const content = document.getElementById('assessmentContent');
-            
-            if (intro && content) {
-                intro.style.display = 'block';
-                content.style.display = 'none';
+            try {
+                // בדיקה שהשאלונים קיימים
+                if (!weeklyQuestions || weeklyQuestions.length === 0) {
+                    console.error('❌ No questions available');
+                    alert('אין שאלונים זמינים. אנא רענן את הדף.');
+                    return;
+                }
+                
+                // הצגת מסך ההקדמה
+                const intro = document.getElementById('assessmentIntro');
+                const content = document.getElementById('assessmentContent');
+                
+                if (intro && content) {
+                    intro.style.display = 'block';
+                    content.style.display = 'none';
+                    console.log('✅ Assessment intro displayed');
+                } else {
+                    console.error('❌ Assessment elements not found');
+                }
+                
+                // איפוס השאלון
+                currentAssessment = {
+                    currentQuestion: 0,
+                    answers: {},
+                    isCompleted: false
+                };
+                
+                console.log('✅ Assessment initialized');
+                
+            } catch (error) {
+                console.error('❌ Error loading weekly assessment:', error);
+                alert('שגיאה בטעינת השאלון. אנא נסה שוב.');
             }
-            
-            // איפוס השאלון
-            currentAssessment = {
-                currentQuestion: 0,
-                answers: {},
-                isCompleted: false
-            };
         }
 
         function startAssessment() {
@@ -1647,7 +1679,7 @@
                                          question.scale.labels[labelIndex] : i;
                             scaleButtons.push(`
                                 <button type="button" class="scale-btn ${currentAssessment.answers[question.id] === i ? 'active' : ''}" 
-                                        onclick="selectScale(${question.id}, ${i})">
+                                        onclick="window.selectScale(${question.id}, ${i})">
                                     <div class="scale-number">${i}</div>
                                     <div class="scale-label">${label}</div>
                                 </button>
@@ -1843,22 +1875,32 @@
         }
 
         function selectScale(questionId, value) {
-            currentAssessment.answers[questionId] = value;
+            console.log('🎯 Scale selected:', questionId, value);
             
-            // עדכון עיצוב הכפתורים
-            document.querySelectorAll('.scale-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // מציאת הכפתור שנלחץ והוספת מחלקה פעילה
-            document.querySelectorAll('.scale-btn').forEach(btn => {
-                const btnText = btn.textContent || btn.innerText;
-                if (btnText.includes(value.toString())) {
-                    btn.classList.add('active');
-                }
-            });
-            
-            updateAssessmentButtons();
+            try {
+                // שמירת התשובה
+                currentAssessment.answers[questionId] = value;
+                
+                // עדכון עיצוב הכפתורים
+                document.querySelectorAll('.scale-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // מציאת והדגשת הכפתור שנבחר
+                document.querySelectorAll('.scale-btn').forEach(btn => {
+                    const numberElement = btn.querySelector('.scale-number');
+                    if (numberElement && parseInt(numberElement.textContent) === value) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // עדכון כפתורי הניווטיציה
+                updateAssessmentButtons();
+                
+                console.log('✅ Scale selection completed');
+            } catch (error) {
+                console.error('❌ Error in selectScale:', error);
+            }
         }
 
         function updateAssessmentProgress() {
@@ -2059,50 +2101,65 @@
 
         function initializeApp() {
             console.log('🚀 Initializing JudoNutrition App...');
+            console.log('📊 Questions loaded:', weeklyQuestions ? weeklyQuestions.length : 'undefined');
             
-            // טעינת נתונים שמורים
-            const savedRole = localStorage.getItem('userRole');
-            const savedAthleteData = loadData('athleteData');
-            
-            if (savedAthleteData) {
-                appData.athletes = savedAthleteData;
-            }
-            
-            // אם יש תפקיד שמור, הצגת המסך המתאים
-            if (savedRole) {
-                console.log('📱 Restoring saved role:', savedRole);
-                currentUser.role = savedRole;
-                
-                if (savedRole === 'athlete') {
-                    currentUser.name = "דני כהן";
-                    initializeAthleteData();
-                    // טעינת המגדר מהנתונים השמורים
-                    const athleteData = appData.athletes[currentUser.name];
-                    if (athleteData && athleteData.profile.gender) {
-                        currentUser.gender = athleteData.profile.gender;
-                    }
-                    showScreen('athleteHome');
-                } else if (savedRole === 'nutritionist') {
-                    currentUser.name = "ד״ר שרה כהן";
-                    initializeNutritionistData();
-                    showScreen('nutritionistDashboard');
+            try {
+                // בדיקת תקינות השאלונים
+                if (!weeklyQuestions || !Array.isArray(weeklyQuestions)) {
+                    console.error('❌ Weekly questions not loaded properly');
+                    alert('שגיאה בטעינת השאלונים. אנא רענן את הדף.');
+                    return;
                 }
-            } else {
-                console.log('👋 Showing welcome screen');
-                showScreen('welcome');
-            }
-            
-            // הוספת event listener לשדה צ'אט
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) {
-                chatInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        sendChatMessage();
+                
+                // טעינת נתונים שמורים
+                const savedRole = localStorage.getItem('userRole');
+                const savedAthleteData = loadData('athleteData');
+                
+                if (savedAthleteData) {
+                    appData.athletes = savedAthleteData;
+                    console.log('📱 Loaded saved athlete data');
+                }
+                
+                // אם יש תפקיד שמור, הצגת המסך המתאים
+                if (savedRole) {
+                    console.log('📱 Restoring saved role:', savedRole);
+                    currentUser.role = savedRole;
+                    
+                    if (savedRole === 'athlete') {
+                        currentUser.name = "דני כהן";
+                        initializeAthleteData();
+                        // טעינת המגדר מהנתונים השמורים
+                        const athleteData = appData.athletes[currentUser.name];
+                        if (athleteData && athleteData.profile && athleteData.profile.gender) {
+                            currentUser.gender = athleteData.profile.gender;
+                        }
+                        showScreen('athleteHome');
+                    } else if (savedRole === 'nutritionist') {
+                        currentUser.name = "ד״ר שרה כהן";
+                        initializeNutritionistData();
+                        showScreen('nutritionistDashboard');
                     }
-                });
+                } else {
+                    console.log('👋 Showing welcome screen');
+                    showScreen('welcome');
+                }
+                
+                // הוספת event listener לשדה צ'אט
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendChatMessage();
+                        }
+                    });
+                }
+                
+                console.log('✅ JudoNutrition App initialized successfully!');
+                
+            } catch (error) {
+                console.error('❌ Critical error during app initialization:', error);
+                alert('שגיאה קריטית באתחול האפליקציה. אנא רענן את הדף או צור קשר עם התמיכה.');
             }
-            
-            console.log('✅ JudoNutrition App initialized successfully!');
         }
 
         // התחלת האפליקציה
@@ -2120,6 +2177,19 @@
         });
 
         // Export functions for global access
+        window.showScreen = showScreen;
+        window.selectRole = selectRole;
+        window.exitToWelcome = exitToWelcome;
+        window.nextQuestion = nextQuestion;
+        window.prevQuestion = prevQuestion;
+        window.submitWeight = submitWeight;
+        window.sendChatMessage = sendChatMessage;
+        window.toggleFreeText = toggleFreeText;
+        window.startAssessment = startAssessment;
+        window.selectScale = selectScale;
+        window.quickWeightEntry = quickWeightEntry;
+        window.quickUpdateWater = quickUpdateWater;
+
         window.JudoApp = {
             showScreen,
             selectRole,

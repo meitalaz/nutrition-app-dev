@@ -530,6 +530,26 @@
             margin-left: 12px;
         }
 
+        .answer-option input[type="checkbox"] {
+            margin-left: 12px;
+        }
+
+        /* Custom styling for assessment form elements */
+        .assessment-question .form-input {
+            border: 2px solid var(--gray-300);
+            transition: border-color 0.2s ease;
+        }
+
+        .assessment-question .form-input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        .assessment-question textarea.form-input {
+            font-family: var(--font-family);
+            line-height: 1.4;
+        }
+
         /* Assessment Progress */
         .assessment-progress {
             margin-bottom: 20px;
@@ -721,13 +741,13 @@
         <div id="weeklyAssessment" class="screen hidden">
             <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title">הערכה שבועית</div>
-                <div class="screen-subtitle">שאלה <span id="currentQuestionNum">1</span> מתוך <span id="totalQuestions">5</span></div>
+                <div class="screen-title">הערכה שבועית מורחבת</div>
+                <div class="screen-subtitle">שאלה 1 מתוך 14</div>
             </div>
             
-            <div class="assessment-progress">
+                            <div class="assessment-progress">
                 <div class="assessment-progress-bar">
-                    <div class="assessment-progress-fill" id="assessmentProgress" style="width: 20%;"></div>
+                    <div class="assessment-progress-fill" id="assessmentProgress" style="width: 7.14%;"></div>
                 </div>
             </div>
             
@@ -775,6 +795,9 @@
                     <span>שרה לא מילאה הערכה שבועית (3 ימים)</span>
                 </div>
             </div>
+            
+            <!-- נתונים סטטיסטיים נוספים -->
+            <div id="nutritionistStats"></div>
             
             <button class="btn btn-primary nav-btn" data-screen="athletesList">
                 📋 רשימת ספורטאים
@@ -872,8 +895,8 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" class="form-input" placeholder="הקלד הודעה..." style="margin: 0;">
-                    <button class="btn btn-primary" style="width: auto; margin: 0; padding: 16px;">שלח</button>
+                    <input type="text" id="nutritionistChatInput" class="form-input" placeholder="הקלד הודעה..." style="margin: 0;">
+                    <button class="btn btn-primary" id="nutritionistSendBtn" style="width: auto; margin: 0; padding: 16px;">שלח</button>
                 </div>
             </div>
             
@@ -907,8 +930,8 @@
                     </div>
                 </div>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" class="form-input" placeholder="הקלד הודעה..." style="margin: 0;">
-                    <button class="btn btn-primary" style="width: auto; margin: 0; padding: 16px;">שלח</button>
+                    <input type="text" id="athleteChatInput" class="form-input" placeholder="הקלד הודעה..." style="margin: 0;">
+                    <button class="btn btn-primary" id="athleteSendBtn" style="width: auto; margin: 0; padding: 16px;">שלח</button>
                 </div>
             </div>
             
@@ -956,10 +979,32 @@
             currentScreen: 'welcome'
         };
 
-        // שאלון הערכה שבועית
+        // שאלון הערכה שבועית מורחב (12 שאלות)
         const weeklyQuestions = [
             {
                 id: 1,
+                text: "כמה שעות ישנת בממוצע בלילה השבוע?",
+                options: [
+                    { value: 5, text: "8+ שעות - השינה הייתה מעולה" },
+                    { value: 4, text: "7-8 שעות - שינה טובה" },
+                    { value: 3, text: "6-7 שעות - שינה סבירה" },
+                    { value: 2, text: "5-6 שעות - שינה לא מספקת" },
+                    { value: 1, text: "פחות מ-5 שעות - שינה גרועה" }
+                ]
+            },
+            {
+                id: 2,
+                text: "איך התיאבון שלך השבוע?",
+                options: [
+                    { value: 5, text: "מעולה - תיאבון טוב ונהנה מהאוכל" },
+                    { value: 4, text: "טוב - תיאבון רגיל" },
+                    { value: 3, text: "סביר - לפעמים פחות תיאבון" },
+                    { value: 2, text: "לא טוב - תיאבון ירד משמעותי" },
+                    { value: 1, text: "גרוע - כמעט אין תיאבון" }
+                ]
+            },
+            {
+                id: 3,
                 text: "איך הרגשת באימונים השבוע?",
                 options: [
                     { value: 5, text: "מעולה - מלא אנרגיה וכוח" },
@@ -970,47 +1015,102 @@
                 ]
             },
             {
-                id: 2,
-                text: "איך השינה שלך השבוע?",
-                options: [
-                    { value: 5, text: "מעולה - ישן 8+ שעות בלילה" },
-                    { value: 4, text: "טוב - ישן 7-8 שעות" },
-                    { value: 3, text: "סביר - ישן 6-7 שעות" },
-                    { value: 2, text: "לא טוב - ישן פחות מ-6 שעות" },
-                    { value: 1, text: "גרוע - קושי להירדם או שינה קטועה" }
-                ]
-            },
-            {
-                id: 3,
-                text: "איך התיאבון שלך השבוע?",
-                options: [
-                    { value: 5, text: "מעולה - תיאבון טוב ונהנה מהאוכל" },
-                    { value: 4, text: "טוב - תיאבון רגיל" },
-                    { value: 3, text: "סביר - לפעמים פחות תיאבון" },
-                    { value: 2, text: "לא טוב - תיאבון ירד" },
-                    { value: 1, text: "גרוע - כמעט אין תיאבון" }
-                ]
-            },
-            {
                 id: 4,
-                text: "איך הרגשת מבחינה נפשית השבוע?",
+                text: "כמה ליטר מים שתית בממוצע ביום השבוע?",
                 options: [
-                    { value: 5, text: "מעולה - מוטיבציה גבוהה ואופטימי" },
-                    { value: 4, text: "טוב - במצב רוח חיובי" },
-                    { value: 3, text: "סביר - מצב רוח ממוצע" },
-                    { value: 2, text: "לא טוב - קצת מדוכא או לחוץ" },
-                    { value: 1, text: "גרוע - מצב רוח נמוך או חרדה" }
+                    { value: 5, text: "3+ ליטר ביום" },
+                    { value: 4, text: "2.5-3 ליטר ביום" },
+                    { value: 3, text: "2-2.5 ליטר ביום" },
+                    { value: 2, text: "1.5-2 ליטר ביום" },
+                    { value: 1, text: "פחות מ-1.5 ליטר ביום" }
                 ]
             },
             {
                 id: 5,
-                text: "יש פציעות או כאבים השבוע?",
+                text: "איך היה הרעב שלך השבוע?",
                 options: [
-                    { value: 5, text: "לא - הכל תקין" },
-                    { value: 4, text: "כאבי שרירים קלים" },
+                    { value: 5, text: "מאוזן - רעב רגיל בזמנים הנכונים" },
+                    { value: 4, text: "טוב - רעב קל לפני הארוחות" },
+                    { value: 3, text: "סביר - לפעמים רעב חזק" },
+                    { value: 2, text: "בעייתי - רעב חזק מדי או חוסר רעב" },
+                    { value: 1, text: "קיצוני - רעב חזק מאוד או אובדן רעב" }
+                ]
+            },
+            {
+                id: 6,
+                text: "איך הרגשת מבחינה נפשית/מנטלית השבוע?",
+                options: [
+                    { value: 5, text: "מעולה - מוטיבציה גבוהה ומצב רוח חיובי" },
+                    { value: 4, text: "טוב - במצב רוח טוב ומאוזן" },
+                    { value: 3, text: "סביר - מצב רוח ממוצע" },
+                    { value: 2, text: "לא טוב - עצבנות או דיכאון קל" },
+                    { value: 1, text: "גרוע - דיכאון, חרדה או מצב רוח נמוך" }
+                ]
+            },
+            {
+                id: 7,
+                text: "יש פציעות, כאבים או אי נוחות השבוע?",
+                options: [
+                    { value: 5, text: "לא - הכל תקין ללא כאבים" },
+                    { value: 4, text: "כאבי שרירים קלים לאחר אימון" },
                     { value: 3, text: "כאב קל באזור ספציפי" },
-                    { value: 2, text: "כאב בינוני שמפריע קצת" },
-                    { value: 1, text: "כאב או פציעה שמפריעים לאימון" }
+                    { value: 2, text: "כאב בינוני שמפריע קצת לפעילות" },
+                    { value: 1, text: "כאב חזק או פציעה המפריעים לאימון" }
+                ]
+            },
+            {
+                id: 8,
+                text: "מה המחזור החודשי שלך? (נשים בלבד)",
+                options: [
+                    { value: 5, text: "סדיר וללא בעיות" },
+                    { value: 4, text: "סדיר עם תסמינים קלים" },
+                    { value: 3, text: "קצת לא סדיר או תסמינים בינוניים" },
+                    { value: 2, text: "לא סדיר או תסמינים קשים" },
+                    { value: 1, text: "אין מחזור / בעיות משמעותיות" }
+                ]
+            },
+            {
+                id: 9,
+                text: "אילו תוספי תזונה נטלת השבוע?",
+                options: [
+                    { value: 5, text: "רק את מה שהומלץ לי" },
+                    { value: 4, text: "ויטמינים בסיסיים + המלצות" },
+                    { value: 3, text: "תוספים נוספים מעבר להמלצות" },
+                    { value: 2, text: "שכחתי לקחת חלק מהתוספים" },
+                    { value: 1, text: "לא לקחתי תוספים כלל השבוע" }
+                ]
+            },
+            {
+                id: 10,
+                text: "האם היו לך חריגות תזונתיות השבוע?",
+                options: [
+                    { value: 5, text: "לא - עקבתי אחר התוכנית במדויק" },
+                    { value: 4, text: "חריגה קלה - אירוע אחד בלבד" },
+                    { value: 3, text: "כמה חריגות קטנות" },
+                    { value: 2, text: "חריגות משמעותיות - יום שלם" },
+                    { value: 1, text: "חריגות גדולות - מספר ימים" }
+                ]
+            },
+            {
+                id: 11,
+                text: "איך האנרגיה שלך במהלך היום השבוע?",
+                options: [
+                    { value: 5, text: "מעולה - אנרגיה יציבה כל היום" },
+                    { value: 4, text: "טוב - אנרגיה טובה עם ירידה קלה אחה״צ" },
+                    { value: 3, text: "סביר - עליות וירידות באנרגיה" },
+                    { value: 2, text: "לא טוב - עייפות בחלקים גדולים של היום" },
+                    { value: 1, text: "גרוע - עייפות קיצונית רוב היום" }
+                ]
+            },
+            {
+                id: 12,
+                text: "בסך הכל, איך אתה מרגיש השבוע ביחס לשבוע שעבר?",
+                options: [
+                    { value: 5, text: "הרבה יותר טוב - שיפור משמעותי" },
+                    { value: 4, text: "יותר טוב - שיפור קל" },
+                    { value: 3, text: "אותו דבר - ללא שינוי" },
+                    { value: 2, text: "יותר גרוע - הרגשה פחות טובה" },
+                    { value: 1, text: "הרבה יותר גרוע - הידרדרות משמעותי" }
                 ]
             }
         ];
@@ -1115,8 +1215,11 @@
                 case 'weightTracking':
                     updateWeightChart();
                     break;
-                case 'weeklyAssessment':
-                    loadWeeklyAssessment();
+                case 'chat':
+                    updateChatDisplay('chat');
+                    break;
+                case 'nutritionistChat':
+                    updateChatDisplay('nutritionistChat');
                     break;
             }
         }
@@ -1225,7 +1328,144 @@
             saveData('nutritionistData', appData.nutritionist);
         }
 
-        // ========== עדכון UI ==========
+        // ========== פונקציות צ'אט ==========
+
+        function initializeChat() {
+            // אתחול מערכת צ'אט
+            if (!appData.chat) {
+                appData.chat = {
+                    conversations: [
+                        {
+                            id: 1,
+                            participants: ["דני כהן", "ד״ר שרה כהן"],
+                            messages: [
+                                {
+                                    id: 1,
+                                    sender: "ד״ר שרה כהן",
+                                    message: "שלום דני! איך אתה מרגיש השבוע?",
+                                    timestamp: "2024-01-19T16:20:00",
+                                    read: true
+                                },
+                                {
+                                    id: 2,
+                                    sender: "דני כהן",
+                                    message: "שלום! טוב בסך הכל, קצת עייפות אחרי האימונים",
+                                    timestamp: "2024-01-19T18:45:00",
+                                    read: true
+                                },
+                                {
+                                    id: 3,
+                                    sender: "ד״ר שרה כהן",
+                                    message: "זה נורמלי לקראת תחרות. תמשיך עם התוכנית",
+                                    timestamp: "2024-01-20T09:15:00",
+                                    read: true
+                                }
+                            ]
+                        }
+                    ]
+                };
+                saveData('chatData', appData.chat);
+            }
+        }
+
+        function loadChatMessages() {
+            const savedChat = loadData('chatData');
+            if (savedChat) {
+                appData.chat = savedChat;
+            } else {
+                initializeChat();
+            }
+        }
+
+        function updateChatDisplay(screenId) {
+            loadChatMessages();
+            
+            const conversation = appData.chat.conversations[0]; // קשר ראשון לדוגמה
+            const messagesContainer = document.querySelector(`#${screenId} .chat-messages`);
+            
+            if (!messagesContainer || !conversation) return;
+            
+            const currentUserName = currentUser.name;
+            
+            messagesContainer.innerHTML = '';
+            
+            conversation.messages.forEach(msg => {
+                const messageEl = document.createElement('div');
+                messageEl.className = `message ${msg.sender === currentUserName ? 'sent' : 'received'}`;
+                
+                const time = new Date(msg.timestamp).toLocaleString('he-IL', {
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                messageEl.innerHTML = `
+                    <div>${msg.message}</div>
+                    <div class="message-time">${time}</div>
+                `;
+                
+                messagesContainer.appendChild(messageEl);
+            });
+            
+            // גלילה למטה
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function sendMessage(message, screenId) {
+            if (!message.trim()) return;
+            
+            loadChatMessages();
+            const conversation = appData.chat.conversations[0];
+            
+            const newMessage = {
+                id: conversation.messages.length + 1,
+                sender: currentUser.name,
+                message: message.trim(),
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+            
+            conversation.messages.push(newMessage);
+            saveData('chatData', appData.chat);
+            
+            // עדכון התצוגה
+            updateChatDisplay(screenId);
+            
+            // סימולציה של תגובה אוטומטית אחרי 2 שניות
+            setTimeout(() => {
+                simulateResponse(screenId);
+            }, 2000);
+        }
+
+        function simulateResponse(screenId) {
+            const responses = [
+                "תודה על העדכון! ממשיך לעקוב אחריך",
+                "נשמע טוב! תמיד אפשר ליצור קשר אם יש שאלות",
+                "המשך כך! האתה במסלול הנכון",
+                "אשמח לשמוע עוד פרטים בהמשך השבוע",
+                "זה חשוב לי לדעת איך אתה מרגיש. תודה!"
+            ];
+            
+            const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+            const otherUser = currentUser.role === 'athlete' ? 'ד״ר שרה כהן' : 'דני כהן';
+            
+            loadChatMessages();
+            const conversation = appData.chat.conversations[0];
+            
+            const responseMessage = {
+                id: conversation.messages.length + 1,
+                sender: otherUser,
+                message: randomResponse,
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+            
+            conversation.messages.push(responseMessage);
+            saveData('chatData', appData.chat);
+            
+            updateChatDisplay(screenId);
+        }
 
         function updateAthleteHome() {
             const athleteData = appData.athletes[currentUser.name];
@@ -1312,6 +1552,53 @@
             if (alertsCountEl) {
                 alertsCountEl.textContent = nutritionistData.alerts.length;
             }
+            
+            // הוספת נתונים סטטיסטיים נוספים
+            const statsContainer = document.getElementById('nutritionistStats');
+            if (statsContainer) {
+                // חישוב ממוצע ירידת משקל
+                const weightLossAvg = calculateAverageWeightLoss(nutritionistData.athletes);
+                
+                statsContainer.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">סטטיסטיקות שבועיות</div>
+                        <p><strong>ממוצע ירידת משקל:</strong> ${weightLossAvg} ק"ג לשבוע</p>
+                        <p><strong>ספורטאים שהגיעו ליעד:</strong> ${countAthletesAtTarget(nutritionistData.athletes)}</p>
+                        <p><strong>שיעור השלמת הערכות:</strong> ${calculateAssessmentRate()}%</p>
+                        <p><strong>תחרויות השבוע:</strong> ${countUpcomingCompetitions(nutritionistData.athletes)}</p>
+                    </div>
+                `;
+            }
+        }
+
+        function calculateAverageWeightLoss(athletes) {
+            // סימולציה של חישוב ממוצע ירידת משקל
+            let totalLoss = 0;
+            let count = 0;
+            
+            athletes.forEach(athlete => {
+                if (athlete.currentWeight < 75) { // רק ספורטאים שירדו במשקל
+                    totalLoss += (75 - athlete.currentWeight); // הנחה שהמשקל ההתחלתי היה 75
+                    count++;
+                }
+            });
+            
+            return count > 0 ? (totalLoss / count).toFixed(1) : '0.0';
+        }
+
+        function countAthletesAtTarget(athletes) {
+            return athletes.filter(athlete => 
+                Math.abs(athlete.currentWeight - athlete.targetWeight) <= 0.5
+            ).length;
+        }
+
+        function calculateAssessmentRate() {
+            // סימולציה של שיעור השלמת הערכות
+            return 85; // אחוז קבוע לדוגמה
+        }
+
+        function countUpcomingCompetitions(athletes) {
+            return athletes.filter(athlete => athlete.daysToCompetition <= 7).length;
         }
 
         function updateDailyTasks(tasks) {
@@ -1385,6 +1672,12 @@
             const container = document.getElementById('assessmentContainer');
             if (!container) return;
             
+            // וידוא שהכפתורים גלויים
+            const prevBtn = document.getElementById('prevQuestion');
+            const nextBtn = document.getElementById('nextQuestion');
+            if (prevBtn) prevBtn.style.display = 'flex';
+            if (nextBtn) nextBtn.style.display = 'flex';
+            
             // איפוס הערכה
             if (currentAssessment.currentQuestion === 0 && Object.keys(currentAssessment.answers).length === 0) {
                 currentAssessment.currentQuestion = 0;
@@ -1413,31 +1706,302 @@
             if (currentQuestionEl) currentQuestionEl.textContent = questionIndex + 1;
             if (totalQuestionsEl) totalQuestionsEl.textContent = weeklyQuestions.length;
             
-            // יצירת HTML של השאלה
-            const optionsHtml = question.options.map(option => `
-                <label class="answer-option">
-                    <input type="radio" name="question_${question.id}" value="${option.value}" 
-                           ${currentAssessment.answers[question.id] === option.value ? 'checked' : ''}>
-                    <span>${option.text}</span>
-                </label>
-            `).join('');
+            let questionHtml = '';
             
-            container.innerHTML = `
-                <div class="assessment-question">
-                    <div class="question-text">${question.text}</div>
-                    <div class="answer-options">
-                        ${optionsHtml}
-                    </div>
-                </div>
-            `;
+            // בניית השאלה לפי סוג
+            switch(question.type) {
+                case 'weight':
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">🧍‍♂️ ${question.text}</div>
+                            <div class="form-group">
+                                <input type="${question.inputType}" 
+                                       id="question_${question.id}" 
+                                       class="form-input" 
+                                       placeholder="${question.placeholder}" 
+                                       step="0.1" min="40" max="150"
+                                       value="${currentAssessment.answers[question.id] || ''}"
+                                       style="text-align: center; font-size: 18px; font-weight: 600;">
+                                <div style="text-align: center; margin-top: 8px; color: #666; font-weight: 500;">${question.unit}</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'time':
+                    const bedtime = currentAssessment.answers[question.id]?.bedtime || '';
+                    const waketime = currentAssessment.answers[question.id]?.waketime || '';
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">🕐 ${question.text}</div>
+                            <div class="form-group">
+                                <label class="form-label">${question.fields[0].label}</label>
+                                <input type="time" 
+                                       id="bedtime_${question.id}" 
+                                       class="form-input" 
+                                       value="${bedtime}">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">${question.fields[1].label}</label>
+                                <input type="time" 
+                                       id="waketime_${question.id}" 
+                                       class="form-input" 
+                                       value="${waketime}">
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'input':
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">💧 ${question.text}</div>
+                            <div class="form-group">
+                                <input type="${question.inputType}" 
+                                       id="question_${question.id}" 
+                                       class="form-input" 
+                                       placeholder="${question.placeholder}" 
+                                       step="${question.step || '1'}"
+                                       value="${currentAssessment.answers[question.id] || ''}"
+                                       style="text-align: center; font-size: 18px;">
+                                <div style="text-align: center; margin-top: 8px; color: #666; font-weight: 500;">${question.unit}</div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'checkbox':
+                    const selectedSupplements = currentAssessment.answers[question.id] || [];
+                    const supplementsHtml = question.options.map(option => {
+                        const isChecked = selectedSupplements.includes(option.value);
+                        const inputHtml = option.hasInput ? `
+                            <input type="text" 
+                                   id="supplement_other_${option.value}" 
+                                   class="form-input" 
+                                   placeholder="${option.placeholder || 'פרט...'}" 
+                                   style="margin-top: 8px; font-size: 14px;"
+                                   value="${currentAssessment.answers[`${question.id}_${option.value}_text`] || ''}">
+                        ` : '';
+                        
+                        return `
+                            <label class="answer-option" style="flex-direction: column; align-items: flex-start;">
+                                <div style="display: flex; align-items: center; width: 100%;">
+                                    <input type="checkbox" 
+                                           name="question_${question.id}" 
+                                           value="${option.value}" 
+                                           ${isChecked ? 'checked' : ''}
+                                           style="margin-left: 12px;">
+                                    <span>${option.text}</span>
+                                </div>
+                                ${inputHtml}
+                            </label>
+                        `;
+                    }).join('');
+                    
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">💊 ${question.text}</div>
+                            <div class="answer-options">
+                                ${supplementsHtml}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'conditional':
+                    const conditionValue = currentAssessment.answers[question.id] || '';
+                    const followUpHtml = (question.followUp && conditionValue === question.followUp.trigger) ? `
+                        <div class="form-group" style="margin-top: 16px;">
+                            <label class="form-label">${question.followUp.question}</label>
+                            <input type="text" 
+                                   id="followup_${question.id}" 
+                                   class="form-input" 
+                                   placeholder="${question.followUp.placeholder}"
+                                   value="${currentAssessment.answers[`${question.id}_followup`] || ''}">
+                        </div>
+                    ` : '';
+                    
+                    const optionsHtml = question.options.map(option => `
+                        <label class="answer-option">
+                            <input type="radio" 
+                                   name="question_${question.id}" 
+                                   value="${option.value}" 
+                                   ${conditionValue === option.value ? 'checked' : ''}
+                                   style="margin-left: 12px;">
+                            <span>${option.text}</span>
+                        </label>
+                    `).join('');
+                    
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">🌸 ${question.text}</div>
+                            <div class="answer-options">
+                                ${optionsHtml}
+                            </div>
+                            ${followUpHtml}
+                        </div>
+                    `;
+                    break;
+                    
+                case 'textarea':
+                    const icon = question.id === 12 ? '🍽️' : '💭';
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">${icon} ${question.text}</div>
+                            <div class="form-group">
+                                <textarea id="question_${question.id}" 
+                                          class="form-input" 
+                                          placeholder="${question.placeholder}" 
+                                          rows="${question.rows}"
+                                          style="min-height: ${question.rows * 24}px; resize: vertical;">${currentAssessment.answers[question.id] || ''}</textarea>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    // שאלות רגילות עם אפשרויות
+                    const optionsHtml = question.options.map(option => `
+                        <label class="answer-option">
+                            <input type="radio" 
+                                   name="question_${question.id}" 
+                                   value="${option.value}" 
+                                   ${currentAssessment.answers[question.id] === option.value ? 'checked' : ''}
+                                   style="margin-left: 12px;">
+                            <span>${option.text}</span>
+                        </label>
+                    `).join('');
+                    
+                    const questionIcon = getQuestionIcon(question.id);
+                    questionHtml = `
+                        <div class="assessment-question">
+                            <div class="question-text">${questionIcon} ${question.text}</div>
+                            <div class="answer-options">
+                                ${optionsHtml}
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
             
-            // הוספת event listeners לתשובות
-            container.querySelectorAll('input[type="radio"]').forEach(input => {
-                input.addEventListener('change', function() {
-                    currentAssessment.answers[question.id] = parseInt(this.value);
-                    updateAssessmentButtons();
-                });
-            });
+            container.innerHTML = questionHtml;
+            
+            // הוספת event listeners
+            addQuestionEventListeners(question);
+        }
+
+        function getQuestionIcon(questionId) {
+            const icons = {
+                1: '😴', 2: '🌙', 3: '⏰', 4: '🍽️', 5: '💧', 
+                6: '💊', 7: '🌸', 8: '🏥', 9: '😊', 10: '⚡', 11: '🔄'
+            };
+            return icons[questionId] || '📝';
+        }
+
+        function addQuestionEventListeners(question) {
+            switch(question.type) {
+                case 'weight':
+                case 'input':
+                    const input = document.getElementById(`question_${question.id}`);
+                    if (input) {
+                        input.addEventListener('input', function() {
+                            currentAssessment.answers[question.id] = this.value;
+                            updateAssessmentButtons();
+                        });
+                    }
+                    break;
+                    
+                case 'time':
+                    const bedtimeInput = document.getElementById(`bedtime_${question.id}`);
+                    const waketimeInput = document.getElementById(`waketime_${question.id}`);
+                    
+                    [bedtimeInput, waketimeInput].forEach(input => {
+                        if (input) {
+                            input.addEventListener('change', function() {
+                                if (!currentAssessment.answers[question.id]) {
+                                    currentAssessment.answers[question.id] = {};
+                                }
+                                currentAssessment.answers[question.id][this.id.includes('bedtime') ? 'bedtime' : 'waketime'] = this.value;
+                                updateAssessmentButtons();
+                            });
+                        }
+                    });
+                    break;
+                    
+                case 'checkbox':
+                    const checkboxes = document.querySelectorAll(`input[name="question_${question.id}"]`);
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', function() {
+                            if (!currentAssessment.answers[question.id]) {
+                                currentAssessment.answers[question.id] = [];
+                            }
+                            
+                            if (this.checked) {
+                                if (!currentAssessment.answers[question.id].includes(this.value)) {
+                                    currentAssessment.answers[question.id].push(this.value);
+                                }
+                            } else {
+                                currentAssessment.answers[question.id] = currentAssessment.answers[question.id].filter(v => v !== this.value);
+                            }
+                            
+                            updateAssessmentButtons();
+                        });
+                    });
+                    
+                    // Event listeners לשדות טקסט נוספים
+                    question.options.forEach(option => {
+                        if (option.hasInput) {
+                            const textInput = document.getElementById(`supplement_other_${option.value}`);
+                            if (textInput) {
+                                textInput.addEventListener('input', function() {
+                                    currentAssessment.answers[`${question.id}_${option.value}_text`] = this.value;
+                                });
+                            }
+                        }
+                    });
+                    break;
+                    
+                case 'conditional':
+                    const radioInputs = document.querySelectorAll(`input[name="question_${question.id}"]`);
+                    radioInputs.forEach(radio => {
+                        radio.addEventListener('change', function() {
+                            currentAssessment.answers[question.id] = this.value;
+                            updateAssessmentButtons();
+                            
+                            // רענון השאלה כדי להציג/להסתיר שאלת המשך
+                            setTimeout(() => displayCurrentQuestion(), 100);
+                        });
+                    });
+                    
+                    const followUpInput = document.getElementById(`followup_${question.id}`);
+                    if (followUpInput) {
+                        followUpInput.addEventListener('input', function() {
+                            currentAssessment.answers[`${question.id}_followup`] = this.value;
+                        });
+                    }
+                    break;
+                    
+                case 'textarea':
+                    const textarea = document.getElementById(`question_${question.id}`);
+                    if (textarea) {
+                        textarea.addEventListener('input', function() {
+                            currentAssessment.answers[question.id] = this.value;
+                            updateAssessmentButtons();
+                        });
+                    }
+                    break;
+                    
+                default:
+                    // שאלות רגילות
+                    const inputs = document.querySelectorAll(`input[name="question_${question.id}"]`);
+                    inputs.forEach(input => {
+                        input.addEventListener('change', function() {
+                            currentAssessment.answers[question.id] = parseInt(this.value);
+                            updateAssessmentButtons();
+                        });
+                    });
+                    break;
+            }
         }
 
         function updateAssessmentProgress() {
@@ -1445,7 +2009,7 @@
             if (!progressEl) return;
             
             const progress = ((currentAssessment.currentQuestion + 1) / weeklyQuestions.length) * 100;
-            progressEl.style.width = progress + '%';
+            progressEl.style.width = Math.round(progress) + '%';
         }
 
         function updateAssessmentButtons() {
@@ -1457,15 +2021,53 @@
             // כפתור קודם
             prevBtn.disabled = currentAssessment.currentQuestion === 0;
             
-            // כפתור הבא
+            // בדיקה אם השאלה הנוכחית נענתה
             const currentQuestion = weeklyQuestions[currentAssessment.currentQuestion];
-            const hasAnswer = currentAssessment.answers[currentQuestion.id] !== undefined;
+            let hasAnswer = false;
             
+            switch(currentQuestion.type) {
+                case 'weight':
+                case 'input':
+                    hasAnswer = currentAssessment.answers[currentQuestion.id] && 
+                               currentAssessment.answers[currentQuestion.id].toString().trim() !== '';
+                    break;
+                    
+                case 'time':
+                    hasAnswer = currentAssessment.answers[currentQuestion.id] &&
+                               currentAssessment.answers[currentQuestion.id].bedtime &&
+                               currentAssessment.answers[currentQuestion.id].waketime;
+                    break;
+                    
+                case 'checkbox':
+                    hasAnswer = currentAssessment.answers[currentQuestion.id] && 
+                               currentAssessment.answers[currentQuestion.id].length > 0;
+                    break;
+                    
+                case 'conditional':
+                    hasAnswer = currentAssessment.answers[currentQuestion.id] !== undefined;
+                    break;
+                    
+                case 'textarea':
+                    // שאלות אופציונליות
+                    if (currentQuestion.optional) {
+                        hasAnswer = true;
+                    } else {
+                        hasAnswer = currentAssessment.answers[currentQuestion.id] && 
+                                   currentAssessment.answers[currentQuestion.id].trim() !== '';
+                    }
+                    break;
+                    
+                default:
+                    hasAnswer = currentAssessment.answers[currentQuestion.id] !== undefined;
+                    break;
+            }
+            
+            // כפתור הבא
             if (currentAssessment.currentQuestion === weeklyQuestions.length - 1) {
-                nextBtn.textContent = hasAnswer ? 'סיום' : 'סיום';
+                nextBtn.textContent = 'סיום השאלון 🎉';
                 nextBtn.disabled = !hasAnswer;
             } else {
-                nextBtn.textContent = 'הבאה';
+                nextBtn.textContent = 'הבאה ←';
                 nextBtn.disabled = !hasAnswer;
             }
         }
@@ -1495,10 +2097,24 @@
             // שמירת ההערכה
             const athleteData = appData.athletes[currentUser.name];
             if (athleteData) {
-                athleteData.assessments.push({
+                const assessmentData = {
                     date: new Date().toISOString().split('T')[0],
-                    answers: { ...currentAssessment.answers }
-                });
+                    answers: { ...currentAssessment.answers },
+                    completed_at: new Date().toISOString()
+                };
+                
+                athleteData.assessments.push(assessmentData);
+                
+                // אם יש משקל בהערכה, להוסיף גם לרשימת המשקלים
+                if (currentAssessment.answers[0]) {
+                    const weightEntry = {
+                        date: new Date().toISOString().split('T')[0],
+                        weight: parseFloat(currentAssessment.answers[0]),
+                        timing: "הערכה שבועית",
+                        notes: "נמדד במסגרת הערכה שבועית"
+                    };
+                    athleteData.weights.push(weightEntry);
+                }
                 
                 // עדכון המשימה כהושלמה
                 const assessmentTask = athleteData.tasks.find(t => t.name.includes('הערכה שבועית'));
@@ -1509,17 +2125,112 @@
                 saveData('athleteData', appData.athletes);
             }
             
-            alert('🎉 ההערכה השבועית נשמרה בהצלחה!');
+            // הצגת סיכום השאלון
+            showAssessmentSummary();
+        }
+
+        function showAssessmentSummary() {
+            const container = document.getElementById('assessmentContainer');
+            if (!container) return;
             
-            // איפוס השאלון
-            currentAssessment = {
-                currentQuestion: 0,
-                answers: {},
-                isCompleted: false
-            };
+            // יצירת סיכום מקצועי
+            const summaryHtml = `
+                <div style="text-align: center; padding: 40px 20px;">
+                    <div style="font-size: 48px; margin-bottom: 20px;">🎉</div>
+                    <h2 style="color: var(--primary-blue); margin-bottom: 16px;">השאלון הושלם בהצלחה!</h2>
+                    <p style="color: var(--gray-600); margin-bottom: 24px;">המידע שלך נשמר ויעזור לנו לעקוב אחרי התקדמותך ולהתאים לך ליווי אישי ומדויק.</p>
+                    
+                    <div class="card" style="margin: 24px 0; text-align: right;">
+                        <div class="card-header">סיכום מהיר</div>
+                        <div style="font-size: 14px; line-height: 1.6;">
+                            ${generateAssessmentSummary()}
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 12px; margin-top: 24px;">
+                        <button class="btn btn-primary nav-btn" data-screen="athleteHome" style="flex: 1;">
+                            🏠 חזרה לדף הבית
+                        </button>
+                        <button class="btn btn-secondary nav-btn" data-screen="chat" style="flex: 1;">
+                            💬 שתף עם המאמן
+                        </button>
+                    </div>
+                </div>
+            `;
             
-            // חזרה לדף הבית
-            showScreen('athleteHome');
+            container.innerHTML = summaryHtml;
+            
+            // הוספת event listeners לכפתורים החדשים
+            setTimeout(() => {
+                const navButtons = container.querySelectorAll('.nav-btn');
+                navButtons.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const screen = this.dataset.screen;
+                        showScreen(screen);
+                    });
+                });
+            }, 100);
+            
+            // הסתרת כפתורי הניווט
+            document.getElementById('prevQuestion').style.display = 'none';
+            document.getElementById('nextQuestion').style.display = 'none';
+            
+            // איפוס השאלון אחרי 5 שניות
+            setTimeout(() => {
+                currentAssessment = {
+                    currentQuestion: 0,
+                    answers: {},
+                    isCompleted: false
+                };
+            }, 5000);
+        }
+
+        function generateAssessmentSummary() {
+            const answers = currentAssessment.answers;
+            let summary = '';
+            
+            // משקל
+            if (answers[0]) {
+                summary += `• משקל הבוקר: ${answers[0]} ק"ג<br>`;
+            }
+            
+            // שעות שינה
+            if (answers[1]) {
+                const sleepTexts = {1: 'פחות מ-6', 2: '6-7', 3: '7-8', 4: 'יותר מ-8'};
+                summary += `• שעות שינה: ${sleepTexts[answers[1]]} שעות<br>`;
+            }
+            
+            // איכות שינה
+            if (answers[2]) {
+                summary += `• איכות שינה: ${answers[2]}/5<br>`;
+            }
+            
+            // מים
+            if (answers[5]) {
+                summary += `• צריכת מים: ${answers[5]} ליטר ביום<br>`;
+            }
+            
+            // תוספים
+            if (answers[6] && answers[6].length > 0) {
+                summary += `• תוספי תזונה: ${answers[6].length} סוגים<br>`;
+            }
+            
+            // מצב רוח
+            if (answers[9]) {
+                summary += `• מצב רוח: ${answers[9]}/5<br>`;
+            }
+            
+            // אנרגיה
+            if (answers[10]) {
+                summary += `• רמת אנרגיה: ${answers[10]}/5<br>`;
+            }
+            
+            if (summary === '') {
+                summary = 'תודה על מילוי השאלון!';
+            }
+            
+            return summary;
         }
 
         // ========== פונקציות עזר ==========
@@ -1619,6 +2330,9 @@
                 appData.nutritionist = savedNutritionistData;
             }
             
+            // אתחול צ'אט
+            initializeChat();
+            
             // אם יש תפקיד שמור, הצגת המסך המתאים
             if (savedRole) {
                 currentUser.role = savedRole;
@@ -1659,6 +2373,35 @@
                 }
                 if (e.target.id === 'prevQuestion') {
                     prevQuestion();
+                }
+                
+                // כפתורי צ'אט
+                if (e.target.id === 'athleteSendBtn') {
+                    const input = document.getElementById('athleteChatInput');
+                    if (input && input.value.trim()) {
+                        sendMessage(input.value, 'chat');
+                        input.value = '';
+                    }
+                }
+                
+                if (e.target.id === 'nutritionistSendBtn') {
+                    const input = document.getElementById('nutritionistChatInput');
+                    if (input && input.value.trim()) {
+                        sendMessage(input.value, 'nutritionistChat');
+                        input.value = '';
+                    }
+                }
+            });
+            
+            // Enter key בשדות צ'אט
+            document.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    if (e.target.id === 'athleteChatInput') {
+                        document.getElementById('athleteSendBtn').click();
+                    }
+                    if (e.target.id === 'nutritionistChatInput') {
+                        document.getElementById('nutritionistSendBtn').click();
+                    }
                 }
             });
             

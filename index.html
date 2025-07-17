@@ -76,41 +76,74 @@
             border-radius: 0 0 20px 20px;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .screen-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.2; }
         }
 
         .screen-title {
             font-size: 24px;
             font-weight: 700;
             margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
         }
 
         .screen-subtitle {
             font-size: 16px;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
-        /* Welcome Screen */
+        /* Enhanced Welcome Screen */
         .welcome-content {
             text-align: center;
             padding: 60px 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 20px;
+            margin: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .app-logo {
-            font-size: 48px;
+            font-size: 64px;
             margin-bottom: 20px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .welcome-title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
             color: var(--primary-blue);
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .welcome-subtitle {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--gray-500);
             margin-bottom: 40px;
+            line-height: 1.6;
         }
 
         .role-selection {
@@ -121,37 +154,43 @@
         }
 
         .role-btn {
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             border: 2px solid var(--primary-blue);
             color: var(--primary-blue);
-            padding: 20px;
-            border-radius: 16px;
-            font-size: 18px;
+            padding: 24px 20px;
+            border-radius: 20px;
+            font-size: 20px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         .role-btn:hover {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
             color: var(--white);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(26, 35, 126, 0.3);
         }
 
-        /* Registration Form */
+        /* Enhanced Registration Form */
         .registration-form {
             max-width: 350px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .form-label {
@@ -159,22 +198,25 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--gray-700);
+            font-size: 14px;
         }
 
         .form-input, .form-select {
             width: 100%;
             padding: 16px;
-            border: 1px solid var(--gray-300);
+            border: 2px solid var(--gray-200);
             border-radius: 12px;
             font-size: 16px;
             background: var(--white);
-            transition: border-color 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .form-input:focus, .form-select:focus {
             outline: none;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
+            transform: translateY(-2px);
         }
 
         /* Metric Cards */
@@ -192,6 +234,8 @@
             border-radius: 16px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .metric-value {
@@ -200,11 +244,15 @@
             line-height: 1;
             margin-bottom: 8px;
             font-family: 'Courier New', monospace;
+            position: relative;
+            z-index: 1;
         }
 
         .metric-label {
             font-size: 14px;
             opacity: 0.9;
+            position: relative;
+            z-index: 1;
         }
 
         /* Progress Bar */
@@ -233,27 +281,41 @@
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 12px;
             background: var(--gray-200);
-            border-radius: 4px;
+            border-radius: 6px;
             overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--success-green) 0%, var(--primary-teal) 100%);
-            border-radius: 4px;
+            border-radius: 6px;
             transition: width 0.5s ease;
+            position: relative;
         }
 
         /* Cards */
         .card {
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             border: 1px solid var(--gray-200);
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
         }
 
         .card-header {
@@ -265,22 +327,98 @@
             border-bottom: 1px solid var(--gray-100);
         }
 
-        /* Daily Tasks */
+        /* Task System */
+        .task-manager {
+            margin-bottom: 20px;
+        }
+
         .task-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--gray-100);
+            gap: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item.completed {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            border-color: var(--success-green);
+        }
+
+        .task-checkbox {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .task-checkbox.checked {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            color: var(--white);
+        }
+
+        .task-checkbox.checked::before {
+            content: '✓';
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .task-progress {
+            font-size: 12px;
+            color: var(--primary-blue);
             font-weight: 500;
         }
 
-        .task-item:last-child {
-            border-bottom: none;
+        .add-task-btn {
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--success-green) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
         }
 
-        .task-status {
-            font-size: 18px;
+        .add-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(38, 166, 154, 0.3);
         }
 
         /* Alerts */
@@ -293,28 +431,30 @@
             gap: 12px;
             font-weight: 500;
             border: 1px solid;
+            position: relative;
+            overflow: hidden;
         }
 
         .alert-success {
-            background: #e8f5e8;
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
             border-color: var(--success-green);
             color: #2e7d32;
         }
 
         .alert-warning {
-            background: #fff3e0;
+            background: linear-gradient(135deg, #fff3e0 0%, #ffeaa7 100%);
             border-color: var(--warning-orange);
             color: #e65100;
         }
 
         .alert-danger {
-            background: #ffebee;
+            background: linear-gradient(135deg, #ffebee 0%, #f8d7da 100%);
             border-color: var(--danger-red);
             color: #c62828;
         }
 
         .alert-info {
-            background: #e3f2fd;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
             border-color: var(--primary-blue);
             color: #1565c0;
         }
@@ -327,35 +467,38 @@
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             width: 100%;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            position: relative;
+            overflow: hidden;
         }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
             color: var(--white);
-            box-shadow: 0 2px 8px rgba(26, 35, 126, 0.2);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
         }
 
         .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
         }
 
         .btn-secondary {
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             color: var(--primary-blue);
-            border: 1px solid var(--gray-300);
+            border: 2px solid var(--gray-300);
         }
 
         .btn-secondary:hover {
             background: var(--gray-50);
             border-color: var(--primary-blue);
+            transform: translateY(-2px);
         }
 
         /* Exit Button */
@@ -371,6 +514,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: all 0.2s ease;
+            z-index: 10;
         }
 
         .exit-btn:hover {
@@ -407,7 +551,7 @@
         }
 
         .question-category {
-            background: var(--gray-100);
+            background: linear-gradient(135deg, var(--gray-100) 0%, #e2e8f0 100%);
             padding: 8px 16px;
             border-radius: 8px;
             margin-bottom: 16px;
@@ -426,12 +570,12 @@
         }
 
         .scale-btn {
-            background: var(--white);
-            border: 1px solid var(--gray-300);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border: 2px solid var(--gray-300);
             border-radius: 12px;
             padding: 12px 8px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             text-align: center;
             min-height: 80px;
             display: flex;
@@ -443,12 +587,15 @@
         .scale-btn:hover {
             border-color: var(--primary-blue);
             background: rgba(26, 35, 126, 0.05);
+            transform: translateY(-2px);
         }
 
         .scale-btn.active {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
             color: var(--white);
             border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
         }
 
         .scale-number {
@@ -569,18 +716,10 @@
             height: 200px;
             margin-bottom: 20px;
             position: relative;
-        }
-
-        .chart-placeholder {
-            height: 200px;
-            background: var(--gray-50);
-            border: 1px solid var(--gray-200);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-500);
-            font-weight: 500;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         /* Bottom Navigation */
@@ -592,12 +731,13 @@
             width: 400px;
             max-width: 100%;
             height: 70px;
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             border-top: 1px solid var(--gray-200);
             display: flex;
             align-items: center;
             justify-content: space-around;
             z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .bottom-nav.hidden {
@@ -608,23 +748,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 8px;
+            padding: 8px 12px;
             color: var(--gray-500);
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: color 0.2s ease;
+            transition: all 0.3s ease;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 12px;
+            min-width: 60px;
         }
 
         .nav-item.active {
             color: var(--primary-blue);
-            background: rgba(26, 35, 126, 0.1);
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.1) 0%, rgba(38, 166, 154, 0.1) 100%);
+            transform: translateY(-2px);
         }
 
         .nav-icon {
-            font-size: 20px;
+            font-size: 22px;
             margin-bottom: 4px;
         }
 
@@ -644,17 +786,18 @@
             padding: 12px 16px;
             border-radius: 12px;
             max-width: 80%;
+            position: relative;
         }
 
         .message.sent {
-            background: var(--primary-blue);
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
             color: var(--white);
             margin-right: auto;
             margin-left: 20%;
         }
 
         .message.received {
-            background: var(--white);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
             color: var(--gray-900);
             margin-left: auto;
             margin-right: 20%;
@@ -665,6 +808,33 @@
             font-size: 12px;
             opacity: 0.7;
             margin-top: 4px;
+        }
+
+        /* Task Modal */
+        .task-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .task-modal.hidden {
+            display: none;
+        }
+
+        .task-modal-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         /* Responsive */
@@ -753,6 +923,42 @@
             </form>
         </div>
 
+        <!-- Task Creation Modal -->
+        <div id="taskModal" class="task-modal hidden">
+            <div class="task-modal-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-blue);">הוספת משימה חדשה</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">שם המשימה</label>
+                    <input type="text" id="taskName" class="form-input" placeholder="לדוגמה: שתיית מים">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">תיאור (אופציונלי)</label>
+                    <input type="text" id="taskDescription" class="form-input" placeholder="פירוט נוסף...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">סוג המשימה</label>
+                    <select id="taskType" class="form-select">
+                        <option value="simple">משימה פשוטה</option>
+                        <option value="progress">משימה עם התקדמות</option>
+                    </select>
+                </div>
+                
+                <div id="progressFields" class="form-group" style="display: none;">
+                    <label class="form-label">יעד (למשימות התקדמות)</label>
+                    <input type="number" id="taskTarget" class="form-input" placeholder="2.5" step="0.1">
+                    <input type="text" id="taskUnit" class="form-input" placeholder="ליטר" style="margin-top: 8px;">
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="addCustomTask()" style="flex: 1;">הוסף</button>
+                    <button class="btn btn-secondary" onclick="closeTaskModal()" style="flex: 1;">ביטול</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Athlete Home Screen -->
         <div id="athleteHome" class="screen hidden">
             <div class="screen-header">
@@ -790,20 +996,10 @@
             
             <div class="card">
                 <div class="card-header">המשימות שלי היום</div>
-                <div id="dailyTasks">
-                    <div class="task-item">
-                        <span class="task-status">📋</span>
-                        <span class="task-name">הערכה שבועית</span>
-                    </div>
-                    <div class="task-item">
-                        <span class="task-status">👤</span>
-                        <span class="task-name">שקילה יומית</span>
-                    </div>
-                    <div class="task-item">
-                        <span class="task-status">⏳</span>
-                        <span class="task-name">שתיית מים - 1.8/2.5 ליטר</span>
-                    </div>
+                <div class="task-manager" id="taskManager">
+                    <!-- המשימות יוכנסו כאן דינמית -->
                 </div>
+                <button class="add-task-btn" onclick="openTaskModal()">+ הוסף משימה</button>
             </div>
             
             <button class="btn btn-primary" onclick="showScreen('chat')">
@@ -861,7 +1057,7 @@
             <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">שאלון שבועי</div>
-                <div class="screen-subtitle">איך עבר עליך השבוع?</div>
+                <div class="screen-subtitle">איך עבר עליך השבוע?</div>
             </div>
             
             <div id="assessmentIntro" class="card">
@@ -946,7 +1142,7 @@
 
     <!-- JavaScript -->
     <script>
-        // 🥋 JudoNutrition App - גרסה מתוקנת עם תיקונים
+        // 🥋 JudoNutrition App - גרסה שלמה ועובדת
         console.log("🥋 JudoNutrition App Loading...");
 
         // ========== משתנים גלובליים ==========
@@ -956,7 +1152,8 @@
             age: 0,
             gender: '',
             weightCategory: 0,
-            sportLevel: ''
+            sportLevel: '',
+            customTasks: []
         };
 
         let appData = {
@@ -966,9 +1163,8 @@
             weightChart: null
         };
 
-        // שאלון הערכה שבועית מתוקן
+        // שאלון הערכה שבועית - תיקון סופי של שאלת ההתאוששות
         const weeklyQuestions = [
-            // שאלה 1: משקל יומי
             {
                 id: 1,
                 text: "מה המשקל שלך הבוקר (ק\"ג)?",
@@ -979,8 +1175,6 @@
                 step: 0.1,
                 category: "משקל"
             },
-            
-            // שאלה 2: שינה
             {
                 id: 2,
                 text: "כמה שעות ישנת בממוצע בלילה בשבוע האחרון?",
@@ -993,8 +1187,6 @@
                     { value: 4, text: "יותר מ-8 שעות" }
                 ]
             },
-            
-            // שאלה 3: איכות שינה
             {
                 id: 3,
                 text: "איך היית מדרג/ת את איכות השינה שלך?",
@@ -1002,8 +1194,6 @@
                 category: "שינה",
                 scale: { min: 1, max: 5, labels: ["גרועה מאוד", "גרועה", "סבירה", "טובה", "מעולה"] }
             },
-            
-            // שאלה 4: זמני שינה
             {
                 id: 4,
                 text: "באילו שעות הלכת לישון וקמת ברוב ימי השבוע?",
@@ -1014,8 +1204,6 @@
                     { name: "waketime", label: "שעת קימה", type: "time" }
                 ]
             },
-            
-            // שאלה 5: תיאבון
             {
                 id: 5,
                 text: "איך היית מדרג/ת את התיאבון שלך השבוע?",
@@ -1023,8 +1211,6 @@
                 category: "תיאבון ושתייה",
                 scale: { min: 1, max: 5, labels: ["אין תיאבון", "תיאבון נמוך", "תיאבון רגיל", "תיאבון טוב", "תיאבון מצוין"] }
             },
-            
-            // שאלה 6: צריכת מים
             {
                 id: 6,
                 text: "כמה מים שתית ביום בממוצע (בליטרים)?",
@@ -1036,8 +1222,6 @@
                 step: 0.1,
                 unit: "ליטר"
             },
-            
-            // שאלה 7: תוספי תזונה
             {
                 id: 7,
                 text: "אילו תוספי תזונה נטלת השבוע? (אפשר לבחור כמה)",
@@ -1054,8 +1238,6 @@
                     { value: "none", text: "לא לקחתי תוספים השבוע" }
                 ]
             },
-            
-            // שאלה 8: מחזור (רק לנשים)
             {
                 id: 8,
                 text: "האם קיבלת מחזור החודש השבוע?",
@@ -1068,8 +1250,6 @@
                     { value: "not_relevant", text: "לא רלוונטי" }
                 ]
             },
-            
-            // שאלה 9: בעיות בריאות
             {
                 id: 9,
                 text: "האם חווית השבוע? (אפשר לבחור כמה)",
@@ -1083,8 +1263,6 @@
                     { value: "none", text: "לא חוויתי דבר מהנ\"ל" }
                 ]
             },
-            
-            // שאלה 10: מצב רוח
             {
                 id: 10,
                 text: "איך היית מדרג/ת את מצב הרוח שלך בשבוע האחרון?",
@@ -1092,8 +1270,6 @@
                 category: "מצב רגשי ופיזיולוגי",
                 scale: { min: 1, max: 5, labels: ["דיכאון", "עצוב", "רגיל", "שמח", "אופטימי מאוד"] }
             },
-            
-            // שאלה 11: רמות אנרגיה
             {
                 id: 11,
                 text: "איך היית מדרג/ת את רמות האנרגיה שלך לאורך היום?",
@@ -1101,8 +1277,6 @@
                 category: "מצב רגשי ופיזיולוגי",
                 scale: { min: 1, max: 5, labels: ["עייפות קיצונית", "עייף", "רגיל", "אנרגטי", "מלא אנרגיה"] }
             },
-            
-            // שאלה 12: התאוששות (מתוקנת!)
             {
                 id: 12,
                 text: "איך היית מדרג/ת את יכולת ההתאוששות שלך לאחר אימונים?",
@@ -1112,13 +1286,19 @@
                     min: 1, 
                     max: 10, 
                     labels: [
-                        "לא מתאושש בכלל", "2", "3", "4", "5", 
-                        "6", "7", "8", "9", "התאוששות מצוינת"
+                        "לא מתאושש",      // 1
+                        "התאוששות גרועה", // 2
+                        "התאוששות חלשה",  // 3
+                        "התאוששות לא טובה", // 4
+                        "התאוששות בינונית", // 5
+                        "התאוששות סבירה",  // 6
+                        "התאוששות טובה",   // 7
+                        "התאוששות מעולה",  // 8
+                        "התאוששות מצוינת", // 9
+                        "התאוששות מושלמת"  // 10
                     ] 
                 }
             },
-            
-            // שאלה 13: הערות נוספות
             {
                 id: 13,
                 text: "רוצה להוסיף משהו נוסף?",
@@ -1140,23 +1320,16 @@
         function showScreen(screenId) {
             console.log('🔄 Switching to screen:', screenId);
             
-            // הסתרת כל המסכים
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.add('hidden');
             });
             
-            // הצגת המסך הנבחר
             const targetScreen = document.getElementById(screenId);
             if (targetScreen) {
                 targetScreen.classList.remove('hidden');
                 appData.currentScreen = screenId;
-                
-                // ניהול ניווטיציה תחתונה
                 manageBottomNav(screenId);
-                
-                // עדכון נתונים במסך
                 updateScreenData(screenId);
-                
                 console.log('✅ Successfully switched to screen:', screenId);
             } else {
                 console.error('❌ Screen not found:', screenId);
@@ -1170,16 +1343,16 @@
             if (role === 'athlete') {
                 showScreen('registration');
             } else {
-                // לתזונאי - ישירות לדשבורד
                 currentUser.name = "ד״ר שרה כהן";
-                showScreen('nutritionistDashboard');
+                alert('🩺 ממשק התזונאי/ת יהיה זמין בגרסה הבאה!');
+                showScreen('welcome');
             }
         }
 
         function exitToWelcome() {
             console.log('🔄 Exiting to welcome screen');
             localStorage.clear();
-            currentUser = { role: null, name: '', age: 0, gender: '', weightCategory: 0, sportLevel: '' };
+            currentUser = { role: null, name: '', age: 0, gender: '', weightCategory: 0, sportLevel: '', customTasks: [] };
             appData = { weights: [], dates: [], currentScreen: 'welcome', weightChart: null };
             
             const bottomNav = document.getElementById('athleteBottomNav');
@@ -1196,7 +1369,6 @@
                 if (athleteScreens.includes(screenId)) {
                     bottomNav.classList.remove('hidden');
                     
-                    // עדכון פריט פעיל
                     document.querySelectorAll('.nav-item').forEach(item => {
                         item.classList.remove('active');
                     });
@@ -1235,34 +1407,169 @@
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // איסוף נתונים
             currentUser.name = document.getElementById('fullName').value;
             currentUser.age = parseInt(document.getElementById('age').value);
             currentUser.gender = document.getElementById('gender').value;
             currentUser.weightCategory = parseFloat(document.getElementById('weightCategory').value);
             currentUser.sportLevel = document.getElementById('sportLevel').value;
             
-            // שמירה
+            currentUser.customTasks = [
+                {
+                    id: 1,
+                    name: "שתיית מים",
+                    description: "שתיית מים יומית",
+                    type: "progress",
+                    completed: false,
+                    progress: 0,
+                    target: 2.5,
+                    unit: "ליטר"
+                }
+            ];
+            
             saveData('userProfile', currentUser);
-            
-            // מעבר לדף הבית
             showScreen('athleteHome');
-            
             alert('🎉 הרשמה הושלמה בהצלחה!');
         });
+
+        // ========== ניהול משימות ==========
+
+        function updateTaskDisplay() {
+            const taskManager = document.getElementById('taskManager');
+            if (!taskManager) return;
+            
+            let tasksHtml = '';
+            const tasks = currentUser.customTasks || [];
+            
+            tasks.forEach(task => {
+                const isCompleted = task.completed;
+                const checkboxClass = isCompleted ? 'checked' : '';
+                const taskClass = isCompleted ? 'completed' : '';
+                
+                let progressHtml = '';
+                if (task.type === 'progress') {
+                    const progressPercent = (task.progress / task.target) * 100;
+                    progressHtml = `<div class="task-progress">${task.progress}/${task.target} ${task.unit} (${Math.round(progressPercent)}%)</div>`;
+                }
+                
+                tasksHtml += `
+                    <div class="task-item ${taskClass}" onclick="toggleTask(${task.id})">
+                        <div class="task-checkbox ${checkboxClass}"></div>
+                        <div class="task-content">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-description">${task.description}</div>
+                            ${progressHtml}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            // בדיקת שאלון שבועי
+            const lastAssessment = localStorage.getItem('lastAssessmentDate');
+            const today = new Date();
+            const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            if (!lastAssessment || new Date(lastAssessment) < oneWeekAgo) {
+                tasksHtml += `
+                    <div class="task-item" onclick="showScreen('weeklyAssessment')">
+                        <div class="task-checkbox"></div>
+                        <div class="task-content">
+                            <div class="task-name">הערכה שבועית</div>
+                            <div class="task-description">מלא את השאלון השבועי</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            taskManager.innerHTML = tasksHtml;
+        }
+
+        function toggleTask(taskId) {
+            const task = currentUser.customTasks.find(t => t.id === taskId);
+            if (task) {
+                if (task.type === 'progress') {
+                    const newProgress = prompt(`עדכן התקדמות עבור ${task.name}:`, task.progress);
+                    if (newProgress !== null) {
+                        task.progress = parseFloat(newProgress) || 0;
+                        task.completed = task.progress >= task.target;
+                    }
+                } else {
+                    task.completed = !task.completed;
+                }
+                
+                saveData('userProfile', currentUser);
+                updateTaskDisplay();
+            }
+        }
+
+        function openTaskModal() {
+            const modal = document.getElementById('taskModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+            
+            document.getElementById('taskType').addEventListener('change', function() {
+                const progressFields = document.getElementById('progressFields');
+                if (this.value === 'progress') {
+                    progressFields.style.display = 'block';
+                } else {
+                    progressFields.style.display = 'none';
+                }
+            });
+        }
+
+        function closeTaskModal() {
+            const modal = document.getElementById('taskModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function addCustomTask() {
+            const name = document.getElementById('taskName').value;
+            const description = document.getElementById('taskDescription').value;
+            const type = document.getElementById('taskType').value;
+            
+            if (!name) {
+                alert('נא למלא שם המשימה');
+                return;
+            }
+            
+            const newTask = {
+                id: Date.now(),
+                name: name,
+                description: description || '',
+                type: type,
+                completed: false,
+                progress: 0
+            };
+            
+            if (type === 'progress') {
+                newTask.target = parseFloat(document.getElementById('taskTarget').value) || 1;
+                newTask.unit = document.getElementById('taskUnit').value || '';
+            }
+            
+            currentUser.customTasks.push(newTask);
+            saveData('userProfile', currentUser);
+            
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskTarget').value = '';
+            document.getElementById('taskUnit').value = '';
+            
+            closeTaskModal();
+            updateTaskDisplay();
+        }
 
         // ========== עדכון מסכים ==========
 
         function updateAthleteHome() {
             console.log('🏠 Updating athlete home screen');
             
-            // עדכון שם
             const athleteNameEl = document.getElementById('athleteName');
             if (athleteNameEl) {
                 athleteNameEl.textContent = currentUser.name || 'ספורטאי';
             }
             
-            // עדכון משקל נוכחי
             const currentWeightEl = document.getElementById('currentWeight');
             const targetWeightEl = document.getElementById('targetWeight');
             
@@ -1278,23 +1585,18 @@
                 targetWeightEl.textContent = currentUser.weightCategory || '--';
             }
             
-            // עדכון התקדמות
             updateProgress();
-            
-            // בדיקת אם צריך שאלון
-            checkWeeklyAssessment();
+            updateTaskDisplay();
         }
 
         function updateWeightTracking() {
             console.log('👤 Updating weight tracking screen');
             
-            // עדכון תצוגת קטגוריה
             const categoryDisplay = document.getElementById('categoryDisplay');
             if (categoryDisplay) {
                 categoryDisplay.textContent = currentUser.weightCategory || '--';
             }
             
-            // עדכון גרף משקל
             updateWeightChart();
         }
 
@@ -1325,27 +1627,6 @@
             }
         }
 
-        function checkWeeklyAssessment() {
-            const alertContainer = document.getElementById('weeklyAssessmentAlert');
-            if (!alertContainer) return;
-            
-            // בדיקה פשוטה - אם אין הערכות או שהאחרונה הייתה לפני שבוע
-            const lastAssessment = localStorage.getItem('lastAssessmentDate');
-            const today = new Date();
-            const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-            
-            if (!lastAssessment || new Date(lastAssessment) < oneWeekAgo) {
-                alertContainer.innerHTML = `
-                    <div class="alert alert-info">
-                        <span>📋 <strong>זמן לשאלון השבועי!</strong> מילוי השאלון יעזור לנו לעקוב אחריך טוב יותר.</span>
-                        <button class="btn btn-primary" onclick="showScreen('weeklyAssessment')" style="margin-top: 12px; font-size: 14px; padding: 8px 16px;">מלא שאלון עכשיו</button>
-                    </div>
-                `;
-            } else {
-                alertContainer.innerHTML = '';
-            }
-        }
-
         // ========== גרף משקל ==========
 
         function updateWeightChart() {
@@ -1354,12 +1635,10 @@
             
             const ctx = canvas.getContext('2d');
             
-            // הריסת גרף קיים
             if (appData.weightChart) {
                 appData.weightChart.destroy();
             }
             
-            // יצירת גרף חדש
             appData.weightChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -1414,7 +1693,6 @@
                 content.style.display = 'none';
             }
             
-            // איפוס השאלון
             currentAssessment = {
                 currentQuestion: 0,
                 answers: {},
@@ -1453,18 +1731,15 @@
                 return;
             }
             
-            // דילוג על שאלות שלא רלוונטיות
             if (question.condition === 'female_only' && currentUser.gender !== 'female') {
                 console.log('Skipping female-only question for male user');
                 nextQuestion();
                 return;
             }
             
-            // עדכון מספרי שאלה
             if (currentQuestionNumEl) currentQuestionNumEl.textContent = questionIndex + 1;
             if (totalQuestionsEl) totalQuestionsEl.textContent = weeklyQuestions.length;
             
-            // בניית HTML של השאלה
             let questionHtml = '';
             
             if (question.category) {
@@ -1593,8 +1868,6 @@
             }
             
             container.innerHTML = questionHtml;
-            
-            // הוספת event listeners
             setupQuestionEventListeners(question);
         }
 
@@ -1690,7 +1963,6 @@
             
             currentAssessment.answers[questionId] = value;
             
-            // עדכון עיצוב
             document.querySelectorAll('.scale-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
@@ -1736,7 +2008,6 @@
         function nextQuestion() {
             console.log('🔜 Next question');
             
-            // שמירת המשקל אם זו השאלה הראשונה
             if (currentAssessment.currentQuestion === 0) {
                 const weightAnswer = currentAssessment.answers[1];
                 if (weightAnswer) {
@@ -1772,22 +2043,17 @@
         function completeAssessment() {
             console.log('🏁 Completing assessment');
             
-            // שמירת תאריך השאלון
             localStorage.setItem('lastAssessmentDate', new Date().toISOString());
-            
-            // שמירת התשובות
             saveData('lastAssessment', currentAssessment.answers);
             
             alert('🎉 ההערכה השבועית נשמרה בהצלחה!');
             
-            // איפוס השאלון
             currentAssessment = {
                 currentQuestion: 0,
                 answers: {},
                 isCompleted: false
             };
             
-            // חזרה לדף הבית
             showScreen('athleteHome');
         }
 
@@ -1820,14 +2086,10 @@
                 
                 alert('💪 המשקל נשמר בהצלחה!');
                 
-                // איפוס הטופס
                 document.getElementById('weightForm').reset();
                 document.getElementById('freeTextGroup').style.display = 'none';
                 
-                // עדכון הגרף
                 updateWeightChart();
-                
-                // חזרה לדף הבית
                 showScreen('athleteHome');
             }
         }
@@ -1875,7 +2137,7 @@
                     
                     messagesContainer.appendChild(responseEl);
                     messagesContainer.scrollTop = messagesContainer.scrollHeight;
-                }, 1500);
+                }, 2000);
             }
         }
 
@@ -1905,42 +2167,56 @@
         function initializeApp() {
             console.log('🚀 Initializing JudoNutrition App...');
             
-            // טעינת נתונים שמורים
-            const savedProfile = loadData('userProfile');
-            const savedWeights = loadData('weightData');
-            
-            if (savedProfile) {
-                currentUser = savedProfile;
-                console.log('📱 Loaded saved profile:', currentUser.name);
+            try {
+                // טעינת נתונים שמורים
+                const savedProfile = loadData('userProfile');
+                const savedWeightData = loadData('weightData');
+                
+                if (savedProfile) {
+                    currentUser = savedProfile;
+                    console.log('📱 Loaded saved user profile');
+                }
+                
+                if (savedWeightData) {
+                    appData.weights = savedWeightData.weights || [];
+                    appData.dates = savedWeightData.dates || [];
+                    console.log('📱 Loaded saved weight data');
+                }
+                
+                // אם יש משתמש שמור, מעבר לדף הבית
+                if (currentUser.role === 'athlete' && currentUser.name) {
+                    console.log('📱 Restoring athlete session');
+                    showScreen('athleteHome');
+                } else {
+                    console.log('👋 Showing welcome screen');
+                    showScreen('welcome');
+                }
+                
+                // הוספת event listener לשדה צ'אט
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendChatMessage();
+                        }
+                    });
+                }
+                
+                console.log('✅ JudoNutrition App initialized successfully!');
+                
+            } catch (error) {
+                console.error('❌ Critical error during app initialization:', error);
+                alert('שגיאה קריטית באתחול האפליקציה. אנא רענן את הדף.');
             }
-            
-            if (savedWeights) {
-                appData.weights = savedWeights.weights || [];
-                appData.dates = savedWeights.dates || [];
-                console.log('📊 Loaded weights:', appData.weights.length);
-            }
-            
-            // אם יש משתמש שמור, מעבר לדף הבית
-            if (currentUser.name && currentUser.role === 'athlete') {
-                showScreen('athleteHome');
-            } else {
-                showScreen('welcome');
-            }
-            
-            // הוספת event listener לצ'אט
-            const chatInput = document.getElementById('chatInput');
-            if (chatInput) {
-                chatInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        sendChatMessage();
-                    }
-                });
-            }
-            
-            console.log('✅ JudoNutrition App initialized successfully!');
         }
 
-        // יצוא פונקציות לחלון הגלובלי
+        // התחלת האפליקציה
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏁 DOM Content Loaded - Starting app...');
+            initializeApp();
+        });
+
+        // Export functions for global access
         window.showScreen = showScreen;
         window.selectRole = selectRole;
         window.exitToWelcome = exitToWelcome;
@@ -1951,9 +2227,10 @@
         window.toggleFreeText = toggleFreeText;
         window.startAssessment = startAssessment;
         window.selectScale = selectScale;
-
-        // התחלת האפליקציה
-        document.addEventListener('DOMContentLoaded', initializeApp);
+        window.toggleTask = toggleTask;
+        window.openTaskModal = openTaskModal;
+        window.closeTaskModal = closeTaskModal;
+        window.addCustomTask = addCustomTask;
 
         console.log('🥋 JudoNutrition JavaScript loaded successfully!');
     </script>

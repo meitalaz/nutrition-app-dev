@@ -3,53 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutrition App</title>
+    <title>AI Nutrition Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Nutrition Tracker</h1>
+            <h1>🤖 AI Nutrition Tracker</h1>
+            <p>Smart nutrition tracking with AI-powered insights</p>
         </header>
         
         <main>
-            <section class="input-section">
-                <h2>Add Food Item</h2>
-                <form id="food-form">
-                    <input type="text" id="food-name" placeholder="Food name" required>
-                    <input type="number" id="calories" placeholder="Calories" required>
-                    <input type="number" id="protein" placeholder="Protein (g)" step="0.1">
-                    <input type="number" id="carbs" placeholder="Carbs (g)" step="0.1">
-                    <input type="number" id="fat" placeholder="Fat (g)" step="0.1">
-                    <button type="submit">Add Food</button>
-                </form>
-            </section>
-            
-            <section class="summary-section">
-                <h2>Daily Summary</h2>
-                <div class="summary-grid">
-                    <div class="summary-item">
-                        <span class="label">Total Calories:</span>
-                        <span id="total-calories">0</span>
+            <!-- AI Assistant Section -->
+            <section class="ai-section">
+                <h2>🤖 AI Nutrition Assistant</h2>
+                <div class="ai-chat">
+                    <div id="ai-messages" class="ai-messages">
+                        <div class="ai-message assistant">
+                            <span class="ai-avatar">🤖</span>
+                            <div class="message-content">
+                                <p>שלום! אני העוזר התזונתי החכם שלך. אני יכול לעזור לך עם:</p>
+                                <ul>
+                                    <li>הצעות מזון בריא</li>
+                                    <li>ניתוח תזונתי של הארוחות שלך</li>
+                                    <li>המלצות מותאמות אישית</li>
+                                    <li>תכנון ארוחות</li>
+                                </ul>
+                                <p>מה תרצה לדעת?</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="summary-item">
-                        <span class="label">Protein:</span>
-                        <span id="total-protein">0g</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="label">Carbs:</span>
-                        <span id="total-carbs">0g</span>
-                    </div>
-                    <div class="summary-item">
-                        <span class="label">Fat:</span>
-                        <span id="total-fat">0g</span>
+                    <div class="ai-input-container">
+                        <input type="text" id="ai-input" placeholder="שאל אותי משהו על תזונה..." maxlength="200">
+                        <button id="ai-send-btn" type="button">שלח</button>
                     </div>
                 </div>
             </section>
+
+            <!-- Smart Food Suggestions -->
+            <section class="suggestions-section">
+                <h2>💡 הצעות חכמות</h2>
+                <div id="smart-suggestions" class="suggestions-grid">
+                    <!-- AI suggestions will be populated here -->
+                </div>
+                <button id="get-suggestions-btn" class="btn-secondary">קבל הצעות מזון</button>
+            </section>
+
+            <!-- Food Input Section -->
+            <section class="input-section">
+                <h2>הוסף מזון</h2>
+                <form id="food-form">
+                    <input type="text" id="food-name" placeholder="שם המזון" required>
+                    <input type="number" id="calories" placeholder="קלוריות" required>
+                    <input type="number" id="protein" placeholder="חלבון (גרם)" step="0.1">
+                    <input type="number" id="carbs" placeholder="פחמימות (גרם)" step="0.1">
+                    <input type="number" id="fat" placeholder="שומן (גרם)" step="0.1">
+                    <button type="submit">הוסף מזון</button>
+                </form>
+                <button id="ai-analyze-btn" class="btn-ai">🤖 נתח עם AI</button>
+            </section>
             
+            <!-- Daily Summary with AI Analysis -->
+            <section class="summary-section">
+                <h2>סיכום יומי</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">סה"כ קלוריות:</span>
+                        <span id="total-calories">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">חלבון:</span>
+                        <span id="total-protein">0g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">פחמימות:</span>
+                        <span id="total-carbs">0g</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">שומן:</span>
+                        <span id="total-fat">0g</span>
+                    </div>
+                </div>
+                <div id="ai-analysis" class="ai-analysis"></div>
+            </section>
+            
+            <!-- Food Log -->
             <section class="food-list-section">
-                <h2>Food Log</h2>
+                <h2>יומן מזון</h2>
                 <div id="food-list"></div>
+            </section>
+
+            <!-- AI Recommendations -->
+            <section class="recommendations-section">
+                <h2>🎯 המלצות מותאמות אישית</h2>
+                <div id="ai-recommendations" class="recommendations-container">
+                    <p class="loading-message">טוען המלצות...</p>
+                </div>
+                <button id="update-recommendations-btn" class="btn-secondary">עדכן המלצות</button>
             </section>
         </main>
     </div>

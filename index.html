@@ -79,10 +79,6 @@
             overflow: hidden;
         }
 
-        .screen-header.nutritionist {
-            background: linear-gradient(135deg, #2e7d32 0%, var(--primary-teal) 100%);
-        }
-
         .screen-header::before {
             content: '';
             position: absolute;
@@ -198,6 +194,234 @@
             left: 100%;
         }
 
+        /* Enhanced Registration Form */
+        .registration-form {
+            max-width: 350px;
+            margin: 0 auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 14px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--white);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Task System */
+        .task-manager {
+            margin-bottom: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border: 2px solid var(--gray-200);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item.completed {
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 100%);
+            border-color: var(--success-green);
+        }
+
+        .task-item.high-priority {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-color: var(--warning-orange);
+            border-width: 3px;
+        }
+
+        .task-checkbox {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .task-checkbox.checked {
+            background: var(--success-green);
+            border-color: var(--success-green);
+            color: var(--white);
+        }
+
+        .task-checkbox.checked::before {
+            content: '✓';
+            font-weight: bold;
+            font-size: 16px;
+            animation: checkmark 0.5s ease-in-out;
+        }
+
+        @keyframes checkmark {
+            0% { transform: scale(0) rotate(45deg); }
+            50% { transform: scale(1.2) rotate(45deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+
+        .task-content {
+            flex: 1;
+        }
+
+        .task-name {
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 4px;
+        }
+
+        .task-description {
+            font-size: 14px;
+            color: var(--gray-600);
+        }
+
+        .task-progress {
+            font-size: 12px;
+            color: var(--primary-blue);
+            font-weight: 500;
+        }
+
+        .add-task-btn {
+            background: linear-gradient(135deg, var(--primary-teal) 0%, var(--success-green) 100%);
+            color: var(--white);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+        }
+
+        .add-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(38, 166, 154, 0.3);
+        }
+
+        /* Task Creation Modal */
+        .task-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .task-modal.hidden {
+            display: none;
+        }
+
+        .task-modal-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Nutritionist Template Modal */
+        .template-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .template-modal.hidden {
+            display: none;
+        }
+
+        .template-modal-content {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 350px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .template-btn {
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 16px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .template-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+        }
+
         /* Metric Cards */
         .metrics-grid {
             display: grid;
@@ -215,18 +439,6 @@
             box-shadow: 0 4px 12px rgba(26, 35, 126, 0.2);
             position: relative;
             overflow: hidden;
-        }
-
-        .metric-card.success {
-            background: linear-gradient(135deg, var(--success-green) 0%, var(--primary-teal) 100%);
-        }
-
-        .metric-card.warning {
-            background: linear-gradient(135deg, var(--warning-orange) 0%, #ff9800 100%);
-        }
-
-        .metric-card.danger {
-            background: linear-gradient(135deg, var(--danger-red) 0%, #f44336 100%);
         }
 
         .metric-card::before {
@@ -260,6 +472,63 @@
             opacity: 0.9;
             position: relative;
             z-index: 1;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 24px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .progress-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: var(--gray-200);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-green) 0%, var(--primary-teal) 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+            animation: progressShine 2s ease-in-out infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         /* Cards */
@@ -399,24 +668,6 @@
             transform: translateY(-2px);
         }
 
-        .btn-success {
-            background: linear-gradient(135deg, var(--success-green) 0%, var(--primary-teal) 100%);
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(102, 187, 106, 0.2);
-        }
-
-        .btn-warning {
-            background: linear-gradient(135deg, var(--warning-orange) 0%, #ff9800 100%);
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(255, 204, 2, 0.2);
-        }
-
-        .btn-danger {
-            background: linear-gradient(135deg, var(--danger-red) 0%, #f44336 100%);
-            color: var(--white);
-            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.2);
-        }
-
         /* Exit Button */
         .exit-btn {
             position: absolute;
@@ -437,257 +688,217 @@
             background: rgba(255, 255, 255, 0.3);
         }
 
-        /* Athlete List */
-        .athlete-card {
-            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .athlete-card:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .athlete-card.urgent {
-            border-color: var(--danger-red);
-            background: linear-gradient(135deg, #ffebee 0%, #f8fafc 100%);
-        }
-
-        .athlete-card.warning {
-            border-color: var(--warning-orange);
-            background: linear-gradient(135deg, #fff3e0 0%, #f8fafc 100%);
-        }
-
-        .athlete-info {
-            flex-grow: 1;
-        }
-
-        .athlete-name {
-            font-weight: 600;
-            font-size: 16px;
-            color: var(--gray-900);
-            margin-bottom: 4px;
-        }
-
-        .athlete-status {
-            font-size: 14px;
-            color: var(--gray-500);
-        }
-
-        .athlete-details {
-            font-size: 12px;
-            color: var(--gray-400);
-            margin-top: 4px;
-        }
-
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            flex-shrink: 0;
-            margin-left: 12px;
-            box-shadow: 0 0 0 2px var(--white);
-        }
-
-        .status-success { background: var(--success-green); }
-        .status-warning { background: var(--warning-orange); }
-        .status-danger { background: var(--danger-red); }
-
-        /* Stats Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        /* Assessment Progress */
+        .assessment-progress {
             margin-bottom: 20px;
         }
 
-        .stat-card {
-            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
-            border: 1px solid var(--gray-200);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--gray-500);
-        }
-
-        /* Progress Bars */
-        .progress-container {
-            margin-bottom: 16px;
-        }
-
-        .progress-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .progress-label {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--gray-700);
-        }
-
-        .progress-value {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        .progress-bar {
+        .assessment-progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: var(--gray-200);
-            border-radius: 4px;
+            border-radius: 3px;
             overflow: hidden;
         }
 
-        .progress-fill {
+        .assessment-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--success-green) 0%, var(--primary-teal) 100%);
-            border-radius: 4px;
-            transition: width 0.5s ease;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            transition: width 0.3s ease;
         }
 
-        /* Forms */
-        .form-group {
+        .assessment-question {
+            margin-bottom: 24px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .question-category {
+            background: linear-gradient(135deg, var(--gray-100) 0%, #e2e8f0 100%);
+            padding: 8px 16px;
+            border-radius: 8px;
             margin-bottom: 16px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--gray-700);
-            font-size: 14px;
+            text-align: center;
         }
 
-        .form-input, .form-select, .form-textarea {
+        /* Time Input Enhanced */
+        .time-input-group {
+            position: relative;
+        }
+
+        .time-input-enhanced {
             width: 100%;
-            padding: 12px 16px;
-            border: 1px solid var(--gray-300);
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 16px;
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            font-size: 16px;
             background: var(--white);
-            transition: border-color 0.2s ease;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+            text-align: center;
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
+        .time-input-enhanced:focus {
             outline: none;
             border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+            box-shadow: 0 0 0 4px rgba(26, 35, 126, 0.1);
         }
 
-        .form-textarea {
-            resize: vertical;
-            font-family: inherit;
-        }
-
-        /* Quick Actions */
-        .quick-actions {
+        /* Scale Options */
+        .scale-options {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 8px;
+            margin-top: 16px;
         }
 
-        .quick-action-btn {
+        .scale-btn {
             background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
-            border: 1px solid var(--gray-200);
+            border: 2px solid var(--gray-300);
             border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
+            padding: 12px 8px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 14px;
-            font-weight: 500;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .quick-action-btn:hover {
+        .scale-btn:hover {
             border-color: var(--primary-blue);
             background: rgba(26, 35, 126, 0.05);
             transform: translateY(-2px);
         }
 
-        .quick-action-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            display: block;
+        .scale-btn.active {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 35, 126, 0.3);
         }
 
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+        .scale-number {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .scale-label {
+            font-size: 10px;
+            opacity: 0.8;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .answer-option {
             display: flex;
             align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .modal.hidden {
-            display: none;
-        }
-
-        .modal-content {
+            padding: 12px;
             background: var(--white);
-            padding: 24px;
-            border-radius: 16px;
-            max-width: 350px;
-            width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .modal-header {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--gray-900);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            background: none;
-            border: none;
-            font-size: 20px;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(26, 35, 126, 0.02);
+        }
+
+        .answer-option input[type="radio"] {
+            margin-left: 12px;
+        }
+
+        /* Checkbox Options */
+        .checkbox-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            flex-direction: column;
+            padding: 12px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--primary-blue);
+            background: rgba(26, 35, 126, 0.02);
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            margin-left: 12px;
+        }
+
+        .checkbox-text {
+            margin-top: 8px;
+            padding: 8px 12px;
+            border: 1px solid var(--gray-300);
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Time Range Fields */
+        .time-range-fields {
+            display: flex;
+            gap: 16px;
+        }
+
+        .time-range-fields .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* Form Textarea */
+        .form-textarea {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid var(--gray-300);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--white);
+            transition: border-color 0.2s ease;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        /* Optional Note */
+        .optional-note {
+            font-size: 12px;
             color: var(--gray-500);
+            font-style: italic;
+            margin-top: 8px;
         }
 
         /* Chart Container */
@@ -701,88 +912,179 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
-        /* Tabs */
-        .tab-nav {
+        .chart-placeholder {
+            height: 200px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
             display: flex;
-            background: var(--gray-100);
-            border-radius: 8px;
-            padding: 4px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 14px;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--gray-700);
         }
 
-        .tab-btn.active {
-            background: var(--white);
-            color: var(--primary-blue);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Search Bar */
-        .search-bar {
-            position: relative;
-            margin-bottom: 16px;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 40px 12px 16px;
-            border: 1px solid var(--gray-300);
-            border-radius: 8px;
-            font-size: 14px;
-            background: var(--white);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray-400);
-        }
-
-        /* Filter Pills */
-        .filter-pills {
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            max-width: 100%;
+            height: 70px;
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            border-top: 1px solid var(--gray-200);
             display: flex;
-            gap: 8px;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .filter-pill {
-            background: var(--gray-100);
-            border: none;
-            padding: 6px 12px;
-            border-radius: 16px;
+        .bottom-nav.hidden {
+            display: none !important;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            color: var(--gray-500);
             font-size: 12px;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--gray-700);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border-radius: 12px;
+            min-width: 60px;
         }
 
-        .filter-pill.active {
+        .nav-item.active {
+            color: var(--primary-blue);
+            background: linear-gradient(135deg, rgba(26, 35, 126, 0.1) 0%, rgba(38, 166, 154, 0.1) 100%);
+            transform: translateY(-2px);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid var(--gray-200);
+            border-radius: 12px;
+            background: var(--gray-50);
+        }
+
+        .message {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            max-width: 80%;
+            position: relative;
+        }
+
+        .message.sent {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            margin-right: auto;
+            margin-left: 20%;
+        }
+
+        .message.received {
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+            color: var(--gray-900);
+            margin-left: auto;
+            margin-right: 20%;
+            border: 1px solid var(--gray-200);
+        }
+
+        .message-time {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        /* Excel Table */
+        .excel-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .excel-table th,
+        .excel-table td {
+            border: 1px solid var(--gray-300);
+            padding: 8px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .excel-table th {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .excel-table tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .excel-table tr:hover {
+            background: rgba(26, 35, 126, 0.05);
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed var(--gray-300);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            background: var(--gray-50);
+            transition: all 0.3s ease;
+            margin: 20px 0;
+        }
+
+        .file-upload:hover {
+            border-color: var(--primary-blue);
+            background: rgba(26, 35, 126, 0.05);
+        }
+
+        .file-upload.dragover {
+            border-color: var(--primary-teal);
+            background: rgba(38, 166, 154, 0.1);
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-label {
+            cursor: pointer;
+            display: inline-block;
+            padding: 12px 24px;
             background: var(--primary-blue);
             color: var(--white);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-label:hover {
+            background: var(--primary-teal);
+            transform: translateY(-2px);
         }
 
         /* Responsive */
@@ -791,15 +1093,15 @@
                 max-width: 100%;
             }
             
-            .metrics-grid {
-                grid-template-columns: 1fr;
+            .bottom-nav {
+                width: 100%;
             }
             
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .scale-options {
+                grid-template-columns: repeat(5, 1fr);
             }
             
-            .quick-actions {
+            .template-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -816,13 +1118,125 @@
                 
                 <div class="role-selection">
                     <button class="role-btn" onclick="selectRole('athlete')">
-                        <span>🥋</span>
+                        <span>⚔️</span>
                         <span>אני ספורטאי/ת</span>
                     </button>
                     <button class="role-btn" onclick="selectRole('nutritionist')">
-                        <span>👩‍⚕️</span>
+                        <span>👨‍⚕️</span>
                         <span>אני תזונאי/ת</span>
                     </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Registration Screen -->
+        <div id="registration" class="screen hidden">
+            <div class="screen-header">
+                <div class="screen-title">הרשמה למערכת</div>
+                <div class="screen-subtitle">מילוי פרטים אישיים</div>
+            </div>
+            
+            <form id="registrationForm" class="registration-form">
+                <div class="form-group">
+                    <label class="form-label">שם מלא</label>
+                    <input type="text" id="fullName" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">גיל</label>
+                    <input type="number" id="age" class="form-input" min="12" max="80" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">מגדר</label>
+                    <select id="gender" class="form-select" required>
+                        <option value="">בחר מגדר</option>
+                        <option value="male">זכר</option>
+                        <option value="female">נקבה</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">קטגוריית משקל יעד (ק"ג)</label>
+                    <input type="number" id="weightCategory" class="form-input" min="40" max="150" step="0.1" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">🚀 התחל להשתמש</button>
+                <button type="button" class="btn btn-secondary" onclick="showScreen('welcome')">🔙 חזרה</button>
+            </form>
+        </div>
+
+        <!-- Task Creation Modal -->
+        <div id="taskModal" class="task-modal hidden">
+            <div class="task-modal-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-blue);">הוספת משימה חדשה</h3>
+                
+                <div class="form-group">
+                    <label class="form-label">שם המשימה</label>
+                    <input type="text" id="taskName" class="form-input" placeholder="לדוגמה: 10,000 צעדים">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">תיאור (אופציונלי)</label>
+                    <input type="text" id="taskDescription" class="form-input" placeholder="פירוט נוסף...">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">סוג המשימה</label>
+                    <select id="taskType" class="form-select">
+                        <option value="simple">משימה פשוטה</option>
+                        <option value="progress">משימה עם התקדמות</option>
+                    </select>
+                </div>
+                
+                <div id="progressFields" class="form-group" style="display: none;">
+                    <label class="form-label">יעד (למשימות התקדמות)</label>
+                    <input type="number" id="taskTarget" class="form-input" placeholder="10000" step="1">
+                    <input type="text" id="taskUnit" class="form-input" placeholder="צעדים" style="margin-top: 8px;">
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="addCustomTask()" style="flex: 1;">הוסף</button>
+                    <button class="btn btn-secondary" onclick="closeTaskModal()" style="flex: 1;">ביטול</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nutritionist Template Modal -->
+        <div id="templateModal" class="template-modal hidden">
+            <div class="template-modal-content">
+                <h3 style="margin-bottom: 20px; color: var(--primary-blue);">📋 תבניות תוכניות תזונה</h3>
+                
+                <div class="template-grid">
+                    <button class="template-btn" onclick="createNutritionPlan('weight_gain')">
+                        📈 עלייה במשקל
+                    </button>
+                    <button class="template-btn" onclick="createNutritionPlan('weight_loss')">
+                        📉 ירידה במשקל
+                    </button>
+                    <button class="template-btn" onclick="createNutritionPlan('competition_cut')">
+                        ⚔️ חיתוך לתחרות
+                    </button>
+                    <button class="template-btn" onclick="createNutritionPlan('maintenance')">
+                        ⚖️ תחזוקה
+                    </button>
+                </div>
+
+                <div style="margin: 20px 0; text-align: center; color: var(--gray-500);">או</div>
+
+                <div class="file-upload">
+                    <input type="file" id="nutritionFileUpload" accept=".doc,.docx,.pdf">
+                    <label for="nutritionFileUpload" class="file-upload-label">
+                        📁 העלה תוכנית מהמחשב
+                    </label>
+                    <div style="margin-top: 10px; font-size: 12px; color: var(--gray-500);">
+                        פורמטים נתמכים: Word, PDF
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 20px;">
+                    <button class="btn btn-primary" onclick="createCustomNutritionPlan()" style="flex: 1;">יצירת תוכנית מותאמת</button>
+                    <button class="btn btn-secondary" onclick="closeTemplateModal()" style="flex: 1;">סגירה</button>
                 </div>
             </div>
         </div>
@@ -831,21 +1245,23 @@
         <div id="athleteHome" class="screen hidden">
             <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title">שלום, דני! 🥋</div>
+                <div class="screen-title">שלום, <span id="athleteName">ספורטאי</span>! ⚔️</div>
                 <div class="screen-subtitle">התחרות הבאה בעוד <span id="daysToCompetition">12</span> ימים</div>
             </div>
             
-            <div class="alert alert-info">
-                <span>📋 <strong>זמן לשאלון השבועי!</strong> מילוי השאלון יעזור לנו לעקוב אחריך טוב יותר.</span>
-            </div>
+            <!-- Weekly Assessment Alert - Always on top -->
+            <div id="weeklyAssessmentAlert"></div>
+            
+            <!-- Dynamic Alert for Weight Status -->
+            <div id="weightStatusAlert"></div>
             
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <div class="metric-value">72.5</div>
+                    <div class="metric-value" id="currentWeight">--</div>
                     <div class="metric-label">משקל נוכחי</div>
                 </div>
                 <div class="metric-card">
-                    <div class="metric-value">73.0</div>
+                    <div class="metric-value" id="targetWeight">--</div>
                     <div class="metric-label">יעד קטגוריה</div>
                 </div>
             </div>
@@ -853,189 +1269,205 @@
             <div class="progress-container">
                 <div class="progress-header">
                     <span class="progress-label">התקדמות ליעד</span>
-                    <span class="progress-value">92%</span>
+                    <span class="progress-value" id="progressValue">--</span>
                 </div>
                 <div class="progress-bar">
-                    <div class="progress-fill" style="width: 92%;"></div>
+                    <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
                 </div>
             </div>
             
             <div class="card">
                 <div class="card-header">המשימות שלי היום</div>
-                <div style="margin-bottom: 12px;">✅ שקילה יומית - הושלמה</div>
-                <div style="margin-bottom: 12px;">⏳ שתיית מים - 1.8/2.5 ליטר</div>
-                <div>📋 הערכה שבועית - ממתינה</div>
+                <div class="task-manager" id="taskManager">
+                    <!-- המשימות יוכנסו כאן דינמית -->
+                </div>
+                <button class="add-task-btn" onclick="openTaskModal()">➕ הוסף משימה</button>
             </div>
             
-            <button class="btn btn-primary" onclick="showScreen('nutritionistDashboard')">
-                💬 ממשק תזונאי (דמו)
+            <button class="btn btn-primary" onclick="showScreen('chat')">
+                💬 תקשורת עם התזונאי/ת
+            </button>
+            <button class="btn btn-secondary" onclick="showScreen('weightTracking')">
+                📊 מעקב משקל
             </button>
         </div>
 
-        <!-- ========== ממשקי תזונאי ========== -->
+        <!-- Weight Tracking Screen -->
+        <div id="weightTracking" class="screen hidden">
+            <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
+                <div class="screen-title">📊 מעקב משקל</div>
+                <div class="screen-subtitle">קטגוריה: עד <span id="categoryDisplay">--</span> ק"ג</div>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="weightChart"></canvas>
+            </div>
+            
+            <form id="weightForm" onsubmit="submitWeight(event)">
+                <div class="form-group">
+                    <label class="form-label">📊 משקל נוכחי (ק"ג)</label>
+                    <input type="number" id="weightInput" class="form-input" placeholder="72.5" step="0.1" min="40" max="150" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">זמן שקילה</label>
+                    <select id="weightTiming" class="form-select" onchange="toggleFreeText(this)">
+                        <option value="לפני ארוחת בוקר">לפני ארוחת בוקר</option>
+                        <option value="אחרי ארוחת בוקר">אחרי ארוחת בוקר</option>
+                        <option value="צהריים">צהריים</option>
+                        <option value="ערב">ערב</option>
+                        <option value="מלל חופשי">מלל חופשי</option>
+                    </select>
+                </div>
+                
+                <div class="form-group" id="freeTextGroup" style="display: none;">
+                    <label class="form-label">הערות נוספות</label>
+                    <input type="text" id="weightNotes" class="form-input" placeholder="הקלד הערה...">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">💾 שמור משקל</button>
+            </form>
+            
+            <button class="btn btn-secondary" onclick="showScreen('athleteHome')">
+                🏠 חזרה לדף הבית
+            </button>
+        </div>
+
+        <!-- Weekly Assessment Screen -->
+        <div id="weeklyAssessment" class="screen hidden">
+            <div class="screen-header">
+                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
+                <div class="screen-title">שאלון שבועי</div>
+                <div class="screen-subtitle">איך עבר עליך השבוע?</div>
+            </div>
+            
+            <div id="assessmentIntro" class="card">
+                <div class="card-header">📋 שאלון שבועי מותאם אישית</div>
+                <p style="margin-bottom: 12px;">השאלון קצר ויעזור לנו לעקוב אחרי מצבך הפיזי והמנטלי, ולהתאים לך ליווי אישי ומדויק.</p>
+                <p style="font-size: 14px; color: var(--gray-500);">⏱️ זמן מילוי: כ-3 דקות</p>
+                <button class="btn btn-primary" onclick="startAssessment()">התחל שאלון</button>
+            </div>
+            
+            <div id="assessmentContent" style="display: none;">
+                <div class="assessment-progress">
+                    <div class="assessment-progress-bar">
+                        <div class="assessment-progress-fill" id="assessmentProgress" style="width: 8.33%;"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: 8px; font-size: 14px; color: var(--gray-500);">
+                        שאלה <span id="currentQuestionNum">1</span> מתוך <span id="totalQuestions">13</span>
+                    </div>
+                </div>
+                
+                <div id="assessmentContainer">
+                    <!-- השאלות יוכנסו כאן דינמית -->
+                </div>
+                
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-secondary" id="prevQuestion" style="flex: 1;" onclick="prevQuestion()" disabled>הקודמת</button>
+                    <button class="btn btn-primary" id="nextQuestion" style="flex: 1;" onclick="nextQuestion()">הבאה</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Nutritionist Dashboard -->
         <div id="nutritionistDashboard" class="screen hidden">
-            <div class="screen-header nutritionist">
+            <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">מרכז בקרה</div>
                 <div class="screen-subtitle">ד"ר שרה כהן • תזונאית מוסמכת</div>
             </div>
             
-            <!-- Critical Alerts -->
-            <div class="alert alert-danger">
-                <span>🚨 <strong>דחוף:</strong> מיכאל רוזן - ירידה חריגה במשקל (2.1 ק"ג בשבוע)</span>
-            </div>
-            
-            <div class="alert alert-warning">
-                <span>⚠️ שרה לוי לא מילאה הערכה שבועית (3 ימים)</span>
-            </div>
-            
-            <!-- Key Metrics -->
             <div class="metrics-grid">
-                <div class="metric-card success">
-                    <div class="metric-value">15</div>
+                <div class="metric-card">
+                    <div class="metric-value" id="activeAthletes">12</div>
                     <div class="metric-label">ספורטאים פעילים</div>
                 </div>
-                <div class="metric-card warning">
-                    <div class="metric-value">3</div>
-                    <div class="metric-label">התראות דחופות</div>
-                </div>
                 <div class="metric-card">
-                    <div class="metric-value">89%</div>
-                    <div class="metric-label">ציות לתוכנית</div>
-                </div>
-                <div class="metric-card success">
-                    <div class="metric-value">12</div>
-                    <div class="metric-label">תחרויות השבוע</div>
+                    <div class="metric-value" id="alertsCount">3</div>
+                    <div class="metric-label">התראות</div>
                 </div>
             </div>
             
-            <!-- Quick Stats -->
+            <div id="alertsContainer">
+                <div class="alert alert-danger">
+                    <span><strong>🚨 דחוף:</strong> מיכאל - ירידה חריגה במשקל (2.1 ק"ג בשבוע)</span>
+                </div>
+                
+                <div class="alert alert-warning">
+                    <span>⚠️ שרה לא מילאה הערכה שבועית (3 ימים)</span>
+                </div>
+            </div>
+            
             <div class="card">
-                <div class="card-header">סטטיסטיקות מהירות</div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">13/15</div>
-                        <div class="stat-label">שקלו השבוע</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">11/15</div>
-                        <div class="stat-label">מילאו הערכה</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">0.8</div>
-                        <div class="stat-label">ממוצע ירידת משקל</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">4.2</div>
-                        <div class="stat-label">שעות תגובה ממוצעות</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Quick Actions -->
-            <div class="quick-actions">
-                <div class="quick-action-btn" onclick="showScreen('athletesList')">
-                    <span class="quick-action-icon">👥</span>
-                    רשימת ספורטאים
-                </div>
-                <div class="quick-action-btn" onclick="showScreen('alertsManager')">
-                    <span class="quick-action-icon">🚨</span>
-                    ניהול התראות
-                </div>
-                <div class="quick-action-btn" onclick="showScreen('weeklyReports')">
-                    <span class="quick-action-icon">📊</span>
-                    דוחות שבועיים
-                </div>
-                <div class="quick-action-btn" onclick="showScreen('nutritionPlans')">
-                    <span class="quick-action-icon">📋</span>
-                    תוכניות תזונה
-                </div>
+                <div class="card-header">סטטיסטיקות שבועיות</div>
+                <p><strong>ממוצע ירידת משקל:</strong> 0.8 ק"ג לשבוע</p>
+                <p><strong>ספורטאים שהגיעו ליעד:</strong> 9/12</p>
+                <p><strong>שיעור השלמת הערכות:</strong> 85%</p>
+                <p><strong>תחרויות השבוע:</strong> 3</p>
             </div>
             
             <button class="btn btn-primary" onclick="showScreen('athletesList')">
-                📋 צפייה בכל הספורטאים
+                📋 רשימת ספורטאים
+            </button>
+            <button class="btn btn-secondary" onclick="openTemplateModal()">
+                📋 תוכניות תזונה
             </button>
         </div>
 
-        <!-- Athletes List Screen -->
+        <!-- Athletes List -->
         <div id="athletesList" class="screen hidden">
-            <div class="screen-header nutritionist">
+            <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
                 <div class="screen-title">רשימת ספורטאים</div>
-                <div class="screen-subtitle">15 ספורטאים פעילים</div>
+                <div class="screen-subtitle">12 ספורטאים פעילים</div>
             </div>
             
-            <!-- Search and Filters -->
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="חיפוש ספורטאי..." id="athleteSearch">
-                <span class="search-icon">🔍</span>
+            <div class="card">
+                <div class="card-header">מסנן לפי סטטוס</div>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" style="flex: 1; font-size: 12px; padding: 8px;">הכל (12)</button>
+                    <button class="btn btn-secondary" style="flex: 1; font-size: 12px; padding: 8px;">דחופות (3)</button>
+                    <button class="btn btn-secondary" style="flex: 1; font-size: 12px; padding: 8px;">תחרויות (4)</button>
+                </div>
             </div>
             
-            <div class="filter-pills">
-                <button class="filter-pill active" onclick="filterAthletes('all')">הכל (15)</button>
-                <button class="filter-pill" onclick="filterAthletes('urgent')">דחופות (3)</button>
-                <button class="filter-pill" onclick="filterAthletes('competitions')">תחרויות (8)</button>
-                <button class="filter-pill" onclick="filterAthletes('weekly')">הערכות (4)</button>
+            <div onclick="showAthleteDetails('danny')" style="cursor: pointer;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">דני כהן</div>
+                            <div style="font-size: 14px; color: var(--gray-600);">72.5 ק"ג • קטגוריה 73 • תחרות בעוד 12 ימים</div>
+                            <div style="font-size: 12px; color: var(--success-green);">✅ במסלול</div>
+                        </div>
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--success-green);"></div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Athletes List -->
-            <div id="athletesContainer">
-                <!-- Urgent Cases -->
-                <div class="athlete-card urgent" onclick="openAthleteProfile('michael')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">מיכאל רוזן</div>
-                        <div class="athlete-status">80.8 ק"ג • קטגוריה 81 • תחרות בעוד 8 ימים</div>
-                        <div class="athlete-details">ירידה חריגה: 2.1 ק"ג בשבוע</div>
+            <div onclick="showAthleteDetails('sara')" style="cursor: pointer;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">שרה לוי</div>
+                            <div style="font-size: 14px; color: var(--gray-600);">58.2 ק"ג • קטגוריה 57 • הערכה ממתינה</div>
+                            <div style="font-size: 12px; color: var(--warning-orange);">⏳ הערכה ממתינה</div>
+                        </div>
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--warning-orange);"></div>
                     </div>
-                    <div class="status-indicator status-danger"></div>
                 </div>
-                
-                <div class="athlete-card warning" onclick="openAthleteProfile('sara')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">שרה לוי</div>
-                        <div class="athlete-status">58.2 ק"ג • קטגוריה 57 • תחרות בעוד 20 ימים</div>
-                        <div class="athlete-details">הערכה ממתינה (3 ימים)</div>
+            </div>
+            
+            <div onclick="showAthleteDetails('michael')" style="cursor: pointer;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--gray-900);">מיכאל אברהם</div>
+                            <div style="font-size: 14px; color: var(--gray-600);">83.1 ק"ג • קטגוריה 81 • ירידה חריגה</div>
+                            <div style="font-size: 12px; color: var(--danger-red);">🚨 ירידה חריגה במשקל</div>
+                        </div>
+                        <div style="width: 12px; height: 12px; border-radius: 50%; background: var(--danger-red);"></div>
                     </div>
-                    <div class="status-indicator status-warning"></div>
-                </div>
-                
-                <div class="athlete-card urgent" onclick="openAthleteProfile('yael')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">יעל כהן</div>
-                        <div class="athlete-status">62.1 ק"ג • קטגוריה 63 • תחרות בעוד 5 ימים</div>
-                        <div class="athlete-details">דיווח פציעה ברגל</div>
-                    </div>
-                    <div class="status-indicator status-danger"></div>
-                </div>
-                
-                <!-- Normal Cases -->
-                <div class="athlete-card" onclick="openAthleteProfile('danny')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">דני מזרחי</div>
-                        <div class="athlete-status">72.5 ק"ג • קטגוריה 73 • תחרות בעוד 12 ימים</div>
-                        <div class="athlete-details">במסלול, הכל תקין</div>
-                    </div>
-                    <div class="status-indicator status-success"></div>
-                </div>
-                
-                <div class="athlete-card" onclick="openAthleteProfile('ron')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">רון אברהם</div>
-                        <div class="athlete-status">90.2 ק"ג • קטגוריה 90 • תחרות בעוד 18 ימים</div>
-                        <div class="athlete-details">התקדמות יציבה</div>
-                    </div>
-                    <div class="status-indicator status-success"></div>
-                </div>
-                
-                <div class="athlete-card warning" onclick="openAthleteProfile('noa')">
-                    <div class="athlete-info">
-                        <div class="athlete-name">נועה דוד</div>
-                        <div class="athlete-status">52.8 ק"ג • קטגוריה 52 • תחרות בעוד 15 ימים</div>
-                        <div class="athlete-details">צריכת מים נמוכה</div>
-                    </div>
-                    <div class="status-indicator status-warning"></div>
                 </div>
             </div>
             
@@ -1044,487 +1476,287 @@
             </button>
         </div>
 
-        <!-- Athlete Profile Screen -->
-        <div id="athleteProfile" class="screen hidden">
-            <div class="screen-header nutritionist">
-                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title" id="profileAthleteName">מיכאל רוזן</div>
-                <div class="screen-subtitle">קטגוריה: עד 81 ק"ג • גיל: 24</div>
+        <!-- Competition Cut Plan -->
+        <div id="competitionCutPlan" class="screen hidden">
+            <div class="screen-header">
+                <button class="exit-btn" onclick="showScreen('nutritionistDashboard')">🔙 חזרה</button>
+                <div class="screen-title">⚔️ תוכנית חיתוך לתחרות</div>
+                <div class="screen-subtitle"><span id="cutPlanAthlete">ספורטאי</span> • קטגוריה <span id="cutPlanCategory">66</span> ק"ג</div>
             </div>
             
-            <!-- Critical Alert -->
-            <div id="profileAlert" class="alert alert-danger">
-                <span>🚨 <strong>התראה דחופה:</strong> ירידה חריגה במשקל - 2.1 ק"ג בשבוע האחרון</span>
-            </div>
-            
-            <!-- Key Metrics -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-value">80.8</div>
-                    <div class="metric-label">משקל נוכחי</div>
-                </div>
-                <div class="metric-card warning">
-                    <div class="metric-value">81.0</div>
-                    <div class="metric-label">יעד קטגוריה</div>
-                </div>
-                <div class="metric-card success">
-                    <div class="metric-value">8</div>
-                    <div class="metric-label">ימים לתחרות</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">6/10</div>
-                    <div class="metric-label">מוכנות אחרונה</div>
-                </div>
-            </div>
-            
-            <!-- Weight Chart -->
-            <div class="chart-container">
-                <canvas id="athleteWeightChart"></canvas>
-            </div>
-            
-            <!-- Tabs -->
-            <div class="tab-nav">
-                <button class="tab-btn active" onclick="switchTab('overview')">סקירה</button>
-                <button class="tab-btn" onclick="switchTab('assessment')">הערכות</button>
-                <button class="tab-btn" onclick="switchTab('nutrition')">תזונה</button>
-                <button class="tab-btn" onclick="switchTab('notes')">הערות</button>
-            </div>
-            
-            <!-- Overview Tab -->
-            <div id="overviewTab" class="tab-content active">
-                <div class="card">
-                    <div class="card-header">הערכה אחרונה (לפני יומיים)</div>
-                    <div class="progress-container">
-                        <div class="progress-header">
-                            <span class="progress-label">שינה</span>
-                            <span class="progress-value">7/10</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 70%;"></div>
-                        </div>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-header">
-                            <span class="progress-label">אנרגיה</span>
-                            <span class="progress-value">5/10</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 50%;"></div>
-                        </div>
-                    </div>
-                    <div class="progress-container">
-                        <div class="progress-header">
-                            <span class="progress-label">תיאבון</span>
-                            <span class="progress-value">4/10</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 40%;"></div>
-                        </div>
-                    </div>
-                    <p style="margin-top: 12px; color: var(--danger-red); font-weight: 500;">
-                        דיווח: "עייפות חריגה, קושי להתאושש מאימונים"
-                    </p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">המלצות טיפול</div>
-                    <div style="margin-bottom: 8px;">🔴 הפסקת ירידת משקל מיידית</div>
-                    <div style="margin-bottom: 8px;">💧 הגדלת צריכת מים ל-3 ליטר</div>
-                    <div style="margin-bottom: 8px;">🍽️ הוספת ארוחת ביניים</div>
-                    <div>😴 שיפור איכות השינה</div>
-                </div>
-            </div>
-            
-            <!-- Assessment Tab -->
-            <div id="assessmentTab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">היסטוריית הערכות</div>
-                    <div style="margin-bottom: 12px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
-                        <strong>17/07/2024</strong> - מוכנות: 6/10<br>
-                        <small>עייפות חריגה, קושי בהתאוששות</small>
-                    </div>
-                    <div style="margin-bottom: 12px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
-                        <strong>10/07/2024</strong> - מוכנות: 8/10<br>
-                        <small>הרגשה טובה, אנרגיה גבוהה</small>
-                    </div>
-                    <div style="margin-bottom: 12px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
-                        <strong>03/07/2024</strong> - מוכנות: 7/10<br>
-                        <small>מצב סביר, קלה עייפות</small>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Nutrition Tab -->
-            <div id="nutritionTab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">תוכנית תזונה נוכחית</div>
-                    <div style="margin-bottom: 8px;"><strong>קלוריות יומיות:</strong> 2800 קק"ל</div>
-                    <div style="margin-bottom: 8px;"><strong>חלבונים:</strong> 160 גרם (23%)</div>
-                    <div style="margin-bottom: 8px;"><strong>פחמימות:</strong> 350 גרם (50%)</div>
-                    <div style="margin-bottom: 8px;"><strong>שומנים:</strong> 84 גרם (27%)</div>
-                    <div style="margin-top: 16px;">
-                        <button class="btn btn-warning" style="width: auto; margin: 0;">⚠️ דורש עדכון דחוף</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Notes Tab -->
-            <div id="notesTab" class="tab-content">
-                <div class="card">
-                    <div class="card-header">הערות מקצועיות</div>
+            <div class="card">
+                <div class="card-header">📋 פרטי התוכנית</div>
+                <form id="cutPlanForm">
                     <div class="form-group">
-                        <textarea class="form-textarea" rows="4" placeholder="הוסף הערה חדשה..."></textarea>
+                        <label class="form-label">משקל נוכחי (ק"ג)</label>
+                        <input type="number" id="cutCurrentWeight" class="form-input" placeholder="68.0" step="0.1" required>
                     </div>
-                    <button class="btn btn-primary" style="width: auto;">💾 שמור הערה</button>
-                </div>
-                
+                    
+                    <div class="form-group">
+                        <label class="form-label">משקל יעד (ק"ג)</label>
+                        <input type="number" id="cutTargetWeight" class="form-input" placeholder="66.0" step="0.1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">תאריך התחרות</label>
+                        <input type="date" id="cutCompetitionDate" class="form-input" required>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" onclick="generateCutPlan()">
+                        🎯 יצירת תוכנית חיתוך
+                    </button>
+                </form>
+            </div>
+            
+            <div id="cutPlanResults" style="display: none;">
                 <div class="card">
-                    <div class="card-header">הערות קודמות</div>
-                    <div style="margin-bottom: 12px; padding: 12px; background: var(--gray-50); border-radius: 8px; border-right: 4px solid var(--danger-red);">
-                        <strong>17/07/2024 15:30</strong><br>
-                        ירידת משקל חריגה - ייתכן ודרוש צמצום עוצמת אימונים. תיאמתי עם המאמן.
-                    </div>
-                    <div style="margin-bottom: 12px; padding: 12px; background: var(--gray-50); border-radius: 8px;">
-                        <strong>15/07/2024 09:15</strong><br>
-                        דיבר על קשיים בשינה. המלצתי על מגנזיום לפני השינה.
+                    <div class="card-header">📊 לוח זמנים לחיתוך</div>
+                    <div id="cutTableContainer">
+                        <!-- הטבלה תוכנס כאן דינמית -->
                     </div>
                 </div>
+                
+                <button class="btn btn-primary" onclick="saveCutPlan()">💾 שמור תוכנית</button>
+                <button class="btn btn-secondary" onclick="exportCutPlan()">📄 ייצא לאקסל</button>
             </div>
-            
-            <!-- Action Buttons -->
-            <div class="quick-actions">
-                <div class="quick-action-btn" onclick="openMessageModal()">
-                    <span class="quick-action-icon">💬</span>
-                    שלח הודעה
-                </div>
-                <div class="quick-action-btn" onclick="createAlert()">
-                    <span class="quick-action-icon">🚨</span>
-                    יצירת התראה
-                </div>
-            </div>
-            
-            <button class="btn btn-secondary" onclick="showScreen('athletesList')">
-                🔙 חזרה לרשימה
-            </button>
         </div>
 
-        <!-- Alerts Manager Screen -->
-        <div id="alertsManager" class="screen hidden">
-            <div class="screen-header nutritionist">
+        <!-- Chat Screen -->
+        <div id="chat" class="screen hidden">
+            <div class="screen-header">
                 <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title">ניהול התראות</div>
-                <div class="screen-subtitle">3 התראות פעילות</div>
+                <div class="screen-title">תקשורת</div>
+                <div class="screen-subtitle">עם התזונאי/ת</div>
             </div>
             
-            <!-- Active Alerts -->
             <div class="card">
-                <div class="card-header">התראות דחופות</div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: linear-gradient(135deg, #ffebee 0%, #f8d7da 100%); border-radius: 12px; border-right: 4px solid var(--danger-red);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">מיכאל רוזן - ירידת משקל חריגה</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">2.1 ק"ג בשבוע | זמן יצירה: לפני 3 שעות</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-danger" style="width: auto; font-size: 12px; padding: 8px 12px;">טיפול דחוף</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">סגור התראה</button>
+                <div class="card-header">💬 צ'אט עם ד"ר שרה כהן</div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message received">
+                        <div>שלום! איך אתה מרגיש השבוע?</div>
+                        <div class="message-time">אתמול 16:20</div>
+                    </div>
+                    <div class="message sent">
+                        <div>שלום! טוב בסך הכל, קצת עייפות אחרי האימונים</div>
+                        <div class="message-time">אתמול 18:45</div>
                     </div>
                 </div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: linear-gradient(135deg, #fff3e0 0%, #ffeaa7 100%); border-radius: 12px; border-right: 4px solid var(--warning-orange);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">שרה לוי - חוסר מילוי הערכה</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">3 ימים ללא הערכה | תחרות בעוד 20 ימים</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-warning" style="width: auto; font-size: 12px; padding: 8px 12px;">שלח תזכורת</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">התקשר</button>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: linear-gradient(135deg, #ffebee 0%, #f8d7da 100%); border-radius: 12px; border-right: 4px solid var(--danger-red);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">יעל כהן - דיווח פציעה</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">פציעה ברגל | תחרות בעוד 5 ימים</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-danger" style="width: auto; font-size: 12px; padding: 8px 12px;">ייעוץ רפואי</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">עדכון תוכנית</button>
-                    </div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="chatInput" class="form-input" placeholder="הקלד הודעה..." style="margin: 0;">
+                    <button class="btn btn-primary" onclick="sendChatMessage()" style="width: auto; margin: 0; padding: 16px;">שלח</button>
                 </div>
             </div>
             
-            <!-- Alert Statistics -->
-            <div class="card">
-                <div class="card-header">סטטיסטיקות התראות</div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number">27</div>
-                        <div class="stat-label">התראות החודש</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">23</div>
-                        <div class="stat-label">טופלו בהצלחה</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">2.4</div>
-                        <div class="stat-label">שעות טיפול ממוצעות</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number">85%</div>
-                        <div class="stat-label">שיעור הצלחה</div>
-                    </div>
-                </div>
-            </div>
-            
-            <button class="btn btn-secondary" onclick="showScreen('nutritionistDashboard')">
-                🏠 חזרה לדשבורד
+            <button class="btn btn-secondary" onclick="showScreen('athleteHome')">
+                🏠 חזרה לדף הבית
             </button>
         </div>
 
-        <!-- Weekly Reports Screen -->
-        <div id="weeklyReports" class="screen hidden">
-            <div class="screen-header nutritionist">
-                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title">דוחות שבועיים</div>
-                <div class="screen-subtitle">השבוע: 14-21 יולי 2024</div>
+        <!-- Bottom Navigation for Athletes -->
+        <div id="athleteBottomNav" class="bottom-nav hidden">
+            <div class="nav-item active" onclick="showScreen('athleteHome')">
+                <div class="nav-icon">🏠</div>
+                <div>בית</div>
             </div>
-            
-            <!-- Weekly Summary -->
-            <div class="metrics-grid">
-                <div class="metric-card success">
-                    <div class="metric-value">89%</div>
-                    <div class="metric-label">ציות לתוכנית</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-value">0.8</div>
-                    <div class="metric-label">ממוצע ירידת משקל</div>
-                </div>
-                <div class="metric-card warning">
-                    <div class="metric-value">73%</div>
-                    <div class="metric-label">השלמת הערכות</div>
-                </div>
-                <div class="metric-card success">
-                    <div class="metric-value">12</div>
-                    <div class="metric-label">תחרויות מתוכננות</div>
-                </div>
+            <div class="nav-item" onclick="showScreen('weightTracking')">
+                <div class="nav-icon">📊</div>
+                <div>משקל</div>
             </div>
-            
-            <!-- Performance Chart -->
-            <div class="chart-container">
-                <canvas id="weeklyPerformanceChart"></canvas>
+            <div class="nav-item" onclick="showScreen('weeklyAssessment')">
+                <div class="nav-icon">📋</div>
+                <div>הערכה</div>
             </div>
-            
-            <!-- Detailed Stats -->
-            <div class="card">
-                <div class="card-header">פירוט שבועי</div>
-                <div style="margin-bottom: 12px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                        <span>שקילות שבועיות</span>
-                        <span><strong>13/15</strong></span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 87%;"></div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 12px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                        <span>הערכות שבועיות</span>
-                        <span><strong>11/15</strong></span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 73%;"></div>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 12px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                        <span>תקשורת פעילה</span>
-                        <span><strong>14/15</strong></span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 93%;"></div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Top Performers -->
-            <div class="card">
-                <div class="card-header">ביצועים מצוינים השבוע</div>
-                <div style="margin-bottom: 8px;">🥇 רון אברהם - 100% ציות לתוכנית</div>
-                <div style="margin-bottom: 8px;">🥈 דני מזרחי - ירידת משקל מושלמת</div>
-                <div>🥉 נועה דוד - שיפור משמעותי באנרגיה</div>
-            </div>
-            
-            <!-- Export Options -->
-            <div class="quick-actions">
-                <div class="quick-action-btn">
-                    <span class="quick-action-icon">📄</span>
-                    ייצוא PDF
-                </div>
-                <div class="quick-action-btn">
-                    <span class="quick-action-icon">📊</span>
-                    ייצוא Excel
-                </div>
-            </div>
-            
-            <button class="btn btn-secondary" onclick="showScreen('nutritionistDashboard')">
-                🏠 חזרה לדשבורד
-            </button>
-        </div>
-
-        <!-- Nutrition Plans Screen -->
-        <div id="nutritionPlans" class="screen hidden">
-            <div class="screen-header nutritionist">
-                <button class="exit-btn" onclick="exitToWelcome()">🔄 החלפת תפקיד</button>
-                <div class="screen-title">תוכניות תזונה</div>
-                <div class="screen-subtitle">15 תוכניות פעילות</div>
-            </div>
-            
-            <!-- Search and Filter -->
-            <div class="search-bar">
-                <input type="text" class="search-input" placeholder="חיפוש תוכנית...">
-                <span class="search-icon">🔍</span>
-            </div>
-            
-            <div class="filter-pills">
-                <button class="filter-pill active">הכל (15)</button>
-                <button class="filter-pill">חיתוך (8)</button>
-                <button class="filter-pill">תחזוקה (5)</button>
-                <button class="filter-pill">העלאה (2)</button>
-            </div>
-            
-            <!-- Active Plans -->
-            <div class="card">
-                <div class="card-header">תוכניות פעילות</div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: var(--gray-50); border-radius: 12px; border-right: 4px solid var(--danger-red);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">מיכאל רוזן - חיתוך אגרסיבי</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">2800 → 2400 קק"ל | יעד: -1.5 ק"ג</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-warning" style="width: auto; font-size: 12px; padding: 8px 12px;">עדכון דחוף</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">פירוט</button>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: var(--gray-50); border-radius: 12px; border-right: 4px solid var(--success-green);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">דני מזרחי - חיתוך מתון</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">2600 קק"ל | יעד: -0.5 ק"ג</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-success" style="width: auto; font-size: 12px; padding: 8px 12px;">במסלול</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">פירוט</button>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 16px; padding: 16px; background: var(--gray-50); border-radius: 12px; border-right: 4px solid var(--primary-blue);">
-                    <div style="font-weight: 600; margin-bottom: 4px;">רון אברהם - תחזוקה</div>
-                    <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">3200 קק"ל | יעד: שמירת משקל</div>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-primary" style="width: auto; font-size: 12px; padding: 8px 12px;">יציב</button>
-                        <button class="btn btn-secondary" style="width: auto; font-size: 12px; padding: 8px 12px;">פירוט</button>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Quick Templates -->
-            <div class="card">
-                <div class="card-header">תבניות מהירות</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                    <button class="btn btn-secondary" style="font-size: 14px;">חיתוך מהיר</button>
-                    <button class="btn btn-secondary" style="font-size: 14px;">חיתוך מתון</button>
-                    <button class="btn btn-secondary" style="font-size: 14px;">תחזוקה</button>
-                    <button class="btn btn-secondary" style="font-size: 14px;">העלאת משקל</button>
-                </div>
-            </div>
-            
-            <button class="btn btn-primary">➕ יצירת תוכנית חדשה</button>
-            <button class="btn btn-secondary" onclick="showScreen('nutritionistDashboard')">
-                🏠 חזרה לדשבורד
-            </button>
-        </div>
-
-        <!-- Message Modal -->
-        <div id="messageModal" class="modal hidden">
-            <div class="modal-content">
-                <button class="modal-close" onclick="closeMessageModal()">✕</button>
-                <div class="modal-header">שליחת הודעה</div>
-                
-                <div class="form-group">
-                    <label class="form-label">נמען</label>
-                    <select class="form-select">
-                        <option>מיכאל רוזן</option>
-                        <option>שרה לוי</option>
-                        <option>דני מזרחי</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">נושא</label>
-                    <select class="form-select">
-                        <option>עדכון תוכנית תזונה</option>
-                        <option>תזכורת לשקילה</option>
-                        <option>המלצות כלליות</option>
-                        <option>הודעה אישית</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">תוכן ההודעה</label>
-                    <textarea class="form-textarea" rows="4" placeholder="הקלד את תוכן ההודעה..."></textarea>
-                </div>
-                
-                <div style="display: flex; gap: 12px;">
-                    <button class="btn btn-primary" style="flex: 1;">שלח</button>
-                    <button class="btn btn-secondary" style="flex: 1;" onclick="closeMessageModal()">ביטול</button>
-                </div>
+            <div class="nav-item" onclick="showScreen('chat')">
+                <div class="nav-icon">💬</div>
+                <div>תקשורת</div>
             </div>
         </div>
     </div>
 
     <!-- JavaScript -->
     <script>
-        // 🥋 JudoNutrition App - גרסה מלאה עם ממשק תזונאי מתקדם
-        console.log("🥋 JudoNutrition Pro Loading...");
+        // 🥋 JudoNutrition App - גרסה מעודכנת ומתוקנת
+        console.log("🥋 JudoNutrition App Loading...");
 
         // ========== משתנים גלובליים ==========
         let currentUser = {
             role: null,
             name: '',
-            currentScreen: 'welcome'
+            age: 0,
+            gender: '',
+            weightCategory: 0,
+            customTasks: []
         };
 
         let appData = {
-            athletes: {
-                'michael': {
-                    name: 'מיכאל רוזן',
-                    category: '81',
-                    currentWeight: 80.8,
-                    targetWeight: 81.0,
-                    competitionDate: '2024-07-25',
-                    status: 'urgent',
-                    lastAssessment: '2024-07-17',
-                    assessmentScore: 6,
-                    weightHistory: [83.2, 82.8, 82.1, 81.5, 80.8],
-                    alerts: ['ירידה חריגה במשקל', 'עייפות חריגה']
-                },
-                'sara': {
-                    name: 'שרה לוי',
-                    category: '57',
-                    currentWeight: 58.2,
-                    targetWeight: 57.0,
-                    competitionDate: '2024-08-06',
-                    status: 'warning',
-                    lastAssessment: '2024-07-14',
-                    assessmentScore: 7,
-                    alerts: ['חוסר מילוי הערכה']
-                },
-                'danny': {
-                    name: 'דני מזרחי',
-                    category: '73',
-                    currentWeight: 72.5,
-                    targetWeight: 73.0,
-                    competitionDate: '2024-07-29',
-                    status: 'success',
-                    lastAssessment: '2024-07-17',
-                    assessmentScore: 8
+            weights: [],
+            dates: [],
+            currentScreen: 'welcome',
+            weightChart: null
+        };
+
+        // שאלון הערכה שבועית מתוקן
+        const weeklyQuestions = [
+            {
+                id: 1,
+                text: "מה המשקל שלך הבוקר (ק\"ג)?",
+                type: "number",
+                placeholder: "72.5",
+                min: 40,
+                max: 150,
+                step: 0.1,
+                category: "משקל"
+            },
+            
+            {
+                id: 2,
+                text: "כמה שעות ישנת בממוצע בלילה בשבוע האחרון?",
+                type: "radio",
+                category: "שינה",
+                options: [
+                    { value: 1, text: "פחות מ-6 שעות" },
+                    { value: 2, text: "6-7 שעות" },
+                    { value: 3, text: "7-8 שעות" },
+                    { value: 4, text: "יותר מ-8 שעות" }
+                ]
+            },
+            
+            {
+                id: 3,
+                text: "איך היית מדרג/ת את איכות השינה שלך?",
+                type: "scale",
+                category: "שינה",
+                scale: { min: 1, max: 5, labels: ["גרועה מאוד", "גרועה", "סבירה", "טובה", "מעולה"] }
+            },
+            
+            {
+                id: 4,
+                text: "באילו שעות הלכת לישון וקמת ברוב ימי השבוע?",
+                type: "time_range",
+                category: "שינה",
+                fields: [
+                    { name: "bedtime", label: "שעת שינה (24:00)", type: "time" },
+                    { name: "waketime", label: "שעת קימה (06:00)", type: "time" }
+                ]
+            },
+            
+            {
+                id: 5,
+                text: "איך היית מדרג/ת את התיאבון שלך השבוע?",
+                type: "scale",
+                category: "תיאבון ושתייה",
+                scale: { min: 1, max: 5, labels: ["אין תיאבון", "תיאבון נמוך", "תיאבון רגיל", "תיאבון טוב", "תיאבון מצוין"] }
+            },
+            
+            {
+                id: 6,
+                text: "כמה מים שתית ביום בממוצע (בליטרים)?",
+                type: "number",
+                category: "תיאבון ושתייה",
+                placeholder: "2.5",
+                min: 0.5,
+                max: 10,
+                step: 0.1,
+                unit: "ליטר"
+            },
+            
+            {
+                id: 7,
+                text: "אילו תוספי תזונה נטלת השבוע? (אפשר לבחור כמה)",
+                type: "checkbox",
+                category: "תוספי תזונה",
+                options: [
+                    { value: "magnesium", text: "מגנזיום" },
+                    { value: "iron", text: "ברזל" },
+                    { value: "omega3", text: "אומגה 3" },
+                    { value: "creatine", text: "קריאטין" },
+                    { value: "beta_alanine", text: "בטא-אלנין" },
+                    { value: "vitamin_d", text: "ויטמין D" },
+                    { value: "other", text: "אחר", hasText: true },
+                    { value: "none", text: "לא לקחתי תוספים השבוע" }
+                ]
+            },
+            
+            {
+                id: 8,
+                text: "האם קיבלת מחזור החודש השבוע?",
+                type: "radio_conditional",
+                category: "בריאות כללית",
+                condition: "female_only",
+                options: [
+                    { value: "yes", text: "כן" },
+                    { value: "no", text: "לא" },
+                    { value: "not_relevant", text: "לא רלוונטי" }
+                ]
+            },
+            
+            {
+                id: 9,
+                text: "האם חווית השבוע? (אפשר לבחור כמה)",
+                type: "checkbox",
+                category: "בריאות כללית",
+                options: [
+                    { value: "pain", text: "כאבים או אי נוחות", hasText: true, textPlaceholder: "פרט איפה ואיך" },
+                    { value: "injury", text: "פציעה", hasText: true, textPlaceholder: "פרט מה קרה" },
+                    { value: "fatigue", text: "עייפות יוצאת דופן", hasText: true, textPlaceholder: "פרט מתי ואיך" },
+                    { value: "digestive", text: "כאבי בטן/עצירות/שלשול", hasText: true, textPlaceholder: "פרט מה" },
+                    { value: "none", text: "לא חוויתי דבר מהנ\"ל" }
+                ]
+            },
+            
+            {
+                id: 10,
+                text: "איך היית מדרג/ת את מצב הרוח שלך בשבוע האחרון?",
+                type: "scale",
+                category: "מצב רגשי ופיזיולוגי",
+                scale: { min: 1, max: 5, labels: ["דיכאון", "עצוב", "רגיל", "שמח", "אופטימי מאוד"] }
+            },
+            
+            {
+                id: 11,
+                text: "איך היית מדרג/ת את רמות האנרגיה שלך לאורך היום?",
+                type: "scale",
+                category: "מצב רגשי ופיזיולוגי",
+                scale: { min: 1, max: 5, labels: ["עייפות קיצונית", "עייף", "רגיל", "אנרגטי", "מלא אנרגיה"] }
+            },
+            
+            {
+                id: 12,
+                text: "איך היית מדרג/ת את יכולת ההתאוששות שלך לאחר אימונים?",
+                type: "scale",
+                category: "מצב רגשי ופיזיולוגי",
+                scale: { 
+                    min: 1, 
+                    max: 10, 
+                    labels: [
+                        "לא מתאושש",
+                        "התאוששות גרועה",
+                        "התאוששות חלשה",
+                        "התאוששות לא טובה",
+                        "התאוששות בינונית",
+                        "התאוששות סבירה",
+                        "התאוששות טובה",
+                        "התאוששות מעולה",
+                        "התאוששות מצוינת",
+                        "התאוששות מושלמת"
+                    ] 
                 }
             },
-            charts: {}
+            
+            {
+                id: 13,
+                text: "רוצה להוסיף משהו נוסף?",
+                type: "textarea",
+                category: "הערות נוספות",
+                placeholder: "כל דבר נוסף שחשוב לך לשתף...",
+                optional: true
+            }
+        ];
+
+        let currentAssessment = {
+            currentQuestion: 0,
+            answers: {},
+            isCompleted: false
         };
 
         // ========== פונקציות ניהול מסכים ==========
@@ -1532,18 +1764,16 @@
         function showScreen(screenId) {
             console.log('🔄 Switching to screen:', screenId);
             
-            // הסתרת כל המסכים
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.add('hidden');
             });
             
-            // הצגת המסך הנבחר
             const targetScreen = document.getElementById(screenId);
             if (targetScreen) {
                 targetScreen.classList.remove('hidden');
-                currentUser.currentScreen = screenId;
+                appData.currentScreen = screenId;
                 
-                // עדכון נתונים במסך
+                manageBottomNav(screenId);
                 updateScreenData(screenId);
                 
                 console.log('✅ Successfully switched to screen:', screenId);
@@ -1557,9 +1787,8 @@
             currentUser.role = role;
             
             if (role === 'athlete') {
-                currentUser.name = "דני מזרחי";
-                showScreen('athleteHome');
-            } else if (role === 'nutritionist') {
+                showScreen('registration');
+            } else {
                 currentUser.name = "ד״ר שרה כהן";
                 showScreen('nutritionistDashboard');
             }
@@ -1567,99 +1796,1196 @@
 
         function exitToWelcome() {
             console.log('🔄 Exiting to welcome screen');
-            currentUser = { role: null, name: '', currentScreen: 'welcome' };
+            localStorage.clear();
+            currentUser = { role: null, name: '', age: 0, gender: '', weightCategory: 0, customTasks: [] };
+            appData = { weights: [], dates: [], currentScreen: 'welcome', weightChart: null };
+            
+            const bottomNav = document.getElementById('athleteBottomNav');
+            if (bottomNav) bottomNav.classList.add('hidden');
+            
             showScreen('welcome');
+        }
+
+        function manageBottomNav(screenId) {
+            const bottomNav = document.getElementById('athleteBottomNav');
+            
+            if (currentUser.role === 'athlete') {
+                const athleteScreens = ['athleteHome', 'weightTracking', 'weeklyAssessment', 'chat'];
+                if (athleteScreens.includes(screenId)) {
+                    bottomNav.classList.remove('hidden');
+                    
+                    document.querySelectorAll('.nav-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    const navItems = bottomNav.querySelectorAll('.nav-item');
+                    navItems.forEach(item => {
+                        const itemScreen = item.getAttribute('onclick')?.match(/showScreen\('([^']+)'\)/)?.[1];
+                        if (itemScreen === screenId) {
+                            item.classList.add('active');
+                        }
+                    });
+                } else {
+                    bottomNav.classList.add('hidden');
+                }
+            } else {
+                bottomNav.classList.add('hidden');
+            }
         }
 
         function updateScreenData(screenId) {
             switch(screenId) {
-                case 'nutritionistDashboard':
-                    updateNutritionistDashboard();
+                case 'athleteHome':
+                    updateAthleteHome();
                     break;
-                case 'athleteProfile':
-                    updateAthleteProfile();
+                    
+                case 'scale':
+                    const scaleButtons = [];
+                    for (let i = question.scale.min; i <= question.scale.max; i++) {
+                        const labelIndex = i - question.scale.min;
+                        const label = question.scale.labels && question.scale.labels[labelIndex] ? 
+                                     question.scale.labels[labelIndex] : i;
+                        scaleButtons.push(`
+                            <button type="button" class="scale-btn ${currentAssessment.answers[question.id] === i ? 'active' : ''}" 
+                                    onclick="selectScale(${question.id}, ${i})">
+                                <div class="scale-number">${i}</div>
+                                <div class="scale-label">${label}</div>
+                            </button>
+                        `);
+                    }
+                    
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="scale-options">
+                                ${scaleButtons.join('')}
+                            </div>
+                        </div>
+                    `;
                     break;
-                case 'weeklyReports':
-                    updateWeeklyReports();
+                    
+                case 'time_range':
+                    const timeFields = question.fields.map(field => `
+                        <div class="form-group">
+                            <label class="form-label">${field.label}</label>
+                            <input type="time" id="question_${question.id}_${field.name}" class="time-input-enhanced"
+                                   value="${currentAssessment.answers[question.id]?.[field.name] || ''}"
+                                   placeholder="HH:MM">
+                        </div>
+                    `).join('');
+                    
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="time-range-fields">
+                                ${timeFields}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'checkbox':
+                    const checkboxOptions = question.options.map(option => `
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="question_${question.id}" value="${option.value}"
+                                   ${currentAssessment.answers[question.id]?.includes(option.value) ? 'checked' : ''}>
+                            <span>${option.text}</span>
+                            ${option.hasText ? `
+                                <input type="text" class="checkbox-text" placeholder="${option.textPlaceholder || 'פרט...'}"
+                                       value="${currentAssessment.answers[question.id + '_text_' + option.value] || ''}"
+                                       style="margin-top: 8px; display: ${currentAssessment.answers[question.id]?.includes(option.value) ? 'block' : 'none'};">
+                            ` : ''}
+                        </label>
+                    `).join('');
+                    
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="checkbox-options">
+                                ${checkboxOptions}
+                            </div>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'textarea':
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="form-group">
+                                <textarea id="question_${question.id}" class="form-textarea" 
+                                          placeholder="${question.placeholder || ''}" 
+                                          rows="4">${currentAssessment.answers[question.id] || ''}</textarea>
+                            </div>
+                            ${question.optional ? '<div class="optional-note">שאלה זו אופציונלית</div>' : ''}
+                        </div>
+                    `;
+                    break;
+            }
+            
+            container.innerHTML = questionHtml;
+            setupQuestionEventListeners(question);
+        }
+
+        function setupQuestionEventListeners(question) {
+            const container = document.getElementById('assessmentContainer');
+            if (!container) return;
+            
+            switch(question.type) {
+                case 'number':
+                case 'textarea':
+                    const input = container.querySelector(`#question_${question.id}`);
+                    if (input) {
+                        input.addEventListener('input', function() {
+                            currentAssessment.answers[question.id] = this.value;
+                            updateAssessmentButtons();
+                        });
+                    }
+                    break;
+                    
+                case 'radio':
+                case 'radio_conditional':
+                    container.querySelectorAll('input[type="radio"]').forEach(input => {
+                        input.addEventListener('change', function() {
+                            currentAssessment.answers[question.id] = this.value;
+                            updateAssessmentButtons();
+                        });
+                    });
+                    break;
+                    
+                case 'time_range':
+                    question.fields.forEach(field => {
+                        const input = container.querySelector(`#question_${question.id}_${field.name}`);
+                        if (input) {
+                            input.addEventListener('change', function() {
+                                if (!currentAssessment.answers[question.id]) {
+                                    currentAssessment.answers[question.id] = {};
+                                }
+                                currentAssessment.answers[question.id][field.name] = this.value;
+                                updateAssessmentButtons();
+                            });
+                        }
+                    });
+                    break;
+                    
+                case 'checkbox':
+                    container.querySelectorAll('input[type="checkbox"]').forEach(input => {
+                        input.addEventListener('change', function() {
+                            if (!currentAssessment.answers[question.id]) {
+                                currentAssessment.answers[question.id] = [];
+                            }
+                            
+                            if (this.checked) {
+                                if (!currentAssessment.answers[question.id].includes(this.value)) {
+                                    currentAssessment.answers[question.id].push(this.value);
+                                }
+                                
+                                const textField = this.parentElement.querySelector('.checkbox-text');
+                                if (textField) {
+                                    textField.style.display = 'block';
+                                }
+                            } else {
+                                const index = currentAssessment.answers[question.id].indexOf(this.value);
+                                if (index > -1) {
+                                    currentAssessment.answers[question.id].splice(index, 1);
+                                }
+                                
+                                const textField = this.parentElement.querySelector('.checkbox-text');
+                                if (textField) {
+                                    textField.style.display = 'none';
+                                    textField.value = '';
+                                    delete currentAssessment.answers[question.id + '_text_' + this.value];
+                                }
+                            }
+                            updateAssessmentButtons();
+                        });
+                    });
+                    
+                    container.querySelectorAll('.checkbox-text').forEach(input => {
+                        input.addEventListener('input', function() {
+                            const checkbox = this.parentElement.querySelector('input[type="checkbox"]');
+                            if (checkbox) {
+                                const textKey = question.id + '_text_' + checkbox.value;
+                                currentAssessment.answers[textKey] = this.value;
+                            }
+                        });
+                    });
                     break;
             }
         }
 
-        // ========== פונקציות תזונאי ==========
-
-        function updateNutritionistDashboard() {
-            console.log('📊 Updating nutritionist dashboard');
-            // כאן נוסיף עדכון דינמי של הנתונים
+        function selectScale(questionId, value) {
+            console.log('🎯 Scale selected:', questionId, value);
+            
+            currentAssessment.answers[questionId] = value;
+            
+            document.querySelectorAll('.scale-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.scale-btn').forEach(btn => {
+                const numberElement = btn.querySelector('.scale-number');
+                if (numberElement && parseInt(numberElement.textContent) === value) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            updateAssessmentButtons();
         }
 
-        function openAthleteProfile(athleteId) {
-            console.log('👤 Opening athlete profile:', athleteId);
+        function updateAssessmentProgress() {
+            const progressEl = document.getElementById('assessmentProgress');
+            if (!progressEl) return;
             
-            const athlete = appData.athletes[athleteId];
-            if (!athlete) {
-                console.error('Athlete not found:', athleteId);
+            const progress = ((currentAssessment.currentQuestion + 1) / weeklyQuestions.length) * 100;
+            progressEl.style.width = progress + '%';
+        }
+
+        function updateAssessmentButtons() {
+            const prevBtn = document.getElementById('prevQuestion');
+            const nextBtn = document.getElementById('nextQuestion');
+            
+            if (!prevBtn || !nextBtn) return;
+            
+            prevBtn.disabled = currentAssessment.currentQuestion === 0;
+            
+            const currentQuestion = weeklyQuestions[currentAssessment.currentQuestion];
+            const hasAnswer = currentAssessment.answers[currentQuestion.id] !== undefined;
+            
+            if (currentAssessment.currentQuestion === weeklyQuestions.length - 1) {
+                nextBtn.textContent = 'סיום';
+                nextBtn.disabled = !hasAnswer;
+            } else {
+                nextBtn.textContent = 'הבאה';
+                nextBtn.disabled = !hasAnswer;
+            }
+        }
+
+        function nextQuestion() {
+            console.log('🔜 Next question');
+            
+            // שמירת המשקל אם זו השאלה הראשונה
+            if (currentAssessment.currentQuestion === 0) {
+                const weightAnswer = currentAssessment.answers[1];
+                if (weightAnswer) {
+                    const today = new Date().toISOString().split('T')[0];
+                    appData.weights.push(parseFloat(weightAnswer));
+                    appData.dates.push(today);
+                    saveData('weightData', { weights: appData.weights, dates: appData.dates });
+                    console.log('💾 Weight saved from assessment:', weightAnswer);
+                }
+            }
+            
+            if (currentAssessment.currentQuestion < weeklyQuestions.length - 1) {
+                currentAssessment.currentQuestion++;
+                displayCurrentQuestion();
+                updateAssessmentProgress();
+                updateAssessmentButtons();
+            } else {
+                completeAssessment();
+            }
+        }
+
+        function prevQuestion() {
+            console.log('🔙 Previous question');
+            
+            if (currentAssessment.currentQuestion > 0) {
+                currentAssessment.currentQuestion--;
+                displayCurrentQuestion();
+                updateAssessmentProgress();
+                updateAssessmentButtons();
+            }
+        }
+
+        function completeAssessment() {
+            console.log('🏁 Completing assessment');
+            
+            localStorage.setItem('lastAssessmentDate', new Date().toISOString());
+            saveData('lastAssessment', currentAssessment.answers);
+            
+            alert('🎉 ההערכה השבועית נשמרה בהצלחה!');
+            
+            currentAssessment = {
+                currentQuestion: 0,
+                answers: {},
+                isCompleted: false
+            };
+            
+            showScreen('athleteHome');
+        }
+
+        // ========== משקל ==========
+
+        function toggleFreeText(select) {
+            const freeTextGroup = document.getElementById('freeTextGroup');
+            if (freeTextGroup) {
+                if (select.value === 'מלל חופשי') {
+                    freeTextGroup.style.display = 'block';
+                } else {
+                    freeTextGroup.style.display = 'none';
+                }
+            }
+        }
+
+        function submitWeight(event) {
+            event.preventDefault();
+            
+            const weight = document.getElementById('weightInput').value;
+            const timing = document.getElementById('weightTiming').value;
+            const notes = document.getElementById('weightNotes').value;
+            
+            if (weight) {
+                const today = new Date().toISOString().split('T')[0];
+                appData.weights.push(parseFloat(weight));
+                appData.dates.push(today);
+                
+                saveData('weightData', { weights: appData.weights, dates: appData.dates });
+                
+                alert('💪 המשקל נשמר בהצלחה!');
+                
+                document.getElementById('weightForm').reset();
+                document.getElementById('freeTextGroup').style.display = 'none';
+                
+                updateWeightChart();
+                showScreen('athleteHome');
+            }
+        }
+
+        // ========== תזונאי - תבניות ==========
+
+        function openTemplateModal() {
+            const modal = document.getElementById('templateModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+        }
+
+        function closeTemplateModal() {
+            const modal = document.getElementById('templateModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function createNutritionPlan(type) {
+            console.log('📋 Creating nutrition plan:', type);
+            
+            const athleteName = prompt('שם הספורטאי:') || 'ספורטאי';
+            const today = new Date().toLocaleDateString('he-IL');
+            
+            let planTemplate = '';
+            
+            switch(type) {
+                case 'weight_gain':
+                    planTemplate = generateWeightGainPlan(athleteName, today);
+                    break;
+                case 'weight_loss':
+                    planTemplate = generateWeightLossPlan(athleteName, today);
+                    break;
+                case 'competition_cut':
+                    generateCompetitionCutPlan(athleteName);
+                    return;
+                case 'maintenance':
+                    planTemplate = generateMaintenancePlan(athleteName, today);
+                    break;
+            }
+            
+            downloadWordDocument(planTemplate, `תוכנית_תזונה_${athleteName}_${type}.txt`);
+            closeTemplateModal();
+        }
+
+        function generateWeightGainPlan(name, date) {
+            return `
+תוכנית תזונה לעלייה במשקל
+===========================
+
+ספורטאי: ${name}
+תאריך: ${date}
+מטרה: עלייה במשקל מבוקרת
+
+ארוחת בוקר:
+- 3 ביצים עם חביתה
+- 2 פרוסות לחם מחיטה מלאה
+- אבוקדו שלם
+- כוס חלב 3%
+- מקופת אגוזים (30 גרם)
+
+חטיף אחרי אימון:
+- שייק חלבון (25 גרם) + בננה + שיבולת שועל
+- 200 מ"ל מיץ טבעי
+
+ארוחת צהריים:
+- 150 גרם חזה עוף/דג
+- כוס אורז/קינואה מבושלת
+- ירקות מאודים בשמן זית
+- טחינה (כף)
+
+ארוחת ביניים:
+- יוגורט יווני עם אגוזים ודבש
+- פרי עונתי
+
+ארוחת ערב:
+- 120 גרם בשר בקר רזה/דג
+- בטטה אפויה
+- סלט עשיר בשמן זית
+- 2 פרוסות לחם
+
+ארוחת לילה:
+- גבינת קוטג' (150 גרם)
+- אגוזי מלך (15 גרם)
+- דבש (כף)
+
+הנחיות כלליות:
+- שתיית 3-4 ליטר מים ביום
+- מנוחה מספקת
+- מעקב שבועי אחר משקל
+- התאמות לפי התקדמות
+`;
+        }
+
+        function generateWeightLossPlan(name, date) {
+            return `
+תוכנית תזונה לירידה במשקל
+===========================
+
+ספורטאי: ${name}
+תאריך: ${date}
+מטרה: ירידה במשקל מבוקרת
+
+ארוחת בוקר:
+- 2 חלבוני ביצה + ביצה שלמה
+- פרוסת לחם מחיטה מלאה
+- ירקות חתוכים
+- כוס תה ירוק
+
+חטיף אחרי אימון:
+- שייק חלבון עם מים
+- פרי קטן (תפוח/אגס)
+
+ארוחת צהריים:
+- 120 גרם חזה עוף/דג
+- סלט גדול עם שמן זית (כף)
+- ירקות מאודים
+- חצי כוס אורז חום
+
+ארוחת ביניים:
+- יוגורט יווני דל שומן
+- 10 אגוזי לוז
+
+ארוחת ערב:
+- 100 גרם חלבון רזה
+- ירקות מאודים/מבושלים
+- סלט ירוק עם לימון
+
+חטיף ערב (אופציונלי):
+- גבינת קוטג' דלת שומן (100 גרם)
+
+הנחיות כלליות:
+- שתיית 3-4 ליטר מים ביום
+- מניעת חטיפים עתירי קלוריות
+- מעקב יומי אחר משקל
+- פעילות אירובית נוספת
+`;
+        }
+
+        function generateMaintenancePlan(name, date) {
+            return `
+תוכנית תזונה לתחזוקה
+===================
+
+ספורטאי: ${name}
+תאריך: ${date}
+מטרה: שמירה על משקל ובריאות
+
+ארוחת בוקר:
+- 2 ביצים
+- פרוסת לחם מחיטה מלאה
+- אבוקדו (חצי)
+- כוס חלב דל שומן
+
+חטיף אחרי אימון:
+- שייק חלבון
+- בננה
+
+ארוחת צהריים:
+- 130 גרם חלבון רזה
+- כוס אורז/פסטה מחיטה מלאה
+- ירקות מגוונים
+- שמן זית (כף)
+
+ארוחת ביניים:
+- יוגורט עם פירות
+- אגוזים (20 גרם)
+
+ארוחת ערב:
+- 110 גרם דג/עוף
+- ירקות מאודים
+- סלט עם שמן זית
+- פרוסת לחם
+
+הנחיות כלליות:
+- איזון בין קבוצות המזון
+- שתיית מים מספקת
+- מעקב שבועי
+- גמישות במהלך סוף השבוע
+`;
+        }
+
+        function generateCompetitionCutPlan(athleteName) {
+            closeTemplateModal();
+            
+            // מעבר למסך חיתוך לתחרות
+            document.getElementById('cutPlanAthlete').textContent = athleteName;
+            showScreen('competitionCutPlan');
+        }
+
+        function generateCutPlan() {
+            const currentWeight = parseFloat(document.getElementById('cutCurrentWeight').value);
+            const targetWeight = parseFloat(document.getElementById('cutTargetWeight').value);
+            const competitionDate = new Date(document.getElementById('cutCompetitionDate').value);
+            
+            if (!currentWeight || !targetWeight || !competitionDate) {
+                alert('נא למלא את כל השדות');
                 return;
             }
             
-            // עדכון כותרת
-            document.getElementById('profileAthleteName').textContent = athlete.name;
+            const today = new Date();
+            const daysToCompetition = Math.ceil((competitionDate - today) / (1000 * 60 * 60 * 24));
+            const weightToLose = currentWeight - targetWeight;
             
-            // עדכון התראה
-            const alertElement = document.getElementById('profileAlert');
-            if (athlete.status === 'urgent') {
-                alertElement.className = 'alert alert-danger';
-                alertElement.innerHTML = '<span>🚨 <strong>התראה דחופה:</strong> ' + athlete.alerts[0] + '</span>';
-            } else if (athlete.status === 'warning') {
-                alertElement.className = 'alert alert-warning';
-                alertElement.innerHTML = '<span>⚠️ <strong>זהירות:</strong> ' + athlete.alerts[0] + '</span>';
-            } else {
-                alertElement.className = 'alert alert-success';
-                alertElement.innerHTML = '<span>✅ <strong>במסלול:</strong> הכל נראה תקין</span>';
+            if (daysToCompetition < 0) {
+                alert('תאריך התחרות צריך להיות בעתיד');
+                return;
             }
             
-            // יצירת גרף משקל
-            setTimeout(() => {
-                updateAthleteWeightChart(athlete);
-            }, 100);
+            if (weightToLose <= 0) {
+                alert('המשקל הנוכחי צריך להיות גבוה ממשקל היעד');
+                return;
+            }
             
-            showScreen('athleteProfile');
+            // יצירת טבלת חיתוך
+            const cutTable = generateCutTable(currentWeight, targetWeight, daysToCompetition);
+            
+            document.getElementById('cutTableContainer').innerHTML = cutTable;
+            document.getElementById('cutPlanResults').style.display = 'block';
         }
 
-        function updateAthleteWeightChart(athlete) {
-            const canvas = document.getElementById('athleteWeightChart');
+        function generateCutTable(currentWeight, targetWeight, days) {
+            let tableHtml = `
+                <table class="excel-table">
+                    <thead>
+                        <tr>
+                            <th>יום</th>
+                            <th>ימים לתחרות</th>
+                            <th>משקל בוקר צפוי</th>
+                            <th>משקל בוקר אמיתי</th>
+                            <th>ערב</th>
+                            <th>תוכנית עבודה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            const weightLossPerDay = (currentWeight - targetWeight) / days;
+            const today = new Date();
+            
+            for (let i = days; i >= 0; i--) {
+                const date = new Date(today);
+                date.setDate(date.getDate() + (days - i));
+                
+                const expectedWeight = (currentWeight - (weightLossPerDay * (days - i))).toFixed(1);
+                const daysLeft = i;
+                
+                let workPlan = '';
+                let eveningWeight = '';
+                
+                if (i > 7) {
+                    workPlan = 'תפריט בסיסי בגבול התחתון';
+                } else if (i > 3) {
+                    workPlan = 'העמסת נוזלים - 6-6.5 ליטר מפוזר + דל מלח + תפריט הורדה';
+                    eveningWeight = (parseFloat(expectedWeight) + 0.5).toFixed(1);
+                } else if (i > 1) {
+                    workPlan = 'תפריט הורדה עדיין עם סיבים';
+                    eveningWeight = (parseFloat(expectedWeight) + 0.3).toFixed(1);
+                } else if (i === 1) {
+                    workPlan = 'דל סיבים - ללא ירקות, פרי קלוף, 2 שזיפים בבוקר';
+                    eveningWeight = (parseFloat(expectedWeight) + 0.2).toFixed(1);
+                } else if (i === 0) {
+                    workPlan = 'יום התחרות - ראה תפריט מיוחד';
+                    eveningWeight = targetWeight;
+                }
+                
+                tableHtml += `
+                    <tr>
+                        <td>${date.getDate()}/${date.getMonth() + 1}</td>
+                        <td>${daysLeft}</td>
+                        <td>${expectedWeight}</td>
+                        <td><input type="number" step="0.1" style="width:60px;border:none;text-align:center;" placeholder="${expectedWeight}"></td>
+                        <td>${eveningWeight}</td>
+                        <td>${workPlan}</td>
+                    </tr>
+                `;
+            }
+            
+            tableHtml += `
+                    </tbody>
+                </table>
+                
+                <div style="margin-top: 20px; padding: 15px; background: var(--gray-50); border-radius: 8px;">
+                    <h4>תפריט יום התחרות:</h4>
+                    <p><strong>בוקר:</strong> כריך עם חביתה + איזוטוני/מים עם מלחים</p>
+                    <p><strong>לפני קרב:</strong> איזוטוני/גומי/כריך</p>
+                    <p><strong>אחרי קרב:</strong> שלוק חלבון, איזוטוני, כריך (תלוי בזמנים)</p>
+                    <p><strong>ערב:</strong> אורז/פסטה + חלבון + ירקות + מים/מיץ</p>
+                </div>
+            `;
+            
+            return tableHtml;
+        }
+
+        function saveCutPlan() {
+            alert('📋 תוכנית החיתוך נשמרה בהצלחה!');
+        }
+
+        function exportCutPlan() {
+            const tableData = document.querySelector('.excel-table').outerHTML;
+            const blob = new Blob([tableData], { type: 'application/vnd.ms-excel' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'תוכנית_חיתוך_לתחרות.xls';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('📊 הטבלה יוצאה לאקסל בהצלחה!');
+        }
+
+        function createCustomNutritionPlan() {
+            const athleteName = prompt('שם הספורטאי:') || 'ספורטאי';
+            const today = new Date().toLocaleDateString('he-IL');
+            
+            const customPlan = `
+תוכנית תזונה מותאמת אישית
+============================
+
+ספורטאי: ${athleteName}
+תאריך: ${today}
+מטרה: [למלא לפי הצורך]
+
+ארוחת בוקר:
+[למלא]
+
+אחרי אימון:
+[למלא]
+
+ארוחת צהריים:
+[למלא]
+
+ארוחת ביניים:
+[למלא]
+
+ארוחת ערב:
+[למלא]
+
+ארוחת לילה:
+[למלא]
+
+הנחיות כלליות:
+- [למלא הנחיות ספציפיות]
+- שתיית מים: ___ ליטר ביום
+- תוספי תזונה: [למלא]
+- מעקב: [למלא]
+
+הערות נוספות:
+[למלא]
+`;
+            
+            downloadWordDocument(customPlan, `תוכנית_תזונה_מותאמת_${athleteName}.txt`);
+            closeTemplateModal();
+        }
+
+        function downloadWordDocument(content, filename) {
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('📄 התוכנית הורדה בהצלחה! אפשר לערוך אותה ב-Word');
+        }
+
+        // ========== צ'אט ==========
+
+        function sendChatMessage() {
+            const input = document.getElementById('chatInput');
+            const messagesContainer = document.getElementById('chatMessages');
+            
+            if (input && input.value.trim() && messagesContainer) {
+                const message = input.value.trim();
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+                
+                const messageEl = document.createElement('div');
+                messageEl.className = 'message sent';
+                messageEl.innerHTML = `
+                    <div>${message}</div>
+                    <div class="message-time">${timeStr}</div>
+                `;
+                
+                messagesContainer.appendChild(messageEl);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                
+                input.value = '';
+                
+                // תגובה אוטומטית
+                setTimeout(() => {
+                    const responses = [
+                        "תודה על העדכון! ממשיך לעקוב אחריך",
+                        "נשמע טוב! תמיד אפשר ליצור קשר אם יש שאלות", 
+                        "המשך כך! אתה במסלול הנכון",
+                        "אשמח לשמוע עוד פרטים בהמשך השבוע"
+                    ];
+                    
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    const responseEl = document.createElement('div');
+                    responseEl.className = 'message received';
+                    responseEl.innerHTML = `
+                        <div>${randomResponse}</div>
+                        <div class="message-time">${timeStr}</div>
+                    `;
+                    
+                    messagesContainer.appendChild(responseEl);
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }, 2000);
+            }
+        }
+
+        // ========== ניהול נתונים ==========
+
+        function saveData(key, data) {
+            try {
+                localStorage.setItem(key, JSON.stringify(data));
+                console.log(`💾 Data saved: ${key}`);
+            } catch (error) {
+                console.error('❌ Error saving data:', error);
+            }
+        }
+
+        function loadData(key) {
+            try {
+                const data = localStorage.getItem(key);
+                return data ? JSON.parse(data) : null;
+            } catch (error) {
+                console.error('❌ Error loading data:', error);
+                return null;
+            }
+        }
+
+        // ========== אתחול ==========
+
+        function initializeApp() {
+            console.log('🚀 Initializing JudoNutrition App...');
+            
+            try {
+                const savedRole = localStorage.getItem('userRole');
+                const savedUserProfile = loadData('userProfile');
+                const savedWeightData = loadData('weightData');
+                
+                if (savedUserProfile) {
+                    currentUser = savedUserProfile;
+                    console.log('📱 Loaded saved user profile');
+                }
+                
+                if (savedWeightData) {
+                    appData.weights = savedWeightData.weights || [];
+                    appData.dates = savedWeightData.dates || [];
+                    console.log('📱 Loaded saved weight data');
+                }
+                
+                if (savedRole && currentUser.name) {
+                    console.log('📱 Restoring saved session:', savedRole);
+                    currentUser.role = savedRole;
+                    
+                    if (savedRole === 'athlete') {
+                        showScreen('athleteHome');
+                    } else if (savedRole === 'nutritionist') {
+                        showScreen('nutritionistDashboard');
+                    }
+                } else {
+                    console.log('👋 Showing welcome screen');
+                    showScreen('welcome');
+                }
+                
+                // Event listeners
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            sendChatMessage();
+                        }
+                    });
+                }
+                
+                // File upload handler
+                const fileUpload = document.getElementById('nutritionFileUpload');
+                if (fileUpload) {
+                    fileUpload.addEventListener('change', function(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            alert(`📁 קובץ "${file.name}" הועלה בהצלחה! התוכנית תעובד ותשולב במערכת.`);
+                            closeTemplateModal();
+                        }
+                    });
+                }
+                
+                console.log('✅ JudoNutrition App initialized successfully!');
+                
+            } catch (error) {
+                console.error('❌ Critical error during app initialization:', error);
+                alert('שגיאה קריטית באתחול האפליקציה. אנא רענן את הדף.');
+            }
+        }
+
+        // התחלת האפליקציה
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🏁 DOM Content Loaded - Starting app...');
+            
+            try {
+                initializeApp();
+            } catch (error) {
+                console.error('❌ Error initializing app:', error);
+                alert('שגיאה באתחול האפליקציה. אנא רענן את הדף.');
+            }
+        });
+
+        // Export functions for global access
+        window.showScreen = showScreen;
+        window.selectRole = selectRole;
+        window.exitToWelcome = exitToWelcome;
+        window.nextQuestion = nextQuestion;
+        window.prevQuestion = prevQuestion;
+        window.submitWeight = submitWeight;
+        window.sendChatMessage = sendChatMessage;
+        window.toggleFreeText = toggleFreeText;
+        window.startAssessment = startAssessment;
+        window.selectScale = selectScale;
+        window.openTaskModal = openTaskModal;
+        window.closeTaskModal = closeTaskModal;
+        window.addCustomTask = addCustomTask;
+        window.toggleTask = toggleTask;
+        window.openTemplateModal = openTemplateModal;
+        window.closeTemplateModal = closeTemplateModal;
+        window.createNutritionPlan = createNutritionPlan;
+        window.createCustomNutritionPlan = createCustomNutritionPlan;
+        window.generateCutPlan = generateCutPlan;
+        window.saveCutPlan = saveCutPlan;
+        window.exportCutPlan = exportCutPlan;
+
+        console.log('🥋 JudoNutrition JavaScript loaded successfully!');
+    </script>
+</body>
+</html>;
+                case 'weightTracking':
+                    updateWeightTracking();
+                    break;
+                case 'weeklyAssessment':
+                    loadWeeklyAssessment();
+                    break;
+            }
+        }
+
+        // ========== רישום ==========
+
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            currentUser.name = document.getElementById('fullName').value;
+            currentUser.age = parseInt(document.getElementById('age').value);
+            currentUser.gender = document.getElementById('gender').value;
+            currentUser.weightCategory = parseFloat(document.getElementById('weightCategory').value);
+            
+            // משימות ברירת מחדל
+            currentUser.customTasks = [
+                {
+                    id: 1,
+                    name: "שתיית מים",
+                    description: "שתיית מים יומית",
+                    type: "progress",
+                    completed: false,
+                    progress: 0,
+                    target: 2.5,
+                    unit: "ליטר"
+                }
+            ];
+            
+            saveData('userProfile', currentUser);
+            showScreen('athleteHome');
+            alert('🎉 הרשמה הושלמה בהצלחה!');
+        });
+
+        // ========== ניהול משימות מתוקן ==========
+
+        function updateTaskDisplay() {
+            const taskManager = document.getElementById('taskManager');
+            if (!taskManager) return;
+            
+            let tasksHtml = '';
+            
+            // תמיד הוספת הערכה שבועית בראש
+            const lastAssessment = localStorage.getItem('lastAssessmentDate');
+            const today = new Date();
+            const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            if (!lastAssessment || new Date(lastAssessment) < oneWeekAgo) {
+                tasksHtml += `
+                    <div class="task-item high-priority" onclick="showScreen('weeklyAssessment')">
+                        <div class="task-checkbox"></div>
+                        <div class="task-content">
+                            <div class="task-name">📋 הערכה שבועית</div>
+                            <div class="task-description">מלא את השאלון השבועי - דחוף!</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // הצגת משימות אחרות
+            const tasks = currentUser.customTasks || [];
+            
+            tasks.forEach(task => {
+                const isCompleted = task.completed;
+                const checkboxClass = isCompleted ? 'checked' : '';
+                const taskClass = isCompleted ? 'completed' : '';
+                
+                let progressHtml = '';
+                if (task.type === 'progress') {
+                    const progressPercent = Math.min(100, (task.progress / task.target) * 100);
+                    progressHtml = `<div class="task-progress">${task.progress}/${task.target} ${task.unit} (${Math.round(progressPercent)}%)</div>`;
+                }
+                
+                tasksHtml += `
+                    <div class="task-item ${taskClass}" onclick="toggleTask(${task.id})">
+                        <div class="task-checkbox ${checkboxClass}"></div>
+                        <div class="task-content">
+                            <div class="task-name">${task.name}</div>
+                            <div class="task-description">${task.description}</div>
+                            ${progressHtml}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            taskManager.innerHTML = tasksHtml;
+        }
+
+        function toggleTask(taskId) {
+            const task = currentUser.customTasks.find(t => t.id === taskId);
+            if (task) {
+                if (task.type === 'progress') {
+                    const newProgress = prompt(`עדכן התקדמות עבור ${task.name} (${task.unit}):`, task.progress);
+                    if (newProgress !== null && !isNaN(newProgress)) {
+                        task.progress = parseFloat(newProgress);
+                        task.completed = task.progress >= task.target;
+                    }
+                } else {
+                    task.completed = !task.completed;
+                }
+                
+                saveData('userProfile', currentUser);
+                updateTaskDisplay();
+            }
+        }
+
+        function openTaskModal() {
+            const modal = document.getElementById('taskModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+            
+            // עדכון שדות התקדמות
+            document.getElementById('taskType').addEventListener('change', function() {
+                const progressFields = document.getElementById('progressFields');
+                if (this.value === 'progress') {
+                    progressFields.style.display = 'block';
+                } else {
+                    progressFields.style.display = 'none';
+                }
+            });
+        }
+
+        function closeTaskModal() {
+            const modal = document.getElementById('taskModal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function addCustomTask() {
+            const name = document.getElementById('taskName').value;
+            const description = document.getElementById('taskDescription').value;
+            const type = document.getElementById('taskType').value;
+            
+            if (!name) {
+                alert('נא למלא שם המשימה');
+                return;
+            }
+            
+            const newTask = {
+                id: Date.now(),
+                name: name,
+                description: description || '',
+                type: type,
+                completed: false,
+                progress: 0
+            };
+            
+            if (type === 'progress') {
+                const target = parseFloat(document.getElementById('taskTarget').value);
+                const unit = document.getElementById('taskUnit').value;
+                
+                if (!target || target <= 0) {
+                    alert('נא למלא יעד תקין למשימת התקדמות');
+                    return;
+                }
+                
+                newTask.target = target;
+                newTask.unit = unit || '';
+            }
+            
+            currentUser.customTasks.push(newTask);
+            saveData('userProfile', currentUser);
+            
+            // איפוס הטופס
+            document.getElementById('taskName').value = '';
+            document.getElementById('taskDescription').value = '';
+            document.getElementById('taskTarget').value = '';
+            document.getElementById('taskUnit').value = '';
+            document.getElementById('taskType').value = 'simple';
+            document.getElementById('progressFields').style.display = 'none';
+            
+            closeTaskModal();
+            updateTaskDisplay();
+        }
+
+        // ========== עדכון מסכים ==========
+
+        function updateAthleteHome() {
+            console.log('🏠 Updating athlete home screen');
+            
+            const athleteNameEl = document.getElementById('athleteName');
+            if (athleteNameEl) {
+                athleteNameEl.textContent = currentUser.name || 'ספורטאי';
+            }
+            
+            // עדכון התראה שבועית
+            updateWeeklyAssessmentAlert();
+            
+            const currentWeightEl = document.getElementById('currentWeight');
+            const targetWeightEl = document.getElementById('targetWeight');
+            
+            if (currentWeightEl) {
+                if (appData.weights.length > 0) {
+                    currentWeightEl.textContent = appData.weights[appData.weights.length - 1];
+                } else {
+                    currentWeightEl.textContent = '--';
+                }
+            }
+            
+            if (targetWeightEl) {
+                targetWeightEl.textContent = currentUser.weightCategory || '--';
+            }
+            
+            updateProgress();
+            updateTaskDisplay();
+        }
+
+        function updateWeeklyAssessmentAlert() {
+            const alertContainer = document.getElementById('weeklyAssessmentAlert');
+            if (!alertContainer) return;
+            
+            const lastAssessment = localStorage.getItem('lastAssessmentDate');
+            const today = new Date();
+            const oneWeekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+            
+            if (!lastAssessment || new Date(lastAssessment) < oneWeekAgo) {
+                alertContainer.innerHTML = `
+                    <div class="alert alert-warning">
+                        <span>📋 <strong>זמן לשאלון השבועי!</strong> מילוי השאלון יעזור לנו לעקוב אחריך טוב יותר.</span>
+                        <button class="btn btn-primary" onclick="showScreen('weeklyAssessment')" style="margin-top: 12px; font-size: 14px; padding: 8px 16px;">מלא שאלון עכשיו</button>
+                    </div>
+                `;
+            } else {
+                alertContainer.innerHTML = `
+                    <div class="alert alert-success">
+                        <span>✅ <strong>השאלון השבועי מולא!</strong> תודה על שיתוף הפעולה.</span>
+                    </div>
+                `;
+            }
+        }
+
+        function updateWeightTracking() {
+            console.log('📊 Updating weight tracking screen');
+            
+            const categoryDisplay = document.getElementById('categoryDisplay');
+            if (categoryDisplay) {
+                categoryDisplay.textContent = currentUser.weightCategory || '--';
+            }
+            
+            updateWeightChart();
+        }
+
+        function updateProgress() {
+            const progressEl = document.getElementById('progressFill');
+            const progressValueEl = document.getElementById('progressValue');
+            
+            if (!progressEl || !progressValueEl) return;
+            
+            if (appData.weights.length > 0 && currentUser.weightCategory) {
+                const currentWeight = appData.weights[appData.weights.length - 1];
+                const targetWeight = currentUser.weightCategory;
+                
+                if (currentWeight <= targetWeight) {
+                    progressEl.style.width = '100%';
+                    progressValueEl.textContent = '100%';
+                } else {
+                    const startWeight = appData.weights[0] || currentWeight + 5;
+                    const progress = ((startWeight - currentWeight) / (startWeight - targetWeight)) * 100;
+                    const progressPercent = Math.min(100, Math.max(0, progress));
+                    
+                    progressEl.style.width = progressPercent + '%';
+                    progressValueEl.textContent = Math.round(progressPercent) + '%';
+                }
+            } else {
+                progressEl.style.width = '0%';
+                progressValueEl.textContent = '--';
+            }
+        }
+
+        // ========== גרף משקל ==========
+
+        function updateWeightChart() {
+            const canvas = document.getElementById('weightChart');
             if (!canvas) return;
             
             const ctx = canvas.getContext('2d');
             
-            // הריסת גרף קיים
-            if (appData.charts.athleteWeight) {
-                appData.charts.athleteWeight.destroy();
+            if (appData.weightChart) {
+                appData.weightChart.destroy();
             }
             
-            const dates = ['10/07', '12/07', '14/07', '16/07', '17/07'];
-            
-            appData.charts.athleteWeight = new Chart(ctx, {
+            appData.weightChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: dates,
+                    labels: appData.dates,
                     datasets: [{
                         label: 'משקל (ק"ג)',
-                        data: athlete.weightHistory || [83.2, 82.8, 82.1, 81.5, 80.8],
-                        borderColor: athlete.status === 'urgent' ? '#e53935' : '#1a237e',
-                        backgroundColor: athlete.status === 'urgent' ? 'rgba(229, 57, 53, 0.1)' : 'rgba(26, 35, 126, 0.1)',
+                        data: appData.weights,
+                        borderColor: '#1a237e',
+                        backgroundColor: 'rgba(26, 35, 126, 0.1)',
                         fill: true,
-                        tension: 0.4,
-                        pointBackgroundColor: athlete.status === 'urgent' ? '#e53935' : '#1a237e',
-                        pointBorderColor: '#ffffff',
-                        pointBorderWidth: 2,
-                        pointRadius: 6
-                    }, {
-                        label: 'יעד קטגוריה',
-                        data: Array(dates.length).fill(athlete.targetWeight),
-                        borderColor: '#26a69a',
-                        backgroundColor: 'transparent',
-                        borderDash: [5, 5],
-                        pointRadius: 0
+                        tension: 0.4
                     }]
                 },
                 options: {
@@ -1668,8 +2994,6 @@
                     scales: {
                         y: {
                             beginAtZero: false,
-                            min: Math.min(...athlete.weightHistory) - 1,
-                            max: Math.max(...athlete.weightHistory) + 1,
                             title: {
                                 display: true,
                                 text: 'משקל (ק"ג)'
@@ -1685,201 +3009,113 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'מעקב משקל - 7 ימים אחרונים'
-                        },
-                        legend: {
-                            display: true,
-                            position: 'bottom'
+                            text: 'מעקב משקל'
                         }
                     }
                 }
             });
         }
 
-        function updateWeeklyReports() {
-            console.log('📊 Updating weekly reports');
-            
-            setTimeout(() => {
-                const canvas = document.getElementById('weeklyPerformanceChart');
-                if (!canvas) return;
-                
-                const ctx = canvas.getContext('2d');
-                
-                if (appData.charts.weeklyPerformance) {
-                    appData.charts.weeklyPerformance.destroy();
-                }
-                
-                appData.charts.weeklyPerformance = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['שבת', 'ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי'],
-                        datasets: [{
-                            label: 'הערכות יומיות',
-                            data: [12, 14, 13, 15, 11, 14, 13],
-                            backgroundColor: 'rgba(26, 35, 126, 0.8)',
-                            borderColor: '#1a237e',
-                            borderWidth: 1
-                        }, {
-                            label: 'שקילות יומיות',
-                            data: [13, 15, 14, 15, 12, 15, 14],
-                            backgroundColor: 'rgba(38, 166, 154, 0.8)',
-                            borderColor: '#26a69a',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                max: 16,
-                                title: {
-                                    display: true,
-                                    text: 'מספר ספורטאים'
-                                }
-                            }
-                        },
-                        plugins: {
-                            title: {
-                                display: true,
-                                text: 'פעילות שבועית'
-                            },
-                            legend: {
-                                display: true,
-                                position: 'bottom'
-                            }
-                        }
-                    }
-                });
-            }, 100);
-        }
+        // ========== שאלון הערכה ==========
 
-        // ========== פונקציות ממשק תזונאי ==========
-
-        function filterAthletes(filter) {
-            console.log('🔍 Filtering athletes:', filter);
+        function loadWeeklyAssessment() {
+            console.log('📋 Loading weekly assessment');
             
-            // עדכון הדגשת הכפתור
-            document.querySelectorAll('.filter-pill').forEach(pill => {
-                pill.classList.remove('active');
-            });
-            event.target.classList.add('active');
+            const intro = document.getElementById('assessmentIntro');
+            const content = document.getElementById('assessmentContent');
             
-            const athletesContainer = document.getElementById('athletesContainer');
-            if (!athletesContainer) return;
-            
-            const cards = athletesContainer.querySelectorAll('.athlete-card');
-            
-            cards.forEach(card => {
-                let show = true;
-                
-                switch(filter) {
-                    case 'urgent':
-                        show = card.classList.contains('urgent');
-                        break;
-                    case 'competitions':
-                        // מציג ספורטאים עם תחרויות בקרוב
-                        show = card.textContent.includes('תחרות בעוד');
-                        break;
-                    case 'weekly':
-                        // מציג ספורטאים שלא מילאו הערכה
-                        show = card.textContent.includes('הערכה ממתינה') || card.classList.contains('warning');
-                        break;
-                    default: // 'all'
-                        show = true;
-                }
-                
-                card.style.display = show ? 'flex' : 'none';
-            });
-        }
-
-        function switchTab(tabName) {
-            console.log('📑 Switching tab:', tabName);
-            
-            // עדכון כפתורי הטאבים
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // הסתרת כל התוכן
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // הצגת התוכן הרלוונטי
-            const targetTab = document.getElementById(tabName + 'Tab');
-            if (targetTab) {
-                targetTab.classList.add('active');
+            if (intro && content) {
+                intro.style.display = 'block';
+                content.style.display = 'none';
             }
+            
+            currentAssessment = {
+                currentQuestion: 0,
+                answers: {},
+                isCompleted: false
+            };
         }
 
-        function openMessageModal() {
-            const modal = document.getElementById('messageModal');
-            if (modal) {
-                modal.classList.remove('hidden');
+        function startAssessment() {
+            console.log('🚀 Starting assessment');
+            
+            const intro = document.getElementById('assessmentIntro');
+            const content = document.getElementById('assessmentContent');
+            
+            if (intro && content) {
+                intro.style.display = 'none';
+                content.style.display = 'block';
             }
+            
+            displayCurrentQuestion();
+            updateAssessmentProgress();
+            updateAssessmentButtons();
         }
 
-        function closeMessageModal() {
-            const modal = document.getElementById('messageModal');
-            if (modal) {
-                modal.classList.add('hidden');
+        function displayCurrentQuestion() {
+            const container = document.getElementById('assessmentContainer');
+            const currentQuestionNumEl = document.getElementById('currentQuestionNum');
+            const totalQuestionsEl = document.getElementById('totalQuestions');
+            
+            if (!container) return;
+            
+            const questionIndex = currentAssessment.currentQuestion;
+            const question = weeklyQuestions[questionIndex];
+            
+            if (!question) {
+                console.error('Question not found at index:', questionIndex);
+                return;
             }
-        }
-
-        function createAlert() {
-            alert('🚨 התראה חדשה נוצרה בהצלחה!');
-        }
-
-        // ========== חיפוש ספורטאים ==========
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('athleteSearch');
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    const searchTerm = this.value.toLowerCase();
-                    const athleteCards = document.querySelectorAll('.athlete-card');
+            
+            if (question.condition === 'female_only' && currentUser.gender !== 'female') {
+                console.log('Skipping female-only question for male user');
+                nextQuestion();
+                return;
+            }
+            
+            if (currentQuestionNumEl) currentQuestionNumEl.textContent = questionIndex + 1;
+            if (totalQuestionsEl) totalQuestionsEl.textContent = weeklyQuestions.length;
+            
+            let questionHtml = '';
+            
+            if (question.category) {
+                questionHtml += `<div class="question-category">${question.category}</div>`;
+            }
+            
+            switch(question.type) {
+                case 'number':
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="form-group">
+                                <input type="number" id="question_${question.id}" class="form-input" 
+                                       placeholder="${question.placeholder || ''}" 
+                                       min="${question.min || ''}" 
+                                       max="${question.max || ''}" 
+                                       step="${question.step || ''}"
+                                       value="${currentAssessment.answers[question.id] || ''}">
+                                ${question.unit ? `<span style="font-size: 14px; color: var(--gray-500);">${question.unit}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                    break;
                     
-                    athleteCards.forEach(card => {
-                        const athleteName = card.querySelector('.athlete-name').textContent.toLowerCase();
-                        const shouldShow = athleteName.includes(searchTerm);
-                        card.style.display = shouldShow ? 'flex' : 'none';
-                    });
-                });
-            }
-        });
-
-        // ========== Export Functions ==========
-        window.showScreen = showScreen;
-        window.selectRole = selectRole;
-        window.exitToWelcome = exitToWelcome;
-        window.openAthleteProfile = openAthleteProfile;
-        window.filterAthletes = filterAthletes;
-        window.switchTab = switchTab;
-        window.openMessageModal = openMessageModal;
-        window.closeMessageModal = closeMessageModal;
-        window.createAlert = createAlert;
-
-        // ========== אתחול ==========
-
-        function initializeApp() {
-            console.log('🚀 Initializing JudoNutrition Pro...');
-            
-            // הצגת מסך הבחירה
-            showScreen('welcome');
-            
-            console.log('✅ JudoNutrition Pro initialized successfully!');
-        }
-
-        // התחלת האפליקציה
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🏁 DOM Content Loaded - Starting app...');
-            initializeApp();
-        });
-
-        console.log('🥋 JudoNutrition Pro JavaScript loaded successfully!');
-    </script>
-</body>
-</html>
+                case 'radio':
+                case 'radio_conditional':
+                    const radioOptions = question.options.map(option => `
+                        <label class="answer-option">
+                            <input type="radio" name="question_${question.id}" value="${option.value}" 
+                                   ${currentAssessment.answers[question.id] === option.value ? 'checked' : ''}>
+                            <span>${option.text}</span>
+                        </label>
+                    `).join('');
+                    
+                    questionHtml += `
+                        <div class="assessment-question">
+                            <div class="question-text">${question.text}</div>
+                            <div class="answer-options">
+                                ${radioOptions}
+                            </div>
+                        </div>
+                    `;
+                    break
